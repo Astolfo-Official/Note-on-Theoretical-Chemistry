@@ -1,3 +1,51 @@
+\section{绝热与非绝热表象}
+\subsection{绝热近似}\label{sec:jrjs}
+在章节\ref{sec:bo}中，我们把体系的总哈密顿量$\hat{H}$分解成核部分$\hat{T}_{\rm nuc}$与电子部分$\hat{H}_{\rm el}$ [Eq.\eqref{eq:hamiltonian_bo}]：
+\[\hat{T}_{\rm nuc}=-\sum_{I=1}^M\frac{1}{2M_I}\nabla^2_{\mathbf{R},I},\quad \hat{H}_{\rm el}=-\sum_{i=1}^N\frac{1}{2}\nabla^2_{\mathbf{r},i}+\sum_{I=1}^{M}\sum_{J>I}^{M}\frac{Z_{I}Z_{J}}{|\mathbf{R}_{I}-\mathbf{R}_{J}|}-\sum_{i=1}^{N}\sum_{I=1}^{M}\frac{Z_{I}}{|\mathbf{r}_{i}-\mathbf{R}_{I}|}+\sum_{i=1}^{N}\sum_{j>i}^{N}\frac{1}{|\mathbf{r}_{i}-\mathbf{r}_{j}|}\]
+考虑电子本征方程$\hat{H}_{\rm el}\psi(\mathbf{r};\mathbf{R})=E_{\rm el}(R)\psi(\mathbf{r};\mathbf{R})$，考虑有限个电子的系统，其本征态满足：
+\[\hat{H}_{\rm el}\psi_n(\mathbf{r};\mathbf{R})=E_n(\mathbf{R})\psi_n(\mathbf{r};\mathbf{R})\]
+这里$\psi_n(\mathbf{r};\mathbf{R})$称为绝热电子波函数，$E_n(\mathbf{R})$就是对应的绝热势能面（PES）。由于$\{\psi_n(\mathbf{r};\mathbf{R})\}$在电子坐标空间中构成一组完备标准正交基，由完备性假设，体系总波函数可以展开为电子波函数和核波函数直积的线性组合：
+\[\Psi(\mathbf{r},\mathbf{R})=\sum_n\psi_n(\mathbf{r};\mathbf{R})\chi_n(\mathbf{R})\]
+其中$\chi_n(\mathbf{R})$是对应第$n$个绝热势能面的核波函数。对整体薛定谔方程乘上$\psi_m^{\dagger}(\mathbf{r};\mathbf{R})$并对电子坐标积分：
+\begin{equation}\label{eq:bo_eom}
+\begin{aligned}
+0=\int\psi_m^{\dagger}(\mathbf{r};\mathbf{R})\left(\hat{H}-E\right)\Psi(\mathbf{R},\mathbf{r})\dd{\mathbf{r}}
+&=\sum_n\int\psi_m^{\dagger}(\mathbf{r};\mathbf{R})\left(\hat{T}_{\rm nuc}+\hat{H}_{\rm el}-E\right)\psi_n(\mathbf{r};\mathbf{R})\chi_n(\mathbf{R})\dd{\mathbf{r}}\\
+&=\sum_n\int\psi_m^{\dagger}(\mathbf{r};\mathbf{R})\left(\hat{T}_{\rm nuc}+E_n-E\right)\psi_n(\mathbf{r};\mathbf{R})\chi_n(\mathbf{R})\dd{\mathbf{r}}\\
+\end{aligned}
+\end{equation}
+由于电子波函数也包含核坐标，展开$\hat{T}_{\rm nuc}\psi_n(\mathbf{r};\mathbf{R})\chi_n(\mathbf{R})$，注意下面求和中的脚标$I$是代表不同核坐标：
+\[-\sum_I\frac{1}{2M_I}\left[\nabla_{\mathbf{R},I}^2\psi_n(\mathbf{r};\mathbf{R})\cdot\chi_n(\mathbf{R})+2\nabla_{\mathbf{R},I}\psi_n(\mathbf{r};\mathbf{R})\cdot\nabla_{\mathbf{R},I}\chi_n(\mathbf{R})+\psi_n(\mathbf{r};\mathbf{R})\cdot\nabla^2_{\mathbf{R},I}\chi_n(\mathbf{R})\right]\]
+定义对核波函数$\chi_n(\mathbf{R})$的算符$\hat{\Lambda}_{mn}$：
+\[\hat{\Lambda}_{mn}=-\sum_I\frac{1}{2M_I}\left[\left(\int\psi_m^{\dagger}(\mathbf{r};\mathbf{R})\nabla_{\mathbf{R},I}^2\psi_n(\mathbf{r};\mathbf{R})\dd{\mathbf{r}}\right)+2\left(\int\psi_m^{\dagger}(\mathbf{r};\mathbf{R})\nabla_{\mathbf{R},I}\psi_n(\mathbf{r};\mathbf{R})\dd{\mathbf{r}}\right)\nabla_{\mathbf{R},I}\right]\]
+把上述算符$\hat{\Lambda}_{mn}$带回方程 Eq.\eqref{eq:bo_eom}：
+\[\int\psi_m^{\dagger}(\mathbf{r};\mathbf{R})\left(\hat{H}-E\right)\Psi(\mathbf{R},\mathbf{r})\dd{\mathbf{r}}
+=\left(\hat{T}_{\rm nuc}+E_m-E\right)\chi_m(\mathbf{R})+\sum_n\hat{\Lambda}_{mn}\chi_n(\mathbf{R})=0\]
+
+上述用绝热电子波函数展开整体波函数的方法称为 Born-Huang 展开，由 Max Born 和 Kun Huang（黄昆）最早提出。回顾章节\ref{sec:bo}中提及的的 BO 近似，\textcolor{blue}{\textbf{其本质并不是简单地把核钉住不动，而是忽略核动能诱导的电子态间耦合}}。在最粗糙的 BO 近似下，我们直接舍去全部$\hat{\Lambda}_{mn}$，于是每一张势能面上的核方程彼此解耦：
+\[\left(\hat{T}_{\rm nuc}+E_m-E\right)\chi_m(\mathbf{R})\approx 0\]
+如果只保留对角项$\hat{\Lambda}_{mm}$而忽略非对角项$\hat{\Lambda}_{mn}, \ (m \neq n)$，则得到比最简单 BO 近似更精细的绝热核方程。而真正导致电子态之间跃迁的，正是这些非对角的非绝热耦合项。
+
+\subsection{非绝热耦合与绝热表象}
+在绝热表象里，势能矩阵本身是对角的，所有电子态之间的混合都被塞进了核动能项。若把核波函数写成列向量$\bm{\chi}^{(a)}=(\chi_1^{(a)},\chi_2^{(a)},\cdots)^T$，并记一阶导数耦合矩阵元为
+\[\left(\mathbf{T}_A^{(1)}\right)_{ji}=\bm{d}_{ji}^{A}\]
+则耦合方程可以形式化地写成
+\[\left[-\sum_A\frac{1}{2M_A}\left(\nabla_A+\mathbf{T}_A^{(1)}\right)^2+\mathbf{V}^{(a)}(\bm{R})-E\mathbbm{1}\right]\bm{\chi}^{(a)}=0\]
+其中$\mathbf{V}^{(a)}_{ji}(\bm{R})=V_i(\bm{R})\delta_{ji}$。这个写法说明：在绝热表象中势能是对角的，但是核动能被“穿衣服”了，里面额外包含了非绝热耦合的信息。
+
+导数耦合还可以写成更加直观的形式。对电子本征方程对核坐标求导，并在左边乘上$\bra{\phi_j^{(a)}}$，当$i\neq j$时有
+\[\bm{d}_{ji}^{A}=\frac{\bra{\phi_j^{(a)}}(\nabla_A\hat{H}_{el})\ket{\phi_i^{(a)}}}{V_i(\bm{R})-V_j(\bm{R})}\]
+这个式子直接告诉我们：当两张绝热势能面彼此接近时，分母会变小，导数耦合就会迅速变大。因此在避免交叉附近 BO 近似往往会失效，而在圆锥交叉附近导数耦合甚至会出现奇异行为。也就是说，\textcolor{blue}{\textbf{绝热表象最自然地适合描述远离简并区域的定态问题，但在势能面接近或相交时，核与电子自由度重新强烈纠缠起来，必须显式考虑非绝热跃迁}}。
+
+\subsection{Diabatic 表象}
+既然绝热表象中的麻烦主要来自导数耦合，一个自然的想法就是换一组电子基底，把这些一阶导数项尽量消掉。设$\mathbf{U}(\bm{R})$是随核坐标变化的幺正变换，定义新的电子态与核波函数：
+\[\phi_m^{(d)}=\sum_i\phi_i^{(a)}U_{im}, \quad \chi_m^{(d)}=\sum_iU_{im}^*\chi_i^{(a)}\]
+这样变换后总波函数$\Psi$本身不变，只是我们换了一套表象来描述同一个物理态。若选择$\mathbf{U}(\bm{R})$满足
+\[\nabla_A\mathbf{U}+\mathbf{T}_A^{(1)}\mathbf{U}=0\]
+则一阶导数耦合可以被吸收到基底变换中去，核方程化为
+\[\left[\hat{T}_{nuc}+\mathbf{V}^{(d)}(\bm{R})-E\mathbbm{1}\right]\bm{\chi}^{(d)}=0, \quad \mathbf{V}^{(d)}(\bm{R})=\mathbf{U}^{\dagger}(\bm{R})\mathbf{V}^{(a)}(\bm{R})\mathbf{U}(\bm{R})\]
+此时核动能重新回到了“朴素”的二阶微分形式，但代价是$\mathbf{V}^{(d)}(\bm{R})$一般不再对角，也就是说原本在绝热表象中的动能耦合被转移成了 diabatic 势矩阵的非对角元。对于处理避免交叉、电子跃迁和分子动力学，这种表象往往比绝热表象更方便；但要构造一个全局光滑而且严格的 diabatic 基底通常并不容易，所以实际计算中经常使用局域的 quasi-diabatic 近似。
+
 \section{Slater-Condon 规则}
 在BO近似后，电子哈密顿如下：
 \[\hat{H}_{el}=\hat{T}_e+\hat{V}_{Ne}+\hat{V}_{ee}+\hat{V}_{NN}=\sum_i\left(-\frac{1}{2}\nabla^2_i+\sum_N\frac{Z}{r_{Ni}}\right)+\sum_{i<j}\frac{1}{r_{ij}}+V_{NN}=\sum_i\hat{h}_i+\sum_{i<j}\hat{g}_{ij}+V_{NN}\]

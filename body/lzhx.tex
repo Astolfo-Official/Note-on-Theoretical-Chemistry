@@ -563,34 +563,34 @@ X\in\text{SU(2)} \arrow[r, "UXU^\dagger"]
 
 \newpage
 \section{单核多电子体系}
-\subsection{波恩-奥本海默(Born-Oppenheimer)近似}
+\subsection{波恩-奥本海默(Born-Oppenheimer)近似}\label{sec:bo}
 理论上对于一个微观体系，只要我们确定了粒子组成及其相互作用，我们就能写出该体系的哈密顿量，利用基本假设薛定谔方程去求解体系的波函数。但是实际上你解个氢原子都解得要死要活的了，甚至氢分子你都不能给出解析解。那么引入一些近似在不降低太多准确度的前提下大幅提高计算的速度就显得尤为重要。这里我们将介绍一个最普遍的近似——波恩-奥本海默(BO)近似。
 
-哈密顿量可以写成动能部分和势能部分，那么我们还能继续拆下去吗，该怎么拆呢？一个自然而然的想法就是我们能不能把核的运动和电子的运动分离开呢？于是我们就假设核跟电子的运动无关，进而可以将动能项拆成核动能部分和电子动能部分：
-\[\hat{H}=\hat{T_n}+\hat{T_e}+\hat{V}_n+\hat{V}_e=\hat{T_n}+\hat{H_e}=-\sum_i\frac{\hbar^2}{2m_{n,i}}\nabla^2_{n,i}-\sum_j\frac{\hbar^2}{2m_e}\nabla^2_{e,j}+\sum_{ni,ej}V_{ni,ej}+\sum_{ei,ej}V_{ei,ej}\]
-
-由于核的运动与电子的运动解耦，我们假设电子的波函数$\psi(\bm{Q},\bm{q})$和核的波函数$\varphi(\bm{Q})$可以分离，于是波函数可以写成如下形式，其中$\bm{Q}$为核坐标，$\bm{q}$为电子坐标：
-\[\varPsi(\bm{Q},\bm{q})=\psi(\bm{Q},\bm{q})\varphi(\bm{Q})\]
-
-由于解耦，对电子部分的薛定谔方程来说核坐标$\bm{Q}$被视为参数引入，电子感受到核势能$\hat{V}_n$退化为常数。这就意味着，反复求解不同核坐标微小变化下的电子薛定谔方程可以获得电子能量$U(\bm{Q})$关于核坐标$\bm{Q}$函数，成为势能面(PES)。由于这种将电子波函数重新计算为无穷小变化的核几何形状的函数的过程让人想起绝热定理的条件，因此这种获得 PES 的方式通常称为绝热近似，而 PES 本身称为绝热面。
-
-正如BO近似的另一个名字定核近似，简单理解，电子相对于核运动太快，波恩-奥本海默近似就是认为核不动，当然这是不对的，\textcolor{blue}{\textbf{BO近似认为的是电子相较于原子核运动很快所以认为核坐标变化后电子总能在瞬间达到新的平衡}}，所以有$\nabla^2_n\psi(\bm{Q},\bm{q}) \approx 0, \ \nabla_n\psi(\bm{Q},\bm{q}) \approx 0$。
-
-将哈密顿量作用在波函数上，先看核动能部分：
+系统的哈密顿量$\hat{H}$可以写成核的动能项$\hat{T}_{\rm nuc}$，电子的动能项$\hat{T}_{\rm el}$，核-核之间的势能$\hat{V}_{\rm nuc-nuc}$，核-电子之间的势能$\hat{V}_{\rm nuc-el}$，电子电子之间的势能$\hat{V}_{\rm el-el}$，在原子单位制下可以写成：
+\begin{equation}\label{eq:hamiltonian_bo}
+\begin{aligned}
+\hat{H}&=\hat{T}_{\rm nuc}+\hat{T}_{\rm el}+\hat{V}_{\rm nuc-nuc}+\hat{V}_{\rm nuc-el}+\hat{V}_{\rm el-el}\\
+&=-\sum_{I=1}^M\frac{1}{2M_I}\nabla^2_{\mathbf{R},I}-\sum_{i=1}^N\frac{1}{2}\nabla^2_{\mathbf{r},i}+\sum_{I=1}^{M}\sum_{J>I}^{M}\frac{Z_{I}Z_{J}}{|\mathbf{R}_{I}-\mathbf{R}_{J}|}-\sum_{i=1}^{N}\sum_{I=1}^{M}\frac{Z_{I}}{|\mathbf{r}_{i}-\mathbf{R}_{I}|}+\sum_{i=1}^{N}\sum_{j>i}^{N}\frac{1}{|\mathbf{r}_{i}-\mathbf{r}_{j}|}\\
+\end{aligned}
+\end{equation}
+这里$M_I$是核质量，$Z_I$是核电荷。我们定义电子哈密顿量部分为$\hat{H}_{\rm el}=\hat{T}_{\rm el}+\hat{V}_{\rm nuc-nuc}+\hat{V}_{\rm nuc-el}+\hat{V}_{\rm el-el}$。这里我们引入 BO 近似，BO 近似认为\textcolor{blue}{\textbf{电子相较于原子核运动很快，所以认为核坐标变化后电子总能在瞬间达到新的平衡}}。BO 近似还有另外一个名字，定核近似，但需要注意\textbf{这不意味着认为核不动}。在 BO 近似后，核坐标$\mathbf{R}$作为参数引入电子的波函数$\psi(\mathbf{r}_1,\cdots,\mathbf{r}_N;\mathbf{R}_1,\cdots,\mathbf{R}_M)$，我们将整体波函数$\Psi$拆分成电子波函数$\psi$和核波函数$\phi$：
+\[\Psi(\mathbf{R}_1,\cdots,\mathbf{R}_M,\mathbf{r}_1,\cdots,\mathbf{r}_N)=\chi(\mathbf{R}_1,\cdots,\mathbf{R}_M)\psi(\mathbf{r}_1,\cdots,\mathbf{r}_N;\mathbf{R}_1,\cdots,\mathbf{R}_M)\]
+这里$\chi(\mathbf{R}_1,\cdots,\mathbf{R}_M)$和$\psi(\mathbf{r}_1,\cdots,\mathbf{r}_N;\mathbf{R}_1,\cdots,\mathbf{R}_M)$分别表示所有核和所有电子的整体波函数。由于核坐标$\mathbf{R}$是参数，因此$\hat{V}_{\rm nuc-nuc}$退化为常数$V_{\rm nuc-nuc}(\mathbf{R})$。在 BO 近似下，$\nabla^2_{\mathbf{R},I}\Psi(\mathbf{R},\mathbf{r}) \approx 0, \ \nabla_{\mathbf{R},I}\Psi(\mathbf{R},\mathbf{r}) \approx 0$。下面我们用$\mathbf{R},\mathbf{r}$表示核坐标电子坐标全体，计算薛定谔方程，先考虑$\hat{T}_{\rm nuc}\Psi(\mathbf{R},\mathbf{r})$：
 \[\begin{aligned}
-\hat{T_n}\varPsi(\bm{Q},\bm{q})&=-\sum_i\frac{\hbar^2}{2m_{n,i}}\left (\nabla^2_{n,i}\psi(\bm{Q},\bm{q}) \cdot \varphi(\bm{Q})+2\nabla_{n,i}\psi(\bm{Q},\bm{q}) \cdot \nabla_{n,i}\varphi(\bm{Q})+ \psi(\bm{Q},\bm{q}) \cdot \nabla^2_{n,i}\varphi(\bm{Q})  \right )\\ 
-&\approx -\sum_i\frac{\hbar^2}{2m_{n,i}}\psi(\bm{Q},\bm{q}) \cdot \nabla^2_{n,i}\varphi(\bm{Q})=-\psi(\bm{Q},\bm{q})\sum_i\frac{\hbar^2}{2m_{n,i}}\nabla^2_{n,i}\varphi(\bm{Q})
+\hat{T}_{\rm nuc}\Psi(\mathbf{R},\mathbf{r})&=-\sum_{I=1}^M\frac{1}{2M_I}\left[\nabla^2_{\mathbf{R},I}\psi(\mathbf{r};\mathbf{R}) \cdot \chi(\mathbf{R})+2 \nabla_{\mathbf{R},I}\psi(\mathbf{r};\mathbf{R}) \cdot \nabla_{\mathbf{R},I}\chi(\mathbf{R}) + \psi(\mathbf{r};\mathbf{R}) \cdot \nabla^2_{\mathbf{R},I}\chi(\mathbf{R})  \right]\\ 
+&\approx -\psi(\mathbf{r};\mathbf{R})\sum_{I=1}^M\frac{1}{2M_I}\nabla^2_{\mathbf{R},I}\chi(\mathbf{R})
 \end{aligned}\]
+再考虑电子哈密顿部分$\hat{H}_{\rm el}\Psi(\mathbf{R},\mathbf{r})=\chi(\mathbf{R})\hat{H}_{\rm el}\psi(\mathbf{r};\mathbf{R})=\chi(\mathbf{R})E_{\rm el}(\mathbf{R})\psi(\mathbf{r};\mathbf{R})$，这里我们假定各位已经知道了解定态薛定谔方程是解特征值问题\href{https://github.com/Astolfo-Official/Note-on-Functional-Analysis/blob/main/Note%20for%20Functional%20Analysis.pdf}{泛函讲义的例题6.9}，解出的特征值与电子坐标$\mathbf{q}$无关，合并整个哈密顿量：
+\[\hat{H}\Psi(\mathbf{R},\mathbf{r})=-\psi(\mathbf{r};\mathbf{R})\sum_{I=1}^M\frac{1}{2M_I}\nabla^2_{\mathbf{R},I}\chi(\mathbf{R})+\chi(\mathbf{R})E_{\rm el}(\mathbf{R})\psi(\mathbf{r};\mathbf{R})=E(\mathbf{R})\chi(\mathbf{R})\psi(\mathbf{r};\mathbf{R})\]
+利用分离变量获得电子薛定谔方程[Eq.\eqref{eq:qm_bo1}]与核运动方程[Eq.\eqref{eq:qm_bo2}]：
+\begin{subequations}\label{eq:qm_bo}
+\begin{align}
+\hat{H}_{\rm el}\psi(\mathbf{r};\mathbf{R})&=E_{\rm el}(\mathbf{R})\psi(\mathbf{r};\mathbf{R})\label{eq:qm_bo1}\\
+-\sum_{I=1}^M\frac{1}{2M_I}\nabla^2_{\mathbf{R},I}\chi(\mathbf{R})&=[E(\mathbf{R})-E_{\rm el}(\mathbf{R})]\chi(\mathbf{R})\label{eq:qm_bo2}
+\end{align}
+\end{subequations}
 
-考虑电子动能部分：
-\[\hat{T_e}\varPsi(\bm{Q},\bm{q})=-\varphi(\bm{Q})\sum_j\frac{\hbar^2}{2m_e}\nabla^2_{e,j}\psi(\bm{Q},\bm{q})\]
-
-合并整个哈密顿量，可以将薛定谔方程改写成如下形式：
-\[\hat{H}\varPsi(\bm{Q},\bm{q})=-\psi(\bm{Q},\bm{q})\sum_i\frac{\hbar^2}{2m_{n,i}}\nabla^2_{n,i}\varphi(\bm{Q})-\varphi(\bm{Q})\sum_j\frac{\hbar^2}{2m_e}\nabla^2_{e,j}\psi(\bm{Q},\bm{q})+\sum_{i,j}V_{i,j}\psi(\bm{Q},\bm{q})\varphi(\bm{Q})=E\psi(\bm{Q},\bm{q})\varphi(\bm{Q})\]
-利用分离变量获得电子薛定谔方程:
-\[-\sum_j\frac{\hbar^2}{2m_e}\nabla^2_{e,j}\psi(\bm{Q},\bm{q})+\sum_{i,j}V_{i,j}\psi(\bm{Q},\bm{q})=U(\bm{Q})\psi(\bm{Q},\bm{q})\]
-与核运动方程:
-\[-\sum_i\frac{\hbar^2}{2m_{n,i}}\nabla^2_{n,i}\varphi(\bm{Q})=[E-U(\bm{Q})]\varphi(\bm{Q})\]
+通过反复求解不同核坐标微小变化下的电子薛定谔方程可以获得电子能量$E_{\rm el}(\mathbf{R})$关于核坐标$\mathbf{R}$函数，我们称该函数为势能面(PES)。由于这种将电子波函数重新计算为无穷小变化的核几何形状的函数的过程让人想起热力学中绝热定理的条件，\textcolor{blue}{\textbf{但需要注意，BO 近似和绝热近似是两个不同的近似，这两者的区别在后续内容[\ref{sec:jrjs}]中有详细介绍，所以严格意义上讲 BO 近似获得的势能面只是绝热势能面的近似。}}
 
 电子结构所关心的是电子薛定谔方程，解出给定核构型下的电子分布，而动力学关心的是核薛定谔方程，认为给定核构型下的电子结构是已知的。一个有意思的事是：我们求解氢原子的波函数时用的是只含电子项的薛定谔方程，但是我们依然说这个是精确解，这是为什么呢？\textcolor{blue}{\textbf{因为波恩-奥本海默近似本质上是假定变量可分离，因此对实际上确实可分离的体系这就不是一种近似}}。BO近似是必要的，毕竟三体以上的系统我们没法精确求解。
 
@@ -1179,257 +1179,133 @@ $M$为按能量从低到高用符号$X$、$A$、$B$$\cdots$来表示，如：$X^
 \end{center}
 
 \newpage
-\section{附录I:一点数学（微积分线代什么的自己去看书）}
-\subsection{变量分离}
-变量分离是假设偏微分方程的解可以由几个以不同变量（组）为自变量的函数共同表示，即：
-\[y(\bm{r}_1,\bm{r}_2,\cdot\cdot\cdot,\bm{r}_n)=y_1(\bm{r}_1)y_2(\bm{r}_2)\cdot\cdot\cdot y_n(\bm{r}_n)\]
-
-这里，我们以含时薛定谔方程为例，假设解出的波函数$\psi(\bm{r},t)=\varPsi(\bm{r})\phi(t)$，除了平凡解$\psi=0$外，我们可以认为解出的波函数仅在有限个点上取值为零，不考虑这些奇异点，我们将方程两边同时除以$\varphi\phi$：
-\[i \hbar \frac{\partial \psi}{\partial t}=\left (-\frac{\hbar^2}{2m}\nabla^2+V \right ) \psi \quad \Rightarrow \quad i \hbar \varphi \frac{\partial \phi}{\partial t}= -\frac{\hbar^2}{2m} \phi \nabla^2 \varPsi+V\varPsi\phi \quad \Rightarrow \quad i \hbar \frac{1}{\phi} \frac{\partial \phi}{\partial t}= -\frac{\hbar^2}{2m} \frac{1}{\varPsi} \nabla^2 \varPsi+V\]
-显然我们可以给出一个能量单位的参数$E$使得原方程可以写成以下方程组:
-\[\left\{
-\begin{array}{r}
-i\hbar\frac{1}{\phi}\frac{\partial\phi}{\partial t}=E\\
--\frac{\hbar^2}{2m}\frac{1}{\varPsi}\nabla^2\varPsi+V=E
-\end{array} \right. \quad \Rightarrow \quad
-\left\{
-\begin{array}{l}
-\phi(t)=\exp(-\frac{iEt}{\hbar})\\
-\hat{H}\varPsi=E\varPsi
-\end{array} \right.\]
-
-\subsection{球坐标下的拉普拉斯算符展开}
-球坐标与直角坐标的转换关系如下:
-\[x=r\sin\theta\cos\phi, \quad y=r\sin\theta\cos\phi, \quad z=r\cos\theta\]
-计算某个坐标下的梯度算子$\nabla$可以考虑对坐标向量$\bm{r}=(x,y,z)$求导并归一化得到。如球坐标的单位向量在直角坐标的基底下可以被表示为:
+\section{附录：氢原子薛定谔方程求解(级数解法)\label{hydrgen}}
+\subsection{分离变量法处理氢原子薛定谔方程}
+考虑氢原子的定态薛定谔方程：
+\[\hat{H}\Psi(\mathbf{r})=(\hat{T}+\hat{V})\Psi(\mathbf{r})=\left(-\frac{\hbar^2}{2m_e}\nabla^2+V\right)\Psi(\mathbf{r})=\left(-\frac{\hbar^2}{2m_e}\nabla^2-\frac{e^2}{4\pi\varepsilon_0|\mathbf{r}|}\right)\Psi(\mathbf{r})=E\Psi(\mathbf{r})\]
+利用分离变量法\ref{sec:flbl}，我们假定定态波函数可以表示成$\Psi(\mathbf{r})=R(r)\Theta(\theta)\varPhi(\varphi)$，带入原薛定谔方程方程：
+\[-\frac{\hbar^2}{2m_e}\left[\frac{\Theta\varPhi}{r^2}\frac{\partial}{\partial{r}}(r^2\frac{\partial R}{\partial{r}})+\frac{R\varPhi}{r^2\sin\theta}\frac{\partial}{\partial{\theta}}(\sin\theta\frac{\partial \Theta}{\partial{\theta}})+\frac{R\Theta}{r^2\sin^2 \theta }\frac{\partial^2 \varPhi}{\partial{\phi^2}}\right]=(E-V)R\Theta\varPhi\]
+在方程两边同时乘上因子$r^2\sin^2 \theta/R\Theta\varPhi$，并简单整理：
 \begin{equation*}
 \begin{aligned}
-\hat{\bm{r}} &=\pdv{\bm{r}}{r}= (\sin\theta \cos\phi, \sin\theta \sin\phi, \cos\theta), \\
-\hat{\bm{\theta}} &=\frac{1}{r}\pdv{\bm{r}}{\theta}= (\cos\theta \cos\phi, \cos\theta \sin\phi, -\sin\theta), \\
-\hat{\bm{\phi}} &=\frac{1}{r\sin\theta}\pdv{\bm{r}}{\phi}= (-\sin\phi, \cos\phi, 0).
-\end{aligned}
-\end{equation*}
-因此我们可以写出球坐标下的梯度算子$\nabla$:
-\[\nabla=\hat{\bm{r}}\pdv{r}+\hat{\bm{\theta}}\frac{1}{r}\pdv{\theta}+\hat{\bm{\phi}}\frac{1}{r\sin\theta}\pdv{\phi}\]
-当我们考虑计算球坐标下的拉普拉斯算子$\Delta=\nabla^2=\nabla\cdot\nabla$时，我们注意到球坐标的单位向量对坐标的导数并非简单的0或者1（在直角坐标系下的情况）：
-\begin{equation*}
-\begin{aligned}
-\frac{\partial \hat{\bm{r}}}{\partial r} &=\frac{\partial \hat{\bm{\theta}}}{\partial r}=\frac{\partial \hat{\bm{\phi}}}{\partial r}=0\\
-\frac{\partial \hat{\bm{r}}}{\partial \theta} &= (\cos\theta \cos\phi, \cos\theta \sin\phi, -\sin\theta) = \hat{\bm{\theta}}, \\
-\frac{\partial \hat{\bm{r}}}{\partial \phi} &= (-\sin\theta \sin\phi, \sin\theta \cos\phi, 0) = \sin\theta \, \hat{\bm{\phi}},\\
-\frac{\partial \hat{\bm{\theta}}}{\partial \theta} &= (-\sin\theta \cos\phi, -\sin\theta \sin\phi, -\cos\theta) = -\hat{\bm{r}}, \\
-\frac{\partial \hat{\bm{\theta}}}{\partial \phi} &= (-\cos\theta \sin\phi, \cos\theta \cos\phi, 0) = \cos\theta \, \hat{\bm{\phi}},\\
-\frac{\partial \hat{\bm{\phi}}}{\partial \theta} &= (0, 0, 0) = \bm{0}, \\
-\frac{\partial \hat{\bm{\phi}}}{\partial \phi} &= (-\cos\phi, -\sin\phi, 0) = -\sin\theta \, \hat{\bm{r}} - \cos\theta \, \hat{\bm{\theta}}.
+\frac{\sin^2 \theta}{R}\frac{\partial}{\partial{r}}(r^2\frac{\partial R}{\partial{r}})+\frac{\sin\theta}{\Theta}\frac{\partial}{\partial{\theta}}(\sin\theta\frac{\partial \Theta}{\partial{\theta}})+\frac{1}{\varPhi}\frac{\partial^2 \varPhi}{\partial{\phi^2}}&=-\frac{2m(E-V)}{\hbar^2}r^2\sin^2 \theta\\
+\frac{\sin^2 \theta}{R}\frac{\partial}{\partial{r}}(r^2\frac{\partial R}{\partial{r}})+\frac{\sin\theta}{\Theta}\frac{\partial}{\partial{\theta}}(\sin\theta\frac{\partial \Theta}{\partial{\theta}})+\frac{2m(E-V)}{\hbar^2}r^2\sin^2 \theta&=-\frac{1}{\varPhi}\frac{\partial^2 \varPhi}{\partial{\phi^2}}
 \end{aligned}
 \end{equation*}
 
-因此在直角坐标系下的拉普拉斯算子$\nabla^2$可以表示成如下形式：
-\[\nabla^2=(\bm{i}\frac{\partial}{\partial{x}}+\bm{j}\frac{\partial}{\partial{y}}+\bm{k}\frac{\partial}{\partial{z}}) \cdot (\bm{i}\frac{\partial}{\partial{x}}+\bm{j}\frac{\partial}{\partial{y}}+\bm{k}\frac{\partial}{\partial{z}})=\frac{\partial^2}{\partial{x}^2}+\frac{\partial^2}{\partial{y}^2}+\frac{\partial^2}{\partial{z}^2}\]
-但我们并不能直接将球坐标系下的梯度做点乘得到球坐标下的拉普拉斯算子：
-\[\nabla^2=(\hat{\bm{r}}\pdv{r}+\hat{\bm{\theta}}\frac{1}{r}\pdv{\theta}+\hat{\bm{\phi}}\frac{1}{r\sin\theta}\pdv{\phi}) \cdot (\hat{\bm{r}}\pdv{r}+\hat{\bm{\theta}}\frac{1}{r}\pdv{\theta}+\hat{\bm{\phi}}\frac{1}{r\sin\theta}\pdv{\phi}) \neq \frac{\partial^2}{\partial{r^2}}+\frac{1}{r^2}\frac{\partial^2}{\partial{\theta^2}}+\frac{1}{r^2sin^2 \theta }\frac{\partial^2}{\partial{\phi^2}}\]
-需要对每一项分别计算，第一项:
-\[
-\hat{\mathbf{r}}\frac{\partial}{\partial r} \cdot \left(\hat{\mathbf{r}}\frac{\partial}{\partial r}\right) = \hat{\mathbf{r}} \cdot \left(\frac{\partial\hat{\mathbf{r}}}{\partial r}\frac{\partial}{\partial r} + \hat{\mathbf{r}}\frac{\partial^2}{\partial r^2}\right) = \hat{\mathbf{r}} \cdot \hat{\mathbf{r}}\frac{\partial^2}{\partial r^2} = \frac{\partial^2}{\partial r^2}
-\]
-第二项:
-\[
-\hat{\mathbf{r}}\frac{\partial}{\partial r} \cdot \left(\hat{\boldsymbol{\theta}}\frac{1}{r}\frac{\partial}{\partial \theta}\right) = \hat{\mathbf{r}} \cdot \left(\frac{\partial\hat{\boldsymbol{\theta}}}{\partial r}\frac{1}{r}\frac{\partial}{\partial \theta} + \hat{\boldsymbol{\theta}}\frac{\partial}{\partial r}\left(\frac{1}{r}\frac{\partial}{\partial \theta}\right)\right) = 0
-\]
-第三项:
-\[
-\hat{\mathbf{r}}\frac{\partial}{\partial r} \cdot \left(\hat{\boldsymbol{\phi}}\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi}\right) = \hat{\mathbf{r}} \cdot \left(\frac{\partial\hat{\boldsymbol{\phi}}}{\partial r}\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi} + \hat{\boldsymbol{\phi}}\frac{\partial}{\partial r}\left(\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi}\right)\right) = 0
-\]
-第四项:
-\[
-\hat{\boldsymbol{\theta}}\frac{1}{r}\frac{\partial}{\partial \theta} \cdot \left(\hat{\mathbf{r}}\frac{\partial}{\partial r}\right) = \hat{\boldsymbol{\theta}} \cdot \left(\frac{\partial\hat{\mathbf{r}}}{\partial \theta}\frac{\partial}{\partial r} + \hat{\mathbf{r}}\frac{\partial^2}{\partial\theta\partial r}\right) = \hat{\boldsymbol{\theta}} \cdot \hat{\boldsymbol{\theta}}\frac{\partial}{\partial r} = \frac{1}{r}\frac{\partial}{\partial r}
-\]
-第五项:
-\[
-\hat{\boldsymbol{\theta}}\frac{1}{r}\frac{\partial}{\partial \theta} \cdot \left(\hat{\boldsymbol{\theta}}\frac{1}{r}\frac{\partial}{\partial \theta}\right) = \hat{\boldsymbol{\theta}} \cdot \left(\frac{\partial\hat{\boldsymbol{\theta}}}{\partial \theta}\frac{1}{r}\frac{\partial}{\partial \theta} + \hat{\boldsymbol{\theta}}\frac{1}{r}\frac{\partial^2}{\partial\theta^2}\right) = \hat{\boldsymbol{\theta}} \cdot \left(-\hat{\mathbf{r}}\frac{1}{r}\frac{\partial}{\partial \theta} + \hat{\boldsymbol{\theta}}\frac{1}{r}\frac{\partial^2}{\partial\theta^2}\right) = \frac{1}{r^2}\frac{\partial^2}{\partial\theta^2}
-\]
-第六项:
-\[
-\hat{\boldsymbol{\theta}}\frac{1}{r}\frac{\partial}{\partial \theta} \cdot \left(\hat{\boldsymbol{\phi}}\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi}\right) = \hat{\boldsymbol{\theta}} \cdot \left(\frac{\partial\hat{\boldsymbol{\phi}}}{\partial \theta}\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi} + \hat{\boldsymbol{\phi}}\frac{1}{r}\frac{\partial}{\partial \theta}\left(\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi}\right)\right) = 0
-\]
-第七项:
-\[
-\hat{\boldsymbol{\phi}}\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi} \cdot \left(\hat{\mathbf{r}}\frac{\partial}{\partial r}\right) = \hat{\boldsymbol{\phi}} \cdot \left(\frac{\partial\hat{\mathbf{r}}}{\partial \phi}\frac{\partial}{\partial r} + \hat{\mathbf{r}}\frac{\partial^2}{\partial\phi\partial r}\right) = \hat{\boldsymbol{\phi}} \cdot \left(\sin\theta\hat{\boldsymbol{\phi}}\frac{\partial}{\partial r}\right) = \frac{1}{r\sin\theta}\sin\theta\frac{\partial}{\partial r} = \frac{1}{r}\frac{\partial}{\partial r}
-\]
-第八项:
-\[
-\hat{\boldsymbol{\phi}}\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi} \cdot \left(\hat{\boldsymbol{\theta}}\frac{1}{r}\frac{\partial}{\partial \theta}\right) = \hat{\boldsymbol{\phi}} \cdot \left(\frac{\partial\hat{\boldsymbol{\theta}}}{\partial \phi}\frac{1}{r}\frac{\partial}{\partial \theta} + \hat{\boldsymbol{\theta}}\frac{1}{r\sin\theta}\frac{\partial^2}{\partial\phi\partial\theta}\right) = \hat{\boldsymbol{\phi}} \cdot \left(\cos\theta\hat{\boldsymbol{\phi}}\frac{1}{r}\frac{\partial}{\partial \theta}\right) = \frac{1}{r\sin\theta}\cos\theta\frac{1}{r}\frac{\partial}{\partial \theta} = \frac{\cot\theta}{r^2}\frac{\partial}{\partial \theta}
-\]
-第九项:
-\[\begin{aligned}
-\hat{\boldsymbol{\phi}}\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi} \cdot \left(\hat{\boldsymbol{\phi}}\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi}\right) &= \hat{\boldsymbol{\phi}} \cdot \left(\frac{\partial\hat{\boldsymbol{\phi}}}{\partial \phi}\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi} + \hat{\boldsymbol{\phi}}\frac{1}{r\sin\theta}\frac{\partial^2}{\partial\phi^2}\right)\\
-&= \hat{\boldsymbol{\phi}} \cdot \left[(-\sin\theta\hat{\mathbf{r}} - \cos\theta\hat{\boldsymbol{\theta}})\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi} + \hat{\boldsymbol{\phi}}\frac{1}{r\sin\theta}\frac{\partial^2}{\partial\phi^2}\right] = \frac{1}{r^2\sin^2\theta}\frac{\partial^2}{\partial\phi^2}
-\end{aligned}
-\]
-
-将所有项合并并整理成标准形式：
-\[
-\nabla^2 = \frac{\partial^2}{\partial r^2} + \frac{2}{r}\frac{\partial}{\partial r} + \frac{1}{r^2}\frac{\partial^2}{\partial\theta^2} + \frac{\cot\theta}{r^2}\frac{\partial}{\partial\theta} + \frac{1}{r^2\sin^2\theta}\frac{\partial^2}{\partial\phi^2} = \frac{1}{r^2}\frac{\partial}{\partial r}\left(r^2\frac{\partial}{\partial r}\right) + \frac{1}{r^2\sin\theta}\frac{\partial}{\partial\theta}\left(\sin\theta\frac{\partial}{\partial\theta}\right) + \frac{1}{r^2\sin^2\theta}\frac{\partial^2}{\partial\phi^2}
-\]
-
-\section{附录II:氢原子薛定谔方程求解(级数解法)\label{hydrgen}}
-利用分离变量法，我们假定定态波函数可以表示成$\varPsi(r,\theta,\varphi)=R(r)\Theta(\theta)\varPhi(\varphi)$，带入定态薛定谔方程并在极坐标系下展开，整理方程，我们可以得到：
-\[\frac{\Theta\varPhi}{r^2}\frac{\partial}{\partial{r}}(r^2\frac{\partial R}{\partial{r}})+\frac{R\varPhi}{r^2\sin\theta}\frac{\partial}{\partial{\theta}}(\sin\theta\frac{\partial \Theta}{\partial{\theta}})+\frac{R\Theta}{r^2\sin^2 \theta }\frac{\partial^2 \varPhi}{\partial{\phi^2}}=-\frac{2m(E-V)}{\hbar^2}R\Theta\varPhi\]
-
-在方程两边同时乘上因子$r^2\sin^2 \theta/R\Theta\varPhi$,我们可以得到：
-\[\frac{\sin^2 \theta}{R}\frac{\partial}{\partial{r}}(r^2\frac{\partial R}{\partial{r}})+\frac{\sin\theta}{\Theta}\frac{\partial}{\partial{\theta}}(\sin\theta\frac{\partial \Theta}{\partial{\theta}})+\frac{1}{\varPhi}\frac{\partial^2 \varPhi}{\partial{\phi^2}}=-\frac{2m(E-V)}{\hbar^2}r^2\sin^2 \theta\]
-
-再通过移向，我们得到：
-\[\frac{\sin^2 \theta}{R}\frac{\partial}{\partial{r}}(r^2\frac{\partial R}{\partial{r}})+\frac{\sin\theta}{\Theta}\frac{\partial}{\partial{\theta}}(\sin\theta\frac{\partial \Theta}{\partial{\theta}})+\frac{2m(E-V)}{\hbar^2}r^2\sin^2 \theta=-\frac{1}{\varPhi}\frac{\partial^2 \varPhi}{\partial{\phi^2}}\]
-
-由于方程两边变量不同，若满足上述等式，方程左右两边都应等于同一个常数，不妨假设该常数为$m^2$，则我们可以得到两个方程：
-\[\frac{\partial^2 \varPhi}{\partial{\phi^2}}+m^2\varPhi=0 \tag{a}\label{eq:a}\]
-\[\frac{\sin^2 \theta}{R}\frac{\partial}{\partial{r}}(r^2\frac{\partial R}{\partial{r}})+\frac{\sin\theta}{\Theta}\frac{\partial}{\partial{\theta}}(\sin\theta\frac{\partial \Theta}{\partial{\theta}})+\frac{2m(E-V)}{\hbar^2}r^2\sin^2 \theta=m^2 \tag{1}\label{eq:1}\]
-
-将方程\ref{eq:1}两边同时除以$sin^2 \theta$并整理，我们得到：
+由于方程两边变量不同，上述方程左右两边都应等于同一个常数，设该常数为$m^2$，方程左侧为：
+\[\frac{\sin^2 \theta}{R}\frac{\partial}{\partial{r}}(r^2\frac{\partial R}{\partial{r}})+\frac{\sin\theta}{\Theta}\frac{\partial}{\partial{\theta}}(\sin\theta\frac{\partial \Theta}{\partial{\theta}})+\frac{2m(E-V)}{\hbar^2}r^2\sin^2 \theta=m^2\]
+上式两边同时除以$\sin^2\theta$并整理：
 \[\frac{1}{R}\frac{\partial}{\partial{r}}(r^2\frac{\partial R}{\partial{r}})+\frac{2m(E-V)}{\hbar^2}r^2=\frac{m^2}{\sin^2 \theta}-\frac{1}{\Theta \sin\theta}\frac{\partial}{\partial{\theta}}(\sin\theta\frac{\partial \Theta}{\partial{\theta}})\]
+同样的，假定上述方程左右两边均等于$\beta$，于是氢原子定态薛定谔方程可以拆分成以下三个常微分方程：
+\begin{subequations}
+\begin{align}
+&\frac{\partial^2 \varPhi}{\partial{\phi^2}}+m^2\varPhi=0 \label{eq:1.17_a}\\
+&\frac{1}{R}\frac{\partial}{\partial{r}}(r^2\frac{\partial R}{\partial{r}})+\frac{2m(E-V)}{\hbar^2}r^2=\beta \label{eq:1.17_b}\\
+&\frac{m^2}{\sin^2 \theta}-\frac{1}{\Theta \sin\theta}\frac{\partial}{\partial{\theta}}(\sin\theta\frac{\partial \Theta}{\partial{\theta}})=\beta \label{eq:1.17_c}
+\end{align}
+\end{subequations}
 
-同样的，我们假定上述方程左右两边均等于参数$\beta$，于是我们又得到两个方程：
-\[\frac{1}{R}\frac{\partial}{\partial{r}}(r^2\frac{\partial R}{\partial{r}})+\frac{2m(E-V)}{\hbar^2}r^2=\beta \tag{b}\label{eq:b}\]
-\[\frac{m^2}{\sin^2 \theta}-\frac{1}{\Theta \sin\theta}\frac{\partial}{\partial{\theta}}(\sin\theta\frac{\partial \Theta}{\partial{\theta}})=\beta \tag{c}\label{eq:c}\]
+\subsection{Φ方程的求解}
+由球坐标中$\varphi$的范围及归一化条件容易求解方程 Eq.\eqref{eq:1.17_a}：
+\[\varPhi(\phi)=\frac{1}{\sqrt{2\pi}}e^{im\phi}, \quad (m=0,\pm 1,\pm 2\cdot\cdot\cdot)\]
 
-至此，我们将定态薛定谔方程拆分成三个含不同变量的常微分方程$a,b,c$。
-\subsection*{Φ方程的求解}
-由球坐标中$\varphi$的范围及归一化条件容易求解方程\ref{eq:a}：
-\[\frac{\mathrm{d}^2 \varPhi}{\mathrm{d}{\phi^2}}+ m^2 \varPhi=0 \quad \Rightarrow \quad \varPhi(\phi)=\frac{1}{\sqrt{2\pi}}e^{im\phi} \qquad (m=0,\pm 1,\pm 2\cdot\cdot\cdot)\]
-
-\subsection*{Θ方程的求解}
-对方程$c$，我们做以下代换：
-\[x=\cos\theta, \quad \frac{\mathrm{d} \Theta}{\mathrm{d} x}=\frac{\mathrm{d} \Theta}{\mathrm{d} \theta}\left ( \frac{\mathrm{d} x}{\mathrm{d} \theta} \right )^{-1}=-\frac{1}{\sin\theta} \frac{\mathrm{d} \Theta}{\mathrm{d} \theta}, \quad y(x)=\Theta(\theta)\]
-
-则方程$c$可以改写成连带$Legendre$方程：
-\[\frac{m^2}{1-x^2}-\frac{1}{y}\frac{\mathrm{d}}{\mathrm{d}{x}} \left [(1-x^2) \frac{\mathrm{d} y}{\mathrm{d}{x}} \right ]=\beta \quad \Leftrightarrow \quad \frac{\mathrm{d}}{\mathrm{d}{x}} \left [(1-x^2) \frac{\mathrm{d} y}{\mathrm{d}{x}} \right ]+\left (\beta- \frac{m^2}{1-x^2} \right )y=0\]
-
-为了求解上述方程，我们需要从$Legendre$方程出发：
-\[\frac{\mathrm{d}}{\mathrm{d}{x}} \left [(1-x^2) \frac{\mathrm{d} y}{\mathrm{d}{x}} \right ]+\beta y=0\]
-
-我们将用级数解法求解该方程，为了保证级数解法的正确性，我们引用一下定理保证在我们给定条件下的$Legendre$方程的解存在且唯一：
-\begin{theorem}
+\begin{theorem}\label{theorem:czwy}
 如果$p(z)$和$q(z)$在圆$|z-z_0|<R$内单值解析，则在此圆内二阶线性微分方程的初值问题：
 \[\frac{\mathrm{d}^2w}{\mathrm{d}x^2}+p(z)\frac{\mathrm{d}w}{\mathrm{d}x}+q(z)w=0, \quad w(z_0)=a, \quad w'(z_0)=b, \quad (\forall a,b \in \mathbb{C})\]
 的解存在且唯一，并且解$w(z)$在这个圆内单值解析。
 \end{theorem}
 
-下面我们将开始求解$Legendre$方程，其中自变量$x$定义在$[-1,1] \subset \mathbb{R}$，我们首先取$x_0=0$，显然0是$Legendre$方程的常点，因此，我们假设方程的解在$x_0=0$的邻域内可以展开成一下形式：
+\subsection{Θ方程的求解}
+对方程 Eq.\eqref{eq:1.17_c}，令$x=\cos\theta$，$y(x)=\Theta(\theta)$：
+\[\frac{\mathrm{d} \Theta}{\mathrm{d} x}=\frac{\mathrm{d} \Theta}{\mathrm{d} \theta}\left ( \frac{\mathrm{d} x}{\mathrm{d} \theta} \right )^{-1}=-\frac{1}{\sin\theta} \frac{\mathrm{d} \Theta}{\mathrm{d} \theta}\]
+则方程 Eq.\eqref{eq:1.17_c}可以改写成连带 Legendre 方程：
+\[\frac{m^2}{1-x^2}-\frac{1}{y}\frac{\mathrm{d}}{\mathrm{d}{x}} \left [(1-x^2) \frac{\mathrm{d} y}{\mathrm{d}{x}} \right ]=\beta \quad \Leftrightarrow \quad \frac{\mathrm{d}}{\mathrm{d}{x}} \left [(1-x^2) \frac{\mathrm{d} y}{\mathrm{d}{x}} \right ]+\left (\beta- \frac{m^2}{1-x^2} \right )y=0\]
+方程的存在唯一性由定理\ref{theorem:czwy}保证。
+
+为了求解上述方程，我们需要从 Legendre 方程出发：
+\begin{equation}\label{eq:Legendre}
+\frac{\mathrm{d}}{\mathrm{d}{x}} \left [(1-x^2) \frac{\mathrm{d} y}{\mathrm{d}{x}} \right ]+\beta y=0
+\end{equation}
+其中自变量$x \in [-1,1]$，设方程 Eq.\eqref{eq:Legendre}的解在方程的常点$x_0=0$的邻域内可以唯一展开：
 \[y=\sum_{k=0}^{+\infty}c_kx^k\]
-
-将展开式带入$Legendre$方程，并整理，我们得到：
-\[\sum_{k=0}^{+\infty} \left \{ (k+2)(k+1)c_{k+2}-[k(k+1)-\beta]c_k \right \}x^k=0\]
-
-然后我们得到了递推关系：
-\[c_{k+2}=\frac{k(k+1)-\beta}{(k+2)(k+1)}c_k\]
-
-进而：
-\[c_{2k}=\prod_{n=1}^{k}\frac{(2k-1)(2k-2)-\beta}{(2k)(2k-1)}c_0, \quad c_{2k+1}=\prod_{n=1}^{k}\frac{(2k)(2k-1)-\beta}{(2k)(2k+1)}c_1\]
-
-因此，我们可以将方程的解按奇偶项拆开：
-\[y(x)=c_1y_0(x)+c_2y_1(x), \quad y_0(x)=1+\sum_{k=1}^{+\infty}\frac{c_{2k}}{c_0}x^{2k}, \quad y_1(x)=x+\sum_{k=1}^{+\infty}\frac{c_{2k+1}}{c_1}x^{2k+1}\]
+将展开式带入 Legendre 方程，并整理：
+\[\sum_{k=0}^{+\infty} \left \{ (k+2)(k+1)c_{k+2}-[k(k+1)-\beta]c_k \right \}x^k=0 \quad \Rightarrow \quad c_{k+2}=\frac{k(k+1)-\beta}{(k+2)(k+1)}c_k\]
+按照奇偶性可以得到：
+\[c_{2k}=\prod_{n=1}^{k}\frac{(2k-2)(2k-1)-\beta}{(2k)(2k-1)}c_0, \quad c_{2k+1}=\prod_{n=1}^{k}\frac{(2k)(2k-1)-\beta}{(2k)(2k+1)}c_1\]
+将方程的解按奇偶项拆开：
+\[y(x)=c_0y_0(x)+c_1y_1(x), \quad y_0(x)=1+\sum_{k=1}^{+\infty}\frac{c_{2k}}{c_0}x^{2k}, \quad y_1(x)=x+\sum_{k=1}^{+\infty}\frac{c_{2k+1}}{c_1}x^{2k+1}\]
 
 容易看出当x取值$x= \pm 1$时，无穷级数$y_0(x)$、$y_1(x)$发散，与边界条件$|y(\pm 1)|< +\infty$矛盾，为了解决这个问题，我们将要使得无穷级数$y_0(x)$、$y_1(x)$退化为有限项，为此，我们将对特征值赋值$\beta=l(l+1), \ (l \in \mathbb{N}_{+})$：
 \[y_0(x)=\sum_{k=0}^{+\infty}\frac{2^{2k}}{(2k)!}\frac{\Gamma(k-\frac{l}{2})\Gamma(\frac{l+1}{2}+k)}{\Gamma(-\frac{l}{2})\Gamma(\frac{l+1}{2})}x^{2k}, \quad y_1(x)=\sum_{k=0}^{+\infty}\frac{2^{2k}}{(2k+1)!}\frac{\Gamma(k-\frac{l-1}{2})\Gamma(\frac{l}{2}+1+k)}{\Gamma(-\frac{l-1}{2})\Gamma(\frac{l}{2}+1)}x^{2k+1}\]
-
-此时，无穷级数$y(x)$退化成2l项的有限级数$P_l(x)$，我们得到了该方程的本征函数解，也即$Legendre$多项式，在定义域内收敛：
+此时级数$y(x)$退化成 $2l$ 项的有限多项式$P_l(x)$，我们得到了方程 Eq.\eqref{eq:Legendre}的解，也即 Legendre 多项式：
 \[P_l(x)=\sum_{k=0}^{[l/2]}(-1)^k \frac{(2l-2k)!}{2^l k! (l-k)!(l-2k)!}x^{l-2k}\]
 
-回到连带$Legendre$方程，我们容易求出方程在$x= \pm 1$与$x=\infty$的指标为$\rho= \pm \frac{m}{2}$，于是我们做以下代换：
-\[y=(x^2-1)^{\frac{m}{2}}v(x)\]
-
-带入连带$Legendre$方程展开整理得：
-\[(1-x^2)v''-2(m+1)xv'+[\beta-m(m+1)]v=0 \tag{d}\label{eq:d}\]
-
-如果我们对$Legendre$方程求m次导：
+回到连带 Legendre 方程，我们容易求出方程在$x= \pm 1$与$x=\infty$的指标为$\rho= \pm \frac{m}{2}$，于是我们做以下代换：
+\begin{equation}\label{eq:1.17_d}
+y=(x^2-1)^{\frac{m}{2}}v(x) \quad \Rightarrow \quad (1-x^2)v''-2(m+1)xv'+[\beta-m(m+1)]v=0
+\end{equation}
+对 Legendre 方程[Eq.\eqref{eq:Legendre}]求$m$次导：
 \[\frac{\mathrm{d^{m+1}}}{\mathrm{d}{x^{m+1}}} \left [(1-x^2) \frac{\mathrm{d} y}{\mathrm{d}{x}} \right ]+\beta y^{(m)}=(1-x^2)\frac{\mathrm{d^{m+2}}y}{\mathrm{d}{x^{m+2}}}-2(m+1)x\frac{\mathrm{d^{m+1}}y}{\mathrm{d}{x^{m+1}}}+[\beta-m(m+1)]\frac{\mathrm{d^{m}}y}{\mathrm{d}{x^{m}}}=0\]
+发现其与方程 Eq.\eqref{eq:1.17_d}形式相同。于是，连带 Legendre 方程的解为：
+\[y=(x^2-1)^{\frac{m}{2}}\frac{\mathrm{d^{m}}P_l(x)}{\mathrm{d}{x^{m}}}=(x^2-1)^{\frac{m}{2}}\frac{\mathrm{d^{m}}}{\mathrm{d}{x^{m}}}\sum_{k=0}^{[l/2]}(-1)^k \frac{(2l-2k)!}{2^l k! (l-k)!(l-2k)!}x^{l-2k}=(x^2-1)^{\frac{m}{2}}P^m_l(x)\]
+至此，方程\ref{eq:1.17_c}的解可以写成：
+\[\Theta_{l,m}(\theta)=(-1)^m\sin^m(\theta)P^m_l(\cos\theta)\]
+为了满足归一化条件
+\[\int_0^{\pi}\Theta_{l,m}^{*}(\theta)\Theta_{l^{'},m^{'}}(\theta)\sin\theta \dd\theta=\delta_{ll^{'}} \cdot \delta_{mm^{'}}\]
+$\Theta(\theta)$最终可以表示成：
+\[\Theta_{l,m}(\theta)=\sqrt{\frac{(2l-1)(l-|m|)!}{2(l+|m|)!}}P^{m}_l(\cos\theta), \quad |m| \leqslant l\]
 
-发现其与方程\ref{eq:d}形式相同。
-
-于是，我们能直接写出连带$Legendre$方程的解：
-\[y=(x^2-1)^{\frac{m}{2}}\frac{\mathrm{d^{m}}P_l(x)}{\mathrm{d}{x^{m}}}=(x^2-1)^{\frac{m}{2}}\frac{\mathrm{d^{m}}}{\mathrm{d}{x^{m}}}\sum_{k=0}^{[l/2]}(-1)^k \frac{(2l-2k)!}{2^l k! (l-k)!(l-2k)!}x^{l-2k}:=(x^2-1)^{\frac{m}{2}}P^m_l(x)\]
-
-至此，方程\ref{eq:c}的解可以写成：
-\[\Theta(\theta)=(-1)^m\sin^m(\theta)P^m_l(\cos\theta)\]
-
-同时为了满足归一化条件e，$\Theta(\theta)$最终可以表示成：
-\[\int_0^{\pi}\Theta_{l,m}^{*}(\theta)\Theta_{l^{'},m^{'}}(\theta)\sin\theta \dd\theta=\delta_{l,l^{'}} \cdot \delta_{m,m^{'}} \tag{e}\label{eq:e}\]
-\[\Theta_{l,m}(\theta)=\sqrt{\frac{(2l-1)(l-|m|)!}{2(l+|m|)!}}P^{m}_l(\cos\theta) \qquad |m| \leqslant l\]
-
-此外，$Legendre$多项式也可以通过$Rodrigue$公式定义：
+此外，Legendre 多项式也可以通过 Rodrigue 公式定义：
 \[P_l(x) \equiv \frac{1}{2^ll!} \left ( \frac{\mathrm{d}}{\mathrm{d}x} \right )^l(x^2-1)^l\]
 
-\textbf{补充说明：本小节涉及到的$m$为加说明均取绝对值。}
-
-\subsection*{R方程的求解}
-
-对方程\ref{eq:b}，我们要处理的是以下柯西问题：
-\[\frac{1}{R}\frac{\partial}{\partial{r}}(r^2\frac{\partial R}{\partial{r}})+\frac{2m(E-V)}{\hbar^2}r^2=\beta, \quad r>0, \quad V=-\frac{e}{4 \pi \varepsilon_0 r}\]
-
-对上述柯西问题，我们做代换$u \equiv rR$并整理可以得到方程：
-\[-\frac{\hbar^2}{2m}\frac{\mathrm{d^2}u}{\mathrm{d}r^2}+ \left (\frac{\hbar^2}{2m}\frac{l(l+1)}{r^2}-\frac{e}{4 \pi \varepsilon_0r} \right )u=Eu\]
-
+\subsection{R方程的求解}
+对方程 Eq.\eqref{eq:1.17_b}，我们要处理的是以下初值问题：
+\[\frac{1}{R}\frac{\partial}{\partial{r}}(r^2\frac{\partial R}{\partial{r}})+\frac{2m(E-V)}{\hbar^2}r^2=\beta, \quad r>0, \quad V=-\frac{e^2}{4 \pi \varepsilon_0 r}\]
+令$u \equiv rR$并整理可以得到：
+\[-\frac{\hbar^2}{2m}\frac{\mathrm{d^2}u}{\mathrm{d}r^2}+ \left (\frac{\hbar^2}{2m}\frac{l(l+1)}{r^2}-\frac{e^2}{4 \pi \varepsilon_0r} \right )u=Eu\]
 容易看出，当$r \rightarrow +\infty$时,
 \[u=A\exp\left(-\frac{\sqrt{-2mE}}{\hbar}r\right)+B\exp\left(\frac{\sqrt{-2mE}}{\hbar}r\right)\]
-
-当$E>0$时，容易看出u在无穷远处不收敛于0，为非束缚态；当$E<0$时，我们可以取$B=0$使得当$r \rightarrow +\infty$时$u \rightarrow 0$，因此，我们取$E<0$。
-
-继续通过代换简化方程形式：
-\[\kappa \equiv \frac{\sqrt{-2mE}}{\hbar}, \quad \rho \equiv \kappa r, \quad \rho_o \equiv \frac{me^2}{2 \pi \varepsilon_0 \hbar^2 \kappa} \quad \Rightarrow \quad \frac{\mathrm{d^2}u}{\mathrm{d}\rho^2}=\left [ 1-\frac{\rho_0}{\rho}+\frac{l(l+1)}{\rho^2} \right ]u\]
-
+当$E>0$时，容易看出$u(r)\nrightarrow0$，为非束缚态；当$E<0$时，取$B=0$使得当$r \rightarrow +\infty$时$u \rightarrow 0$。继续令：
+\[\kappa \equiv \frac{\sqrt{-2mE}}{\hbar}, \quad \rho \equiv \kappa r, \quad \rho_o \equiv \frac{me^2}{2 \pi \varepsilon_0 \hbar^2 \kappa}\]
+方程变为：
+\[\frac{\mathrm{d^2}u}{\mathrm{d}\rho^2}=\left [ 1-\frac{\rho_0}{\rho}+\frac{l(l+1)}{\rho^2} \right ]u\]
 当$\rho \rightarrow +\infty, \ u(\rho) \to 0$，原方程近似为：
 \[\frac{\mathrm{d^2}u}{\mathrm{d}\rho^2}=u \quad \Rightarrow \quad u(\rho)=Ae^{-\rho}+Be^{\rho}\sim Ae^{-\rho}\]
-
 当$\rho \rightarrow 0, \ u(\rho) \to 0$，原方程近似为：
 \[\frac{\mathrm{d^2}u}{\mathrm{d}\rho^2}=\frac{l(l+1)}{\rho^2}u \quad \Rightarrow \quad u(\rho)=C\rho^{l+1}+D\rho^{-l} \sim C\rho^{l+1}\]
-
-由于$\rho \rightarrow +\infty$与$\rho \rightarrow 0$均在定义域范围内。所以最终$u(\rho)$的解应包含上述的两个部分，不妨假设$u(\rho)$为以下形式：
+由于$\rho \rightarrow +\infty$与$\rho \rightarrow 0$均在定义域范围内。所以最终$u(\rho)$的解应包含上述的两个部分，不妨假设$u(\rho)$：
 \[u(\rho)=\rho^{l+1}e^{-\rho}v(\rho)\]
-
 于是，原方程可以展开为：
 \[\rho\frac{\mathrm{d^2}v}{\mathrm{d}\rho^2} +2(l+1-\rho)\frac{\mathrm{d}v}{\mathrm{d}\rho}+[\rho_0-2(l+1)]v=0 \]
 
-假定$v(\rho)$可以展开成如下泰勒级数：
+假定$v(\rho)$可以展开成如下级数：
 \[v(\rho)=\sum_{j=0}^{+\infty}c_j\rho^j\]
-
 则原方程可以展开成：
 \[\sum_{j=0}^{+\infty}j(j+1)c_{j+1}\rho^j+2(l+1)\sum_{j=0}^{+\infty}(j+1)c_{j+1}\rho^j-2\sum_{j=0}^{+\infty}jc_j\rho^j+[\rho_0-2(l+1)]\sum_{j=0}^{+\infty}c_j\rho^j=0\]
-
 由于$\rho$取值的任意性，上述方程同阶项系数和应为0，即：
-\[j(j+1)c_{j+1}+2(l+1)(j+1)c_{j+1}-2jc_j+[\rho_0-2(l+1)]c_j=0\]
-
-整理得到：
-\[c_{j+1}=\frac{2(l+1+j)-\rho_0}{(j+1)(j+2l+2)}c_j\]
+\[j(j+1)c_{j+1}+2(l+1)(j+1)c_{j+1}-2jc_j+[\rho_0-2(l+1)]c_j=0 \quad \Leftrightarrow \quad c_{j+1}=\frac{2(l+1+j)-\rho_0}{(j+1)(j+2l+2)}c_j\]
 
 对上述递推关系做估计，当$j \rightarrow +\infty$，有：
 \[c_{j+1}=\frac{2(l+1+j)-\rho_0}{(j+1)(j+2l+2)}c_j \sim \frac{2j}{(j+1)j}c_j=\frac{2}{(j+1)}c_j \quad \Rightarrow \quad c_j \sim \frac{2^j}{j!}c_0\]
-\[\Rightarrow \quad v(\rho) \sim c_0\sum_{j=0}^{+\infty}\frac{2^j}{j!}\rho^j=c_0e^{2\rho} \quad \Rightarrow \quad u(\rho) \sim c_0\rho^{l+1}e^{\rho}\]
-
+因此$v(\rho)$近似为：
+\[v(\rho) \sim c_0\sum_{j=0}^{+\infty}\frac{2^j}{j!}\rho^j=c_0e^{2\rho} \quad \Rightarrow \quad u(\rho) \sim c_0\rho^{l+1}e^{\rho}\]
 可以看出，当$v(\rho)$为无穷级数时，$u(\rho)$发散，为了解决这个问题，我们可以同样利用上一小节的思路，将无穷级数截断使之退化成有限项级数，保证其收敛性，因此必然存在一个$j_{max}$使得：
 \[c_{j_{max}+1}=\frac{2(l+1+j_{max})-\rho_0}{(j_{max}+1)(j_{max}+2l+2)}c_{j_{max}}=0 \quad \Leftrightarrow \quad 2(l+1+j_{max})-\rho_0=0\]
-
-这时，我们定义：
-\[n \equiv l+1+j_{max}\]
-
-此时，无穷级数$v(\rho)$退化成了$n-l$项的有限项级数：
+这时，我们定义$n \equiv l+1+j_{max}$，则无穷级数$v(\rho)$退化成了$n-l$项的有限项级数：
 \[v(\rho)=L_{n-l-1}^{2l+1}(2\rho)\]
-
-其中$L_q(x)$为$Laguerre$多项式，$L_{q-p}^{p}(x)$为连带$Laguerre$多项式：
+其中$L_q(x)$为 Laguerre 多项式，$L_{q-p}^{p}(x)$为连带 Laguerre 多项式：
 \[L_q(x)=e^x\left ( \frac{\mathrm{d}}{\mathrm{d}x} \right )^q(e^{-x}x^q), \quad L_{q-p}^{p}(x)=(-1)^p \left ( \frac{\mathrm{d}}{\mathrm{d}x} \right )^qL_q(x)\]\
-
-这里的n也就是主量子数，从其定义式上我们可以很明显得看出角量子数的取值应为$l=0,1,2, \cdot\cdot\cdot ,n-1$。我们也能看出$\rho_0=2n$。再结合$\rho_0$与$\kappa$的定义式，我们可以得到：
+这里的$n$也就是主量子数，从其定义式上我们可以很明显得看出角量子数的取值应为$l=0,1,2, \cdot\cdot\cdot ,n-1$。我们也能看出$\rho_0=2n$。再结合$\rho_0$与$\kappa$的定义式，我们可以得到能量表达式$E_n$：
 \[E_n=- \left [\frac{m}{2\hbar^2} \left ( \frac{e^2}{4 \pi \varepsilon_0} \right )^2 \right ] \frac{1}{n^2}\]
+和玻尔半径$a$：
+\[\frac{4 \pi \varepsilon_0 \hbar^2}{me^2}=0.529 \times 10^{-10}\text{ m}\]
+最终，再根据归一化条件
+\[\int_0^{\infty}R_{n',l'}(r)^*R_{n,l}(r)r^2\dd{r}=\delta_{nn'}\delta{ll'}\]
+可以写出方程b的解$R_{n,l}(r)$：
+\[R_{n,l}(r)=\sqrt{ \left (\frac{2}{na} \right )^3 \frac{(n-l-1)!}{2n[(n+l)!]^3}}e^{-\frac{r}{na}}\left (\frac{2r}{na} \right )^l \left [L_{n-l-1}^{2l+1} \left ( \frac{2r}{na} \right ) \right ]\]
 
-以及玻尔半径$a$：
-\[\frac{4 \pi \varepsilon_0 \hbar^2}{me^2}=0.529 \times 10^{-10}m\]
-
-最终，再根据归一化条件，我们可以写出方程b的解$R(r)$：
-\[R(r)=\sqrt{ \left (\frac{2}{na} \right )^3 \frac{(n-l-1)!}{2n[(n+l)!]^3}}e^{-\frac{r}{na}}\left (\frac{2r}{na} \right )^l \left [L_{n-l-1}^{2l+1} \left ( \frac{2r}{na} \right ) \right ]\]
-
-至此，上述通过分离变量得到的三个方程全部解出。
-
-\subsection*{小结}
+\subsection{小结}
 汇总一下上述三个方程的解：
 \[R_{n,l}(r)=\sqrt{ \left (\frac{2}{na} \right )^3 \frac{(n-l-1)!}{2n[(n+l)!]^3}}e^{-\frac{r}{na}}\left (\frac{2r}{na} \right )^l \left [L_{n-l-1}^{2l+1} \left ( \frac{2r}{na} \right ) \right ]\]
 \[\Theta_{l,m}(\theta)=\sqrt{\frac{(2l-1)(l-|m|)!}{2(l+|m|)!}}P^{m}_l(\cos\theta)\]
@@ -1440,5 +1316,5 @@ i\hbar\frac{1}{\phi}\frac{\partial\phi}{\partial t}=E\\
 
 其中，当$m \geq 0$时$\varepsilon=(-1)^m$，当$m \leq 0$时$\varepsilon=1$，以满足其自动正交性。
 
-因此，氢原子定态波函数的解$\varPsi_{n,l,m}$为：
-\[\varPsi_{n,l,m}=\sqrt{ \left (\frac{2}{na} \right )^3 \frac{(n-l-1)!}{2n[(n+l)!]^3}}e^{-\frac{r}{na}}\left (\frac{2r}{na} \right )^l \left [L_{n-l-1}^{2l+1} \left ( \frac{2r}{na} \right ) \right ]Y_l^m(\theta,\phi)\]
+因此，氢原子定态波函数的解$\varPsi_{n,l,m}(r,\theta,\phi)$为：
+\[\varPsi_{n,l,m}(r,\theta,\phi)=\sqrt{ \left (\frac{2}{na} \right )^3 \frac{(n-l-1)!}{2n[(n+l)!]^3}}e^{-\frac{r}{na}}\left (\frac{2r}{na} \right )^l \left [L_{n-l-1}^{2l+1} \left ( \frac{2r}{na} \right ) \right ]Y_l^m(\theta,\phi)\]

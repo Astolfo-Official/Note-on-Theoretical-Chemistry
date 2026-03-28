@@ -1,155 +1,95 @@
-\section{二阶线性常微分方程找特解}
-\textit{Now, we want to find a special solution for following ordinary differential equation} :
+\section{变量分离与球坐标下的拉普拉斯算符展开}
+\subsection{变量分离}\label{sec:flbl}
+变量分离是假设偏微分方程的解可以由几个以不同变量（组）为自变量的函数共同表示，即：
+\[y(\bm{r}_1,\bm{r}_2,\cdot\cdot\cdot,\bm{r}_n)=y_1(\bm{r}_1)y_2(\bm{r}_2)\cdot\cdot\cdot y_n(\bm{r}_n)\]
 
-\[\frac{\mathrm{d}^2 y}{\mathrm{d} x^2} + p(x) \frac{\mathrm{d} y}{\mathrm{d} x}+q(x)y=f(x) \tag{a} \]
+这里，我们以含时薛定谔方程为例，假设解出的波函数$\psi(\bm{r},t)=\varPsi(\bm{r})\phi(t)$，除了平凡解$\psi=0$外，我们可以认为解出的波函数仅在有限个点上取值为零，不考虑这些奇异点，我们将方程两边同时除以$\varphi\phi$：
+\[i \hbar \frac{\partial \psi}{\partial t}=\left (-\frac{\hbar^2}{2m}\nabla^2+V \right ) \psi \quad \Rightarrow \quad i \hbar \varphi \frac{\partial \phi}{\partial t}= -\frac{\hbar^2}{2m} \phi \nabla^2 \varPsi+V\varPsi\phi \quad \Rightarrow \quad i \hbar \frac{1}{\phi} \frac{\partial \phi}{\partial t}= -\frac{\hbar^2}{2m} \frac{1}{\varPsi} \nabla^2 \varPsi+V\]
+显然我们可以给出一个能量单位的参数$E$使得原方程可以写成以下方程组:
+\[\left\{
+\begin{array}{r}
+i\hbar\frac{1}{\phi}\frac{\partial\phi}{\partial t}=E\\
+-\frac{\hbar^2}{2m}\frac{1}{\varPsi}\nabla^2\varPsi+V=E
+\end{array} \right. \quad \Rightarrow \quad
+\left\{
+\begin{array}{l}
+\phi(t)=\exp(-\frac{iEt}{\hbar})\\
+\hat{H}\varPsi=E\varPsi
+\end{array} \right.\]
 
-\textit{Assume the general solution of this ordinary differential equation is} y(x)= $c_1$ $y_1$(x)+$c_2$ $y_2$(x).
+\subsection{球坐标下的拉普拉斯算符展开}
+球坐标与直角坐标的转换关系如下:
+\[x=r\sin\theta\cos\phi, \quad y=r\sin\theta\cos\phi, \quad z=r\cos\theta\]
+计算某个坐标下的梯度算子$\nabla$可以考虑对坐标向量$\bm{r}=(x,y,z)$求导并归一化得到。如球坐标的单位向量在直角坐标的基底下可以被表示为:
+\begin{equation*}
+\begin{aligned}
+\hat{\bm{r}} &=\pdv{\bm{r}}{r}= (\sin\theta \cos\phi, \sin\theta \sin\phi, \cos\theta), \\
+\hat{\bm{\theta}} &=\frac{1}{r}\pdv{\bm{r}}{\theta}= (\cos\theta \cos\phi, \cos\theta \sin\phi, -\sin\theta), \\
+\hat{\bm{\phi}} &=\frac{1}{r\sin\theta}\pdv{\bm{r}}{\phi}= (-\sin\phi, \cos\phi, 0).
+\end{aligned}
+\end{equation*}
+因此我们可以写出球坐标下的梯度算子$\nabla$:
+\[\nabla=\hat{\bm{r}}\pdv{r}+\hat{\bm{\theta}}\frac{1}{r}\pdv{\theta}+\hat{\bm{\phi}}\frac{1}{r\sin\theta}\pdv{\phi}\]
+当我们考虑计算球坐标下的拉普拉斯算子$\Delta=\nabla^2=\nabla\cdot\nabla$时，我们注意到球坐标的单位向量对坐标的导数并非简单的0或者1（在直角坐标系下的情况）：
+\begin{equation*}
+\begin{aligned}
+\frac{\partial \hat{\bm{r}}}{\partial r} &=\frac{\partial \hat{\bm{\theta}}}{\partial r}=\frac{\partial \hat{\bm{\phi}}}{\partial r}=0\\
+\frac{\partial \hat{\bm{r}}}{\partial \theta} &= (\cos\theta \cos\phi, \cos\theta \sin\phi, -\sin\theta) = \hat{\bm{\theta}}, \\
+\frac{\partial \hat{\bm{r}}}{\partial \phi} &= (-\sin\theta \sin\phi, \sin\theta \cos\phi, 0) = \sin\theta \, \hat{\bm{\phi}},\\
+\frac{\partial \hat{\bm{\theta}}}{\partial \theta} &= (-\sin\theta \cos\phi, -\sin\theta \sin\phi, -\cos\theta) = -\hat{\bm{r}}, \\
+\frac{\partial \hat{\bm{\theta}}}{\partial \phi} &= (-\cos\theta \sin\phi, \cos\theta \cos\phi, 0) = \cos\theta \, \hat{\bm{\phi}},\\
+\frac{\partial \hat{\bm{\phi}}}{\partial \theta} &= (0, 0, 0) = \bm{0}, \\
+\frac{\partial \hat{\bm{\phi}}}{\partial \phi} &= (-\cos\phi, -\sin\phi, 0) = -\sin\theta \, \hat{\bm{r}} - \cos\theta \, \hat{\bm{\theta}}.
+\end{aligned}
+\end{equation*}
 
-\textit{Then we assume the special solution of this ordinary differential equation is} $y^*$(x)= $c_1$(x) $y_1$(x)+$c_2$(x) $y_2$(x).
-
-\textit{Bringing this special solution} $y^*$(x) \textit{into the equation} (a) \textit{, we can get} :
-
-\[\sum_{1}^{2} \left (\frac{\mathrm{d}^2 c_i}{\mathrm{d} x^2} y_i +2\frac{\mathrm{d} c_i}{\mathrm{d} x} \frac{\mathrm{d} y_i}{\mathrm{d} x}+ c_i \frac{\mathrm{d}^2 y_i}{\mathrm{d} x^2} + p( \frac{\mathrm{d} c_i}{\mathrm{d} x} y_i + c_i \frac{\mathrm{d} y_i}{\mathrm{d} x})+qc_iy_i \right)=f(x)\]
-
-\[\sum_{1}^{2} \left ( (\frac{\mathrm{d}^2 c_i}{\mathrm{d} x^2} y_i +2\frac{\mathrm{d} c_i}{\mathrm{d} x} \frac{\mathrm{d} y_i}{\mathrm{d} x}+p \frac{\mathrm{d} c_i}{\mathrm{d} x} y_i + (c_i \frac{\mathrm{d}^2 y_i}{\mathrm{d} x^2}+pc_i \frac{\mathrm{d} y_i}{\mathrm{d} x}+qc_iy_i) \right)=f(x) \quad (b) \]
-
-\textit{Since the solutions of this ordinary differential equation satisfy following equation} :
-
-\[\sum_{1}^{2} \left ( \frac{\mathrm{d}^2 y_i}{\mathrm{d} x^2} + p(x) \frac{\mathrm{d} y_i}{\mathrm{d} x}+q(x)y_i \right ) =f(x) \tag{c}\]
-
-\textit{We can simplify the equation} (b) :
-
-\[\sum_{1}^{2} \left(\frac{\mathrm{d}^2 c_i}{\mathrm{d} x^2} y_i +2\frac{\mathrm{d} c_i}{\mathrm{d} x} \frac{\mathrm{d} y_i}{\mathrm{d} x}+p(x) \frac{\mathrm{d} c_i}{\mathrm{d} x} y_i） \right)=f(x) \tag{d} \]
-
-\textit{It doesn't matter that we can assume} :
-
-\[\sum_{1}^{2} \frac{\mathrm{d} c_i}{\mathrm{d} x} y_i =0 \tag{e} \]
-
-\textit{We can also get following equation from equation} (e) :
-
-\[\sum_{1}^{2} \left( \frac{\mathrm{d}^2 c_i}{\mathrm{d} x^2} y_i +\frac{\mathrm{d} c_i}{\mathrm{d} x} \frac{\mathrm{d} y_i}{\mathrm{d} x} \right)=0 \tag{f}\]
-
-\textit{Bring equation} (e) \textit{and} (f) \textit{into equation} (d) \textit{,we can get} :
-
-\[\sum_{1}^{2} \frac{\mathrm{d} c_i}{\mathrm{d} x} \frac{\mathrm{d} y_i}{\mathrm{d} x}=f(x) \tag{g}\]
-
-\textit{Combine equation} (e) and \textit{equation} (g) \textit{,we can get} :
-
-\[\begin{pmatrix} y_1 & y_2 \\ {y_1}' & {y_2}' \end{pmatrix} \begin{pmatrix} {c_1}' \\ {c_2}' \end{pmatrix} = \begin{pmatrix} 0 \\ f(x) \end{pmatrix} \tag{h} \]
-
-\textit{Solve this system of equations, we can work out following two equations}:
-
-\[ {c_1}'=\frac {\begin{pmatrix} 0 & y_2 \\ f(x) & {y_2}' \end{pmatrix}} {\begin{pmatrix} y_1 & y_2 \\ {y_1}' & {y_2}' \end{pmatrix}} =\frac {-y_2 f(x)}{y_1 {y_2}' - y_2 {y_1}'} \tag{i1} \]
-
-\[ {c_2}'=\frac {\begin{pmatrix} y_1 & 0 \\ {y_1}' & f(x) \end{pmatrix}} {\begin{pmatrix} y_1 & y_2 \\ {y_1}' & {y_2}' \end{pmatrix}} =\frac {y_1 f(x)}{y_1 {y_2}' - y_2 {y_1}'} \tag{i2} \]
-
-\textit{Finally,we can get the special solution of equation} (a) :
-
-\[y^*=\int{\frac {-y_2 f(x)}{y_1 {y_2}' - y_2 {y_1}'}} y_1 + \int{\frac {y_1 f(x)}{y_1 {y_2}' - y_2 {y_1}'}} y_2 \tag{j} \]
-
-\section{Wronskian行列式找特解}
-找特解的时候我们一般采用常数变易法，我们假设我们要处理的线性非齐次常系数微分方程为
-\[\sum_{i=0}^na_iy^{(i)}=f \qquad (\text{记} \ y^{(0)}=y) \tag{*}\]
-我们记对应齐次方程(无简并特征根)的通解的常数易变为，其中$y_i(t)$满足齐次方程。
-\[y(t)=\sum_{j=1}^nv_j(t)y_j(t) \tag{1}\]
-将(1)将代入(*)式，得到
-\[\sum_{i=0}^na_i\sum_{j=1}^n\left(\sum_{k=0}^iC_i^kv_j^{(k)}y_j^{(i-k)}\right)=f\]
-按照$v_j^{(i)}$做整理得到
-\[\sum_{j=1}^n\sum_{i=0}^nv_j^{(i)}\left(\sum_{k=i}^{n}a_{k}C_{k}^iy_j^{(k-i)}\right)=f\]
-我们会发现，所以含$v_i^{(0)}$的项抵消了，因为$v_i^{(0)}$项的系数是下式
-\[\sum_{j=1}^nv_j^{(0)}\left(\sum_{k=0}^{n}a_{k}y_j^{(k-i)}\right)=0\]
-所以有
-\[\sum_{j=1}^n\sum_{i=1}^nv_j^{(i)}\left(\sum_{k=i}^{n}a_{k}C_{k}^iy_j^{(k-i)}\right)=f\]
-我们取含$v_j'$的项为$f$，其余的项为0。
-\[\sum_{j=1}^nv_j'\left(\sum_{k=1}^{n}a_{k}C_{k}^1y_j^{(k-1)}\right)=f \qquad \sum_{j=1}^nv_j^{(i)}\left(\sum_{k=i}^{n}a_{k}C_{k}^iy_j^{(k-i)}\right)=0 \quad (i=2,3,\cdots,n)\]
-改写方程
-\[\sum_{k=1}^{n}\sum_{j=1}^nv_j'\left(a_{k}C_{k}^1y_j^{(k-1)}\right)=f\]
-容易看出，上式可以进一步改写成
+因此在直角坐标系下的拉普拉斯算子$\nabla^2$可以表示成如下形式：
+\[\nabla^2=(\bm{i}\frac{\partial}{\partial{x}}+\bm{j}\frac{\partial}{\partial{y}}+\bm{k}\frac{\partial}{\partial{z}}) \cdot (\bm{i}\frac{\partial}{\partial{x}}+\bm{j}\frac{\partial}{\partial{y}}+\bm{k}\frac{\partial}{\partial{z}})=\frac{\partial^2}{\partial{x}^2}+\frac{\partial^2}{\partial{y}^2}+\frac{\partial^2}{\partial{z}^2}\]
+但我们并不能直接将球坐标系下的梯度做点乘得到球坐标下的拉普拉斯算子：
+\[\nabla^2=(\hat{\bm{r}}\pdv{r}+\hat{\bm{\theta}}\frac{1}{r}\pdv{\theta}+\hat{\bm{\phi}}\frac{1}{r\sin\theta}\pdv{\phi}) \cdot (\hat{\bm{r}}\pdv{r}+\hat{\bm{\theta}}\frac{1}{r}\pdv{\theta}+\hat{\bm{\phi}}\frac{1}{r\sin\theta}\pdv{\phi}) \neq \frac{\partial^2}{\partial{r^2}}+\frac{1}{r^2}\frac{\partial^2}{\partial{\theta^2}}+\frac{1}{r^2sin^2 \theta }\frac{\partial^2}{\partial{\phi^2}}\]
+需要对每一项分别计算，第一项:
 \[
-\begin{pmatrix}
-    a_{1}C_{1}^1y_1 & a_{1}C_{1}^1y_2 & \cdots & a_{1}C_{1}^1y_n \\
-    a_{2}C_{2}^1y'_1 & a_{2}C_{2}^1y'_2 & \cdots & a_{2}C_{2}^1y'_n \\
-    \vdots & \vdots & \ddots & \vdots \\
-    a_{n}C_{n}^1y^{(n-1)}_1 & a_{n}C_{n}^1y^{(n-1)}_2 & \cdots & a_{n}C_{n}^1y^{(n-1)}_n
-\end{pmatrix}    
-\begin{pmatrix}
-    v'_1 \\ v'_2 \\ \vdots \\ v'_n \\
-\end{pmatrix}   
-=
-\begin{pmatrix}
-    0 \\ 0 \\ \vdots \\ f \\
-\end{pmatrix}     
+\hat{\mathbf{r}}\frac{\partial}{\partial r} \cdot \left(\hat{\mathbf{r}}\frac{\partial}{\partial r}\right) = \hat{\mathbf{r}} \cdot \left(\frac{\partial\hat{\mathbf{r}}}{\partial r}\frac{\partial}{\partial r} + \hat{\mathbf{r}}\frac{\partial^2}{\partial r^2}\right) = \hat{\mathbf{r}} \cdot \hat{\mathbf{r}}\frac{\partial^2}{\partial r^2} = \frac{\partial^2}{\partial r^2}
 \]
-根据线性方程组的性质，我们知道，上式和下式的解相同:
+第二项:
 \[
-\begin{pmatrix}
-    y_1 & y_2 & \cdots & y_n \\
-    y'_1 & y'_2 & \cdots & y'_n \\
-    \vdots & \vdots & \ddots & \vdots \\
-    y^{(n-1)}_1 & y^{(n-1)}_2 & \cdots & y^{(n-1)}_n
-\end{pmatrix}    
-\begin{pmatrix}
-    v'_1 \\ v'_2 \\ \vdots \\ v'_n \\
-\end{pmatrix}   
-=
-\begin{pmatrix}
-    0 \\ 0 \\ \vdots \\ f' \\
-\end{pmatrix}     
-\qquad \text{where} \ f'=\frac{f}{a_{n}C_{n}^1}=\frac{f}{na_{n}}
+\hat{\mathbf{r}}\frac{\partial}{\partial r} \cdot \left(\hat{\boldsymbol{\theta}}\frac{1}{r}\frac{\partial}{\partial \theta}\right) = \hat{\mathbf{r}} \cdot \left(\frac{\partial\hat{\boldsymbol{\theta}}}{\partial r}\frac{1}{r}\frac{\partial}{\partial \theta} + \hat{\boldsymbol{\theta}}\frac{\partial}{\partial r}\left(\frac{1}{r}\frac{\partial}{\partial \theta}\right)\right) = 0
 \]
-为了保有方程的形式，我们可以重新将系数$na_n$并入一开始求算的通解中，即
-\[y_j:=na_ny_j \qquad (j=1,2,\cdots,n)\]
-则方程组可以写成
+第三项:
 \[
-\begin{pmatrix}
-    y_1 & y_2 & \cdots & y_n \\
-    y'_1 & y'_2 & \cdots & y'_n \\
-    \vdots & \vdots & \ddots & \vdots \\
-    y^{(n-1)}_1 & y^{(n-1)}_2 & \cdots & y^{(n-1)}_n
-\end{pmatrix}    
-\begin{pmatrix}
-    v'_1 \\ v'_2 \\ \vdots \\ v'_n \\
-\end{pmatrix}   
-=
-\begin{pmatrix}
-    0 \\ 0 \\ \vdots \\ f \\
-\end{pmatrix}     
+\hat{\mathbf{r}}\frac{\partial}{\partial r} \cdot \left(\hat{\boldsymbol{\phi}}\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi}\right) = \hat{\mathbf{r}} \cdot \left(\frac{\partial\hat{\boldsymbol{\phi}}}{\partial r}\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi} + \hat{\boldsymbol{\phi}}\frac{\partial}{\partial r}\left(\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi}\right)\right) = 0
 \]
-如果我们记
+第四项:
 \[
-\mathcal{W}(s)=
-\begin{vmatrix}
-    y_1(s) & y_2(s) & \cdots & y_n(s) \\
-    y'_1(s) & y'_2(s) & \cdots & y'_n(s) \\
-    \vdots & \vdots & \ddots & \vdots \\
-    y^{(n-1)}_1(s) & y^{(n-1)}_2(s) & \cdots & y^{(n-1)}_n(s)
-\end{vmatrix}  
+\hat{\boldsymbol{\theta}}\frac{1}{r}\frac{\partial}{\partial \theta} \cdot \left(\hat{\mathbf{r}}\frac{\partial}{\partial r}\right) = \hat{\boldsymbol{\theta}} \cdot \left(\frac{\partial\hat{\mathbf{r}}}{\partial \theta}\frac{\partial}{\partial r} + \hat{\mathbf{r}}\frac{\partial^2}{\partial\theta\partial r}\right) = \hat{\boldsymbol{\theta}} \cdot \hat{\boldsymbol{\theta}}\frac{\partial}{\partial r} = \frac{1}{r}\frac{\partial}{\partial r}
 \]
+第五项:
 \[
-\mathcal{W}_i(s)=
-\begin{vmatrix}
-    y_1(s) & y_2(s) & \cdots & y_{i-1}(s) & 0 & y_{i+1}(s) & \cdots & y_n(s) \\
-    y'_1(s) & y'_2(s) & \cdots & y'_{i-1}(s) & 0 & y'_{i+1}(s) & \cdots & y'_n(s) \\
-    \vdots & \vdots & \cdots & \vdots & \vdots & \vdots & \cdots & \vdots \\
-    y^{(n-1)}_1(s) & y^{(n-1)}_2(s) & \cdots & y^{(n-1)}_{i-1}(s) & f(s) & y^{(n-1)}_{i+1}(s) & \cdots & y^{(n-1)}_n(s)
-\end{vmatrix} 
+\hat{\boldsymbol{\theta}}\frac{1}{r}\frac{\partial}{\partial \theta} \cdot \left(\hat{\boldsymbol{\theta}}\frac{1}{r}\frac{\partial}{\partial \theta}\right) = \hat{\boldsymbol{\theta}} \cdot \left(\frac{\partial\hat{\boldsymbol{\theta}}}{\partial \theta}\frac{1}{r}\frac{\partial}{\partial \theta} + \hat{\boldsymbol{\theta}}\frac{1}{r}\frac{\partial^2}{\partial\theta^2}\right) = \hat{\boldsymbol{\theta}} \cdot \left(-\hat{\mathbf{r}}\frac{1}{r}\frac{\partial}{\partial \theta} + \hat{\boldsymbol{\theta}}\frac{1}{r}\frac{\partial^2}{\partial\theta^2}\right) = \frac{1}{r^2}\frac{\partial^2}{\partial\theta^2}
 \]
-由$Cramer$法则可以知道
-\[v_i'(s)=\frac{\mathcal{W}_i(s)}{\mathcal{W}(s)} \qquad (i=1,2,\cdots,n)\]
-故
-\[v_i(t)=\int v_i'(s)ds=\int \frac{\mathcal{W}_i(s)}{\mathcal{W}(s)}ds\]
-我们也可以将$f(s)$提出，记
+第六项:
 \[
-\mathcal{W}_{0,i}(s):=f(s)
-\begin{vmatrix}
-    y_1(s) & y_2(s) & \cdots & y_{i-1}(s) & 0 & y_{i+1}(s) & \cdots & y_n(s) \\
-    y'_1(s) & y'_2(s) & \cdots & y'_{i-1}(s) & 0 & y'_{i+1}(s) & \cdots & y'_n(s) \\
-    \vdots & \vdots & \cdots & \vdots & \vdots & \vdots & \cdots & \vdots \\
-    y^{(n-1)}_1(s) & y^{(n-1)}_2(s) & \cdots & y^{(n-1)}_{i-1}(s) & 1 & y^{(n-1)}_{i+1}(s) & \cdots & y^{(n-1)}_n(s)
-\end{vmatrix} 
+\hat{\boldsymbol{\theta}}\frac{1}{r}\frac{\partial}{\partial \theta} \cdot \left(\hat{\boldsymbol{\phi}}\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi}\right) = \hat{\boldsymbol{\theta}} \cdot \left(\frac{\partial\hat{\boldsymbol{\phi}}}{\partial \theta}\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi} + \hat{\boldsymbol{\phi}}\frac{1}{r}\frac{\partial}{\partial \theta}\left(\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi}\right)\right) = 0
 \]
-则有
-\[v_i(t)=\int v_i'(s)ds=\int \frac{f(s)\mathcal{W}_{0,i}(s)}{\mathcal{W}(s)}ds\]
+第七项:
+\[
+\hat{\boldsymbol{\phi}}\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi} \cdot \left(\hat{\mathbf{r}}\frac{\partial}{\partial r}\right) = \hat{\boldsymbol{\phi}} \cdot \left(\frac{\partial\hat{\mathbf{r}}}{\partial \phi}\frac{\partial}{\partial r} + \hat{\mathbf{r}}\frac{\partial^2}{\partial\phi\partial r}\right) = \hat{\boldsymbol{\phi}} \cdot \left(\sin\theta\hat{\boldsymbol{\phi}}\frac{\partial}{\partial r}\right) = \frac{1}{r\sin\theta}\sin\theta\frac{\partial}{\partial r} = \frac{1}{r}\frac{\partial}{\partial r}
+\]
+第八项:
+\[
+\hat{\boldsymbol{\phi}}\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi} \cdot \left(\hat{\boldsymbol{\theta}}\frac{1}{r}\frac{\partial}{\partial \theta}\right) = \hat{\boldsymbol{\phi}} \cdot \left(\frac{\partial\hat{\boldsymbol{\theta}}}{\partial \phi}\frac{1}{r}\frac{\partial}{\partial \theta} + \hat{\boldsymbol{\theta}}\frac{1}{r\sin\theta}\frac{\partial^2}{\partial\phi\partial\theta}\right) = \hat{\boldsymbol{\phi}} \cdot \left(\cos\theta\hat{\boldsymbol{\phi}}\frac{1}{r}\frac{\partial}{\partial \theta}\right) = \frac{1}{r\sin\theta}\cos\theta\frac{1}{r}\frac{\partial}{\partial \theta} = \frac{\cot\theta}{r^2}\frac{\partial}{\partial \theta}
+\]
+第九项:
+\[\begin{aligned}
+\hat{\boldsymbol{\phi}}\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi} \cdot \left(\hat{\boldsymbol{\phi}}\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi}\right) &= \hat{\boldsymbol{\phi}} \cdot \left(\frac{\partial\hat{\boldsymbol{\phi}}}{\partial \phi}\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi} + \hat{\boldsymbol{\phi}}\frac{1}{r\sin\theta}\frac{\partial^2}{\partial\phi^2}\right)\\
+&= \hat{\boldsymbol{\phi}} \cdot \left[(-\sin\theta\hat{\mathbf{r}} - \cos\theta\hat{\boldsymbol{\theta}})\frac{1}{r\sin\theta}\frac{\partial}{\partial \phi} + \hat{\boldsymbol{\phi}}\frac{1}{r\sin\theta}\frac{\partial^2}{\partial\phi^2}\right] = \frac{1}{r^2\sin^2\theta}\frac{\partial^2}{\partial\phi^2}
+\end{aligned}
+\]
+
+将所有项合并并整理成标准形式：
+\[
+\nabla^2 = \frac{\partial^2}{\partial r^2} + \frac{2}{r}\frac{\partial}{\partial r} + \frac{1}{r^2}\frac{\partial^2}{\partial\theta^2} + \frac{\cot\theta}{r^2}\frac{\partial}{\partial\theta} + \frac{1}{r^2\sin^2\theta}\frac{\partial^2}{\partial\phi^2} = \frac{1}{r^2}\frac{\partial}{\partial r}\left(r^2\frac{\partial}{\partial r}\right) + \frac{1}{r^2\sin\theta}\frac{\partial}{\partial\theta}\left(\sin\theta\frac{\partial}{\partial\theta}\right) + \frac{1}{r^2\sin^2\theta}\frac{\partial^2}{\partial\phi^2}
+\]
 
 \section{TST推导}\textit{Basic hypothesis:}
 
@@ -394,5 +334,3 @@ $Hamiltonian$是广义坐标、广义动量和时间的函数$H=H(\mathbf{q},\ma
 以及
 \[\frac{\partial L}{\partial t}=-\frac{\partial H}{\partial t}\]
 \textbf{注意：拉格朗日力学里广义坐标和广义速度是相互独立的，哈密顿力学里广义坐标和广义动量是相互独立的！}
-
-\section{绝热表象和透热表象}
