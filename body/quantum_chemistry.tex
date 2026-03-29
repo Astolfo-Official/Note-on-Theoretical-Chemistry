@@ -51,17 +51,19 @@
 上述方程 Eq.\eqref{eq:a_eom}即为绝热表象下的精确核薛定谔方程。可以看到，\textcolor{blue}{\textbf{在绝热表象里势能矩阵$\mathbf{V}^{(a)}(\mathbf{R})$仍然是对角的，但所有的耦合项都包含在动能项中，处理起来还是异常麻烦。}}另一方面，方程 Eq.\eqref{eq:a_eom} 中很难直接看出一个动能项，但是我们做一些推导使得其形式上与正常薛定谔方程相近。从电子波函数的正交归一性出发：
 \[\delta_{mn}=\int\psi_m^{\dagger}(\mathbf{r};\mathbf{R})\psi_n(\mathbf{r};\mathbf{R})\dd{\mathbf{r}} \ \Rightarrow \ \nabla_{\mathbf{R},I}\delta_{mn}=\int\left[(\nabla_{\mathbf{R},I}\psi_m(\mathbf{r};\mathbf{R}))^{\dagger}\psi_n(\mathbf{r};\mathbf{R})+\psi_m^{\dagger}(\mathbf{r};\mathbf{R})\nabla_{\mathbf{R},I}\psi_n(\mathbf{r};\mathbf{R})\right]\dd{\mathbf{r}}=0\]
 容易看出$\mathbf{F}_{mn}^I(\mathbf{R})=-\left(\mathbf{F}_{nm}^I(\mathbf{R})\right)^*$，即一阶导数耦合矩阵$\mathbf{F}^I$都是反厄米的。对$\mathbf{F}_{mn}^I$再求导：
-\[\begin{aligned}
-\nabla_{\mathbf{R},I}\cdot\mathbf{F}_{mn}^I&=\int(\nabla_{\mathbf{R},I}\psi_m(\mathbf{r};\mathbf{R}))^{\dagger}\cdot\nabla_{\mathbf{R},I}\psi_n(\mathbf{r};\mathbf{R})\dd{\mathbf{r}}+\int\psi_m^{\dagger}(\mathbf{r};\mathbf{R})\nabla_{\mathbf{R},I}^2\psi_n(\mathbf{r};\mathbf{R})\dd{\mathbf{r}}\\
+\begin{equation}\label{eq:hds}
+\begin{aligned}
+\nabla_{\mathbf{R},I}\mathbf{F}_{mn}^I&=\int(\nabla_{\mathbf{R},I}\psi_m(\mathbf{r};\mathbf{R}))^{\dagger}\cdot\nabla_{\mathbf{R},I}\psi_n(\mathbf{r};\mathbf{R})\dd{\mathbf{r}}+\int\psi_m^{\dagger}(\mathbf{r};\mathbf{R})\nabla_{\mathbf{R},I}^2\psi_n(\mathbf{r};\mathbf{R})\dd{\mathbf{r}}\\
 &=\iint(\nabla_{\mathbf{R},I}\psi_m(\mathbf{r};\mathbf{R}))^{\dagger}\delta(\mathbf{r}-\mathbf{r}')\nabla_{\mathbf{R},I}\psi_n(\mathbf{r}';\mathbf{R})\dd{\mathbf{r}}\dd{\mathbf{r}'}+\mathbf{G}_{mn}^I\\
 &=\sum_k\iint(\nabla_{\mathbf{R},I}\psi_m(\mathbf{r};\mathbf{R}))^{\dagger}\psi_k(\mathbf{r};\mathbf{R})\psi_k^{\dagger}(\mathbf{r}';\mathbf{R})\nabla_{\mathbf{R},I}\psi_n(\mathbf{r}';\mathbf{R})\dd{\mathbf{r}}\dd{\mathbf{r}'}+\mathbf{G}_{mn}^I\\
 &=\sum_k\left[\int(\nabla_{\mathbf{R},I}\psi_m(\mathbf{r};\mathbf{R}))^{\dagger}\psi_k(\mathbf{r};\mathbf{R})\dd{\mathbf{r}}\right]\cdot\left[\int\psi_k^{\dagger}(\mathbf{r}';\mathbf{R})\nabla_{\mathbf{R},I}\psi_n(\mathbf{r}';\mathbf{R})\dd{\mathbf{r}'}\right]+\mathbf{G}_{mn}^I\\
-&=-\sum_k\mathbf{F}_{mk}^I\cdot\mathbf{F}_{kn}^I+\mathbf{G}_{mn}^I
-\end{aligned}\]
+&=-\sum_k\mathbf{F}_{mk}^I\mathbf{F}_{kn}^I+\mathbf{G}_{mn}^I
+\end{aligned}
+\end{equation}
 这里严格的做法是先插入$\delta(\mathbf{r}-\mathbf{r}')$引入第二个电子坐标$\mathbf{r}'$，再利用完备性关系：
 \[\boxed{\delta(\mathbf{r}-\mathbf{r}')=\sum_k\psi_k(\mathbf{r};\mathbf{R})\psi_k^{\dagger}(\mathbf{r}';\mathbf{R})}\]
 把它展开。我们定一个带修正带核动能算符(dressed kinetic energy operator，我也不知道怎么翻译)：
-\[\left[\left(\nabla_{\mathbf{R},I}+\mathbf{F}^I\right)^2\right]_{mn}=\delta_{mn}\nabla_{\mathbf{R},I}^2+\mathbf{F}_{mn}^I\nabla_{\mathbf{R},I}+\nabla_{\mathbf{R},I}\mathbf{F}_{mn}^I+\sum_k\mathbf{F}_{mk}^I\cdot\mathbf{F}_{kn}^I=\delta_{mn}\nabla_{\mathbf{R},I}^2+2\mathbf{F}_{mn}^I\nabla_{\mathbf{R},I}+G_{mn}^I\]
+\[\left[\left(\nabla_{\mathbf{R},I}+\mathbf{F}^I\right)^2\right]_{mn}=\delta_{mn}\nabla_{\mathbf{R},I}^2+\mathbf{F}_{mn}^I\nabla_{\mathbf{R},I}+\nabla_{\mathbf{R},I}\mathbf{F}_{mn}^I+\sum_k\mathbf{F}_{mk}^I\mathbf{F}_{kn}^I=\delta_{mn}\nabla_{\mathbf{R},I}^2+2\mathbf{F}_{mn}^I\nabla_{\mathbf{R},I}+G_{mn}^I\]
 上式的系数$2$的来源参考$\nabla(fg)=f\nabla g+g\nabla f$，这里令$g$是核波函数。因此方程 Eq.\eqref{eq:a_eom} 可以进一步改写为：
 \begin{equation}
 \left[-\sum_I\frac{1}{2M_I}\left(\nabla_{\mathbf{R},I}+\mathbf{F}^I(\mathbf{R})\right)^2+\mathbf{V}^{(a)}(\mathbf{R})-E\mathbbm{1}\right]\bm{\chi}^{(a)}(\mathbf{R})=0
@@ -86,11 +88,63 @@
 
 显然上式在$E_n(\mathbf{R})-E_m(\mathbf{R})=0$时奇异。这在势能面上体现为在圆锥交叉(conical intersection)处，导数耦合奇异。于是我们就能明白为什么 BO 近似和绝热近似都会在这些区域及其附近都会失效：\textcolor{blue}{\textbf{绝热表象把奇异性留在了导数耦合里，势能面越接近，非绝热跃迁就越不能被忽略}}。
 
+\subsection{透热表象}
+绝热表象只是按照能量大小对势能面进行机械的排序，且由于不同势能面解耦，势能面$E_n^{(a)}(\mathbf{R})$直接彼此不交叉（下图不同分支），上一小节提及了绝热表象下核波函数对应的动能项不是简单的拉普拉斯算符，那么我们自然而然的会想能否有一种表现可以保留简单的动能项呢？有的兄弟，有的。这就是透热表象(diabatic representation)，我们通过对绝热表象做一个酉变换获得有简单动能项的透热表象，把复杂的耦合留给势能项。之所以得名透热，是因为透热势能面（下图相同颜色）之间可以彼此交叉。
+
+\begin{center}
+\includegraphics[width=0.4\textwidth]{fig/quantum_chemistry/pes.png}
+\end{center}
+
+从电子波函数（行向量）和对应的核波函数（列向量）展开的矩阵形式出发：
+\[\Psi(\mathbf{r},\mathbf{R})=\sum_n\psi_n(\mathbf{r};\mathbf{R})\chi_n(\mathbf{R}) \quad \Rightarrow \quad \Psi(\mathbf{r},\mathbf{R})=\bm{\psi}^{(a)}(\mathbf{r};\mathbf{R})\bm{\chi}^{(a)}(\mathbf{R})\]
+现在取幺正变换$\mathbf{U}(\mathbf{R})$，满足$\mathbf{U}^{\dagger}(\mathbf{R})\mathbf{U}(\mathbf{R})=\mathbbm{1}$。定义透热电子波函数$\bm{\psi}^{(d)}(\mathbf{r};\mathbf{R})$与核波函数$\bm{\chi}^{(d)}(\mathbf{R})$：
+\[\bm{\psi}^{(d)}(\mathbf{r};\mathbf{R})=\bm{\psi}^{(a)}(\mathbf{r};\mathbf{R})\mathbf{U}(\mathbf{R}), \quad \bm{\chi}^{(d)}(\mathbf{R})=\mathbf{U}^{\dagger}(\mathbf{R})\bm{\chi}^{(a)}(\mathbf{R}) \quad \Rightarrow \quad \Psi(\mathbf{r},\mathbf{R})=\bm{\psi}^{(d)}(\mathbf{r};\mathbf{R})\bm{\chi}^{(d)}(\mathbf{R})\]
+透热表象只是对电子态子空间做了一个基底变换，总波函数和一切可观测量都不会因此改变。
+
+将$\bm{\chi}^{(a)}(\mathbf{R})=\mathbf{U}(\mathbf{R})\bm{\chi}^{(d)}(\mathbf{R})$代入绝热表象下的精确核方程 [Eq.\eqref{eq:a_eom}]：
+\[\left[-\sum_I\frac{1}{2M_I}\left(\nabla_{\mathbf{R},I}^2\mathbbm{1}+2\mathbf{F}^{I}(\mathbf{R})\nabla_{\mathbf{R},I}+\mathbf{G}^{I}(\mathbf{R})\right)+\mathbf{V}^{(a)}(\mathbf{R})-E\mathbbm{1}\right]\mathbf{U}(\mathbf{R})\bm{\chi}^{(d)}(\mathbf{R})=0\]
+对核导数逐项展开：
+\[\begin{aligned}
+\nabla_{\mathbf{R},I}\left(\mathbf{U}\bm{\chi}^{(d)}\right)&=\left(\nabla_{\mathbf{R},I}\mathbf{U}\right)\bm{\chi}^{(d)}+\mathbf{U}\nabla_{\mathbf{R},I}\bm{\chi}^{(d)}\\
+\nabla_{\mathbf{R},I}^2\left(\mathbf{U}\bm{\chi}^{(d)}\right)&=\left(\nabla_{\mathbf{R},I}^2\mathbf{U}\right)\bm{\chi}^{(d)}+2\left(\nabla_{\mathbf{R},I}\mathbf{U}\right)\nabla_{\mathbf{R},I}\bm{\chi}^{(d)}+\mathbf{U}\nabla_{\mathbf{R},I}^2\bm{\chi}^{(d)}
+\end{aligned}\]
+于是绝热表象方程可化为：
+\begin{equation}\label{eq:d_emo_temp}
+\begin{aligned}
+0=&\left[\mathbf{V}^{(a)}(\mathbf{R})-E\mathbbm{1}\right]\mathbf{U}\bm{\chi}^{(d)}-\sum_I\frac{1}{2M_I}\Big[\nabla_{\mathbf{R},I}^2\mathbf{U}+2\mathbf{F}^{I}(\mathbf{R})\nabla_{\mathbf{R},I}\mathbf{U}+\mathbf{G}^{I}(\mathbf{R})\mathbf{U}\Big]\bm{\chi}^{(d)}\\
+&-\sum_I\frac{1}{2M_I}\Big[2\nabla_{\mathbf{R},I}\mathbf{U}+2\mathbf{F}^{I}(\mathbf{R})\mathbf{U}\Big]\nabla_{\mathbf{R},I}\bm{\chi}^{(d)}-\sum_I\frac{1}{2M_I}\mathbf{U}\nabla_{\mathbf{R},I}^2\bm{\chi}^{(d)}
+\end{aligned}
+\end{equation}
+为保留动能项为简单拉普拉斯算子，我们要求$\nabla_{\mathbf{R},I}\bm{\chi}^{(d)}$前面的系数为零，即得透热变换矩阵$\mathbf{U}(\mathbf{R})$的约束方程：
+\begin{equation}\label{eq:ysfc}
+\nabla_{\mathbf{R},I}\mathbf{U}(\mathbf{R})+\mathbf{F}^{I}(\mathbf{R})\mathbf{U}(\mathbf{R})=0
+\end{equation}
+对限制方程再作用一次$\nabla_{\mathbf{R},I}$：
+\begin{equation}\label{eq:nabla_ysfc}
+\nabla_{\mathbf{R},I}^2\mathbf{U}+\mathbf{F}^{I}(\mathbf{R})\left[\nabla_{\mathbf{R},I}\mathbf{U}(\mathbf{R})\right]+\left[\nabla_{\mathbf{R},I}\mathbf{F}^{I}(\mathbf{R})\right]\mathbf{U}(\mathbf{R})=0
+\end{equation}
+由上一小节证明的恒等式 Eq.\eqref{eq:hds}可知：
+\[\nabla_{\mathbf{R},I}^2\mathbf{U}+\mathbf{F}^{I}(\mathbf{R})\left[\nabla_{\mathbf{R},I}\mathbf{U}(\mathbf{R})\right]+\left[\mathbf{G}^{I}(\mathbf{R})-\left(\mathbf{F}^{I}(\mathbf{R})\right)^2\right]\mathbf{U}(\mathbf{R})=0\]
+展开$\left(\mathbf{F}^{I}(\mathbf{R})\right)^2=\mathbf{F}^{I}(\mathbf{R})\mathbf{F}^{I}(\mathbf{R})$后带入约束方程 [Eq.\eqref{eq:ysfc}] 可将 Eq.\eqref{eq:nabla_ysfc} 整理成：
+\[\nabla_{\mathbf{R},I}^2\mathbf{U}+2\mathbf{F}^{I}(\mathbf{R})\nabla_{\mathbf{R},I}\mathbf{U}+\mathbf{G}^{I}(\mathbf{R})\mathbf{U}=0\]
+因此方程 Eq.\eqref{eq:d_emo_temp} 中含$\bm{\chi}^{(d)}$的项系数为$0$，最后在方程 Eq.\eqref{eq:d_emo_temp} 左乘一个$\mathbf{U}^{\dagger}(\mathbf{R})$得到透热表象下的核方程：
+\[\left[-\sum_I\frac{1}{2M_I}\nabla_{\mathbf{R},I}^2\mathbbm{1}+\mathbf{V}^{(d)}(\mathbf{R})-E\mathbbm{1}\right]\bm{\chi}^{(d)}(\mathbf{R})=0\]
+其中：
+\[\mathbf{V}^{(d)}(\mathbf{R})=\mathbf{U}^{\dagger}(\mathbf{R})\mathbf{V}^{(a)}(\mathbf{R})\mathbf{U}(\mathbf{R})\]
+在透热表象中\textcolor{blue}{\textbf{绝热表象里的一阶导数耦合被消去了，但原本对角的势能矩阵变成了非对角矩阵}}。
+
+综上所述，绝热表象和透热表象只是把“耦合”放在了不同的位置。在处理 avoided crossing、电子跃迁以及非绝热动力学时，透热表象往往比绝热表象更方便。另一方面，严格的全局透热基底通常并不容易构造，这也是为什么实际计算里很多时候只能得到局域的 quasi-diabatic 表象。
+
+现在我们再回看透热约束方程 Eq.\eqref{eq:ysfc}，其本质上是一个关于核坐标的矩阵微分方程。沿着核坐标空间中的一条路径$\gamma:\mathbf{R}_0\to\mathbf{R}$，它的形式解可以写成路径有序指数：
+\[\mathbf{U}(\mathbf{R})=\mathcal{P}\exp\left[-\int_{\gamma}\sum_I\mathbf{F}^{I}(\mathbf{R}')\cdot\dd{\mathbf{R}'_I}\right]\mathbf{U}(\mathbf{R}_0)\]
+这里$\mathcal{P}$表示按路径排序(path ordering)。如果把路径离散成一系列很小的步长$\Delta \mathbf{R}_I$，则可以近似写成：
+\[\mathbf{U}(\mathbf{R})\approx\prod_n\exp\left[-\sum_I\mathbf{F}^{I}(\mathbf{R}_n)\cdot\Delta \mathbf{R}_{I,n}\right]\mathbf{U}(\mathbf{R}_0)\]
+通常会选一个远离 avoided crossing 的参考构型$\mathbf{R}_0$，并取$\mathbf{U}(\mathbf{R}_0)=\mathbbm{1}$作为初值，然后沿着路径逐步传播到目标构型。这样做的难点不在形式，而在于$\mathbf{F}^{I}(\mathbf{R})$本身往往很难精确计算，而且不同路径得到的结果还可能并不完全一致，这也反映了全局透热表象构造的微妙性。
+
 \section{Slater-Condon 规则}
 在BO近似后，电子哈密顿如下：
-\[\hat{H}_{el}=\hat{T}_e+\hat{V}_{Ne}+\hat{V}_{ee}+\hat{V}_{NN}=\sum_i\left(-\frac{1}{2}\nabla^2_i+\sum_N\frac{Z}{r_{Ni}}\right)+\sum_{i<j}\frac{1}{r_{ij}}+V_{NN}=\sum_i\hat{h}_i+\sum_{i<j}\hat{g}_{ij}+V_{NN}\]
-
-虽然我们已经把核项给舍去了，但电子部分的哈密顿依然是一个多体（电子之间的库伦相互作用是二体的）哈密顿，还是一个难以求解的问题。我们一般能处理的都是单体问题，比如氢原子的电子薛定谔、谐振子等等，所以我们希望能将多体问题尽可能精确地转换为单体问题来处理，如我们之前提到的平均场近似，如此一来多电子问题就被转换为了单电子问题。相对应的，体系的波函数也变成了几个单体波函数(自旋轨道)的乘积（Hartree 积）$\ket{\Psi}=\ket{\phi_1}\otimes\ket{\phi_2}\otimes\cdots\otimes\ket{\phi_n}:=\ket{\phi_1\phi_2\cdots\phi_n}$。但由于电子费米子的全同性的要求，上述需要对 Hartree 基做反对称化得到 Slater 行列式$\ket{\Psi}=\hat{A}(\ket{\phi_1}\otimes\ket{\phi_2}\otimes\cdots\otimes\ket{\phi_n}):=\hat{A}\ket{\phi_1\phi_2\cdots\phi_n}$。
+\[\hat{H}_{\rm el}=\hat{T}_{\rm el}+\hat{V}_{\rm nuc-nuc}+\hat{V}_{\rm nuc-el}+\hat{V}_{\rm el-el}=-\sum_{i=1}^N\frac{1}{2}\nabla^2_{\mathbf{r},i}+\sum_{I=1}^{M}\sum_{J>I}^{M}\frac{Z_{I}Z_{J}}{|\mathbf{R}_{I}-\mathbf{R}_{J}|}-\sum_{i=1}^{N}\sum_{I=1}^{M}\frac{Z_{I}}{|\mathbf{r}_{i}-\mathbf{R}_{I}|}+\sum_{i=1}^{N}\sum_{j>i}^{N}\frac{1}{|\mathbf{r}_{i}-\mathbf{r}_{j}|}\]
+虽然我们已经把核动能项给舍去了，但电子部分的哈密顿依然是一个多体（电子之间的库伦相互作用是二体的）哈密顿，还是一个难以求解的问题。我们一般能处理的都是单体问题，比如氢原子的电子薛定谔、谐振子等等，所以我们希望能将多体问题尽可能精确地转换为单体问题来处理，如我们之前提到的平均场近似，如此一来多电子问题就被转换为了单电子问题。相对应的，体系的波函数也变成了几个单体波函数(自旋轨道)的乘积（Hartree 积）$\ket{\Psi}=\ket{\phi_1}\otimes\ket{\phi_2}\otimes\cdots\otimes\ket{\phi_n}:=\ket{\phi_1\phi_2\cdots\phi_n}$。但由于电子费米子的全同性的要求，上述需要对 Hartree 基做反对称化得到 Slater 行列式$\ket{\Psi}=\hat{A}(\ket{\phi_1}\otimes\ket{\phi_2}\otimes\cdots\otimes\ket{\phi_n}):=\hat{A}\ket{\phi_1\phi_2\cdots\phi_n}$。
 
 在此基础上，我们希望能计算出 Slater 行列式$\ket{\Psi}$对哈密顿量$\hat{H}$的期望值$\bra{\Psi}\hat{H}\ket{\Psi}$，但直接计算会非常复杂，为此我们引入 Slater-Condon 规则来简化计算。
 \begin{theorem}[Slater-Condon 规则]\label{slater-condon}
