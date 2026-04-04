@@ -94,7 +94,8 @@ i\hbar\frac{1}{\phi}\frac{\partial\phi}{\partial t}=E\\
 &= \frac{1}{r^2}\frac{\partial}{\partial r}\left(r^2\frac{\partial}{\partial r}\right) + \frac{1}{r^2\sin\theta}\frac{\partial}{\partial\theta}\left(\sin\theta\frac{\partial}{\partial\theta}\right) + \frac{1}{r^2\sin^2\theta}\frac{\partial^2}{\partial\phi^2}
 \end{aligned}\]
 
-\section{过渡态理论推导}
+\newpage
+\section{过渡态理论推导}\label{sec:tst}
 过渡态理论（transition state theory, TST）的基本假设如下：
 \begin{itemize}
     \item 1. 在分界面之前，反应物与过渡态处于准平衡，可以认为二者服从 Maxwell-Boltzmann 分布；
@@ -111,12 +112,12 @@ i\hbar\frac{1}{\phi}\frac{\partial\phi}{\partial t}=E\\
 因此总反应速率为：
 \[k_{\rm tot}[R]:=-\frac{\mathrm{d} {[R]}}{\mathrm{d} t} = \frac{k_{\mathrm{f}}k_2}{k_{\mathrm{b}}}[R]\]
 由于浓度与配分函数成正比，并将反应物与过渡态的能量零点统一，就有：
-\[\frac{k_{\mathrm{f}}}{k_{\mathrm{b}}}= \frac{Q_{\mathrm{TS}}}{Q_{\mathrm{R}}} \exp\left(\frac{E}{kT}\right)\]
+\[\frac{k_{\mathrm{f}}}{k_{\mathrm{b}}}= \frac{Q_{\mathrm{TS}}}{Q_{\mathrm{R}}} \exp\left(-\frac{\Delta E}{kT}\right)\]
 沿反应坐标在过渡态附近截取一小段长度$\dd{l}$，并在这段区间内近似认为反应速率为常数，则有：
-\[\frac{1}{k_2}= \tau = \frac{\dd{l}}{v} = \frac{\dd{l}}{\langle v \rangle} \quad \Rightarrow \quad k_{\rm tot}= \frac{\langle v \rangle Q_{\mathrm{TS}}}{\dd{l}Q_{\mathrm{R}}}\exp\left(\frac{E}{kT}\right)\]
+\[\frac{1}{k_2}= \tau = \frac{\dd{l}}{v} = \frac{\dd{l}}{\langle v \rangle} \quad \Rightarrow \quad k_{\rm tot}= \frac{\langle v \rangle Q_{\mathrm{TS}}}{\dd{l}Q_{\mathrm{R}}}\exp\left(-\frac{\Delta E}{kT}\right)\]
 
 由于这里只考察过渡态附近沿反应路径方向的局部运动，可以把粒子近似看作自由粒子。进一步只考虑这一方向上的一维 Maxwell 速度分布，则：
-\[\langle v \rangle = \int_{0}^{\infty}\sqrt{\frac{\mu}{2 \pi kT}}ve^{ - \frac{\mu v^2}{2kT}}\dd{v}=\sqrt{\frac{2kT}{\pi \mu}} \quad \Rightarrow \quad k_{\rm tot}=\sqrt{\frac{2kT}{\pi \mu}}\frac{Q_{\mathrm{TS}}}{\dd{l}Q_{\mathrm{R}}}\exp\left(\frac{E}{kT}\right)\]
+\[\langle v \rangle = \int_{0}^{\infty}\sqrt{\frac{\mu}{2 \pi kT}}ve^{ - \frac{\mu v^2}{2kT}}\dd{v}=\sqrt{\frac{2kT}{\pi \mu}} \quad \Rightarrow \quad k_{\rm tot}=\sqrt{\frac{2kT}{\pi \mu}}\frac{Q_{\mathrm{TS}}}{\dd{l}Q_{\mathrm{R}}}\exp\left(-\frac{\Delta E}{kT}\right)\]
 
 另一方面，反应物与过渡态的配分函数都可以由哈密顿量在正则系综（NVT）下统一表示为：
 \[Q_{\mathrm{X}} = \sum_j\bra{\psi_j}e^{\beta \hat{H}_{\mathrm{X}}}\ket{\psi_j}=\Tr(e^{\beta \hat{H}_{\mathrm{X}}}), \quad \mathrm{X}\in\{\mathrm{R},\mathrm{TS}\}\]
@@ -126,9 +127,10 @@ i\hbar\frac{1}{\phi}\frac{\partial\phi}{\partial t}=E\\
 \[Q_{\mathrm{RP}}=\frac{1}{2}Q_{\mathrm{FP}}=\frac{1}{h}\int_{-\dd l}^{0}\int_{-\infty}^{\infty}\exp\left(\frac{p^2}{2 \mu kT}\right)\dd x\dd p=\frac{\dd l}{2h}\sqrt{2 \pi \mu kT}\]
 
 最终得到 TST 的速率常数表达式为：
-\[k_{\rm tot}=\frac{kT}{h} \frac{Q_{\mathrm{DS}}}{Q_{\mathrm{R}}} \exp\left(\frac{\Delta E}{kT}\right)\]
+\[k_{\rm tot}=\frac{kT}{h} \frac{Q_{\mathrm{DS}}}{Q_{\mathrm{R}}} \exp\left(-\frac{\Delta E}{kT}\right)\]
 这里的$\Delta E$表示过渡态与反应物振动零点能之间的能量差。
 
+\newpage
 \section{随机游走均方末端距}
 对于流体中某面元上的扩散速率，我们知道其正比于该流体的数量密度对运动位移矢量的偏导：
 \[J=-D\nabla\rho\]
