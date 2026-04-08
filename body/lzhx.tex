@@ -599,7 +599,7 @@ X\in\text{SU(2)} \arrow[r, "UXU^\dagger"]
 在BO近似后，我们开始接触多电子体系，需要注意的是现在我们其实还是不能直接处理这样的多电子体系，原因还是是二体以上的系统没法精确求解，所以我们需要考虑进一步近似把多电子体系近似成我们能处理的单电子体系。一个多电子多核系统其电子哈密顿量可以表示成（不考虑核的势能）：
 \[\hat{H}_{\rm el}=-\sum_{i=1}^N\frac{1}{2}\nabla^2_{\mathbf{r},i}+-\sum_{i=1}^{N}\sum_{I=1}^{M}\frac{Z_{I}}{|\mathbf{r}_{i}-\mathbf{R}_{I}|}+\sum_{i=1}^{N}\sum_{j>i}^{N}\frac{1}{|\mathbf{r}_{i}-\mathbf{r}_{j}|}\]
 
-在平均场近似下，把其他电子对某电子的双体算符$(\hat{V}_{ij})$平均成其他电子对该电子产生的势场$(\hat{V}_{i})$，此时体系哈密顿算符可以被拆分成单个粒子的哈密顿算符之和：
+在平均场近似下（这里是 Hartree 近似，可以阅读拓展章节\ref{sec:hartree}），把其他电子对某电子的双体算符$(\hat{V}_{ij})$平均成其他电子对该电子产生的势场$(\hat{V}_{i})$，此时体系哈密顿算符可以被拆分成单个粒子的哈密顿算符之和：
 \[\hat{H}_{\rm el}\approx \sum_{i=1}^{N}\hat{h}_{i}, \quad \hat{h}_i=-\frac{1}{2}\nabla^2_{\mathbf{r},i}-\sum_{I=1}^{M}\frac{Z_I}{|\mathbf{r}_{i}-\mathbf{R}_{I}|}+\hat{V}^{\rm MF}_i, \quad \hat{V}^{\rm MF}_i=\sum_{\substack{j=1\\j\ne i}}^{N}\int\frac{|\psi_j(\mathbf{r}_j)|^2}{|\mathbf{r}_i-\mathbf{r}_j|}\dd{\mathbf{r}_j}\]
 这里电子波函数也被近似成各个单电子波函数的乘积$\Psi(\mathbf{r}_1,\cdots,\mathbf{r}_N)\approx\prod_{i=1}^{N}\psi_i(\mathbf{r}_i)$（这里先对波函数这样的拆分方法正确性按下不表），此时系统的总薛定谔方程可以被拆分成一系列的单体薛定谔方程：
 \[\hat{h}_i\psi_i(\mathbf{r}_i)=\left[-\frac{1}{2}\nabla^2_{\mathbf{r},i}-\sum_{I=1}^{M}\frac{Z_I}{|\mathbf{r}_{i}-\mathbf{R}_{I}|}+\hat{V}^{\rm MF}_i\right]\psi_i(\mathbf{r}_i)=\varepsilon_i(\mathbf{R}_1,\cdots,\mathbf{R}_M)\psi_i(\mathbf{r}_i)\]
