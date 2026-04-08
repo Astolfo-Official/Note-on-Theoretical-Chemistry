@@ -436,35 +436,52 @@ ROHF 太复杂先不说，看看 RHF 能量：
 在完成了上述自洽场计算之后，获得了正确的密度矩阵$\mathbf{P}=\mathbf{C}\Lambda\mathbf{C}^{\dagger}$后，我们可以计算能量了：
 \[E=\sum_{i\in\rm{occ}}\bra{i}\hat{h}\ket{i}+\frac{1}{2}\sum_{i,j\in\rm{occ}}\left(\bra{ij}\ket{ij}-\bra{ij}\ket{ji}\right)=\sum_{\mu\nu}P_{\mu\nu}\bra{\phi_{\mu}}\hat{h}\ket{\phi_{\nu}}+\frac{1}{2}\sum_{\mu\nu rs}P_{\mu\nu}P_{rs}\bra{\phi_{\mu}\phi_r}\ket{|\phi_{\nu}\phi_s}\]
 
-从上述内容可以知道，计算实际体系的 HF 需要计算原子基下的双电子积分，所以 HF 的理论标度为$O(N^4)$。
+从上述内容可以知道，计算实际体系的 HF 需要计算原子基下的双电子积分，所以 HF 的理论标度为$O(N^4)$。但是实际计算中由于积分的稀疏性和各种算法，一般认为 HF 的积分实际标度为$O(N^3)$。另外 SCF 需要对角化，对角化的标度为$O(N^3)$，因此 HF 的整体标度为$O(N^3)$。优化 SCF 的收敛速度也能提升计算效率。
 
 \subsection{DIIS}
-Hartree-Fock–Roothaan方程还有另外一个形式，以密度矩阵形式体现：
-\[\mathbf{F}\mathbf{P}\mathbf{S}=\mathbf{S}\mathbf{P}\mathbf{F}\]
-\href{https://vergil.chemistry.gatech.edu/static/content/diis.pdf}{DIIS} (Direct Inversion in the Iterative Subspace) 可以直接用在这个形式下引入，其核心思想是利用前几步迭代的信息，通过线性组合构造更优的 Fock 矩阵，使误差矩阵最小化。相比于简单的迭代，DIIS 可以将收敛速度从线性加速至超线性，通常能将所需迭代步数减少 50$\sim$80\%。如最经典的 DIIS 方法，定义第 $i$ 步迭代的误差矩阵：
-\[\mathbf{e}_i=\mathbf{F}_i\mathbf{P}_i\mathbf{S}-\mathbf{S}\mathbf{P}_i\mathbf{F}_i\]
-这个误差矩阵衡量了 Hartree-Fock-Roothaan 方程的不满足程度。当 $\mathbf{e}_i = 0$ 时，表明已经收敛。假设我们保存了最近 $n$ 步的 Fock 矩阵 $\mathbf{F}_1, \mathbf{F}_2, \ldots, \mathbf{F}_n$，利用一组待定的系数$\{c_i\}_{i=1}^n$构造新的 Fock 矩阵和对应的误差矩阵：
-\[\mathbf{F}_{\rm{opt}} = \sum_{i=1}^{n} c_i \mathbf{F}_i \ , \quad \mathbf{e}_{\rm{opt}} = \sum_{i=1}^{n} c_i \mathbf{e}_i, \quad \sum_i^n c_i = 1\]
-为了最小化误差，计算误差矩阵的 Frobenius 范数（矩阵所有元素平方和）极小值：
-\[\left\| \sum_{i=1}^{n} c_i \mathbf{e}_i \right\|_F^2 = \sum_{i,j} \left( \sum_{k=1}^{n} c_k e_k^{ij} \right)^2=\sum_{i,j} \sum_{k,l} c_k c_l e_k^{ij} e_l^{ij} = \sum_{k,l} c_k c_l \sum_{i,j} e_k^{ij} e_l^{ij} = \sum_{k,l} c_k c_l \text{Tr}(\mathbf{e}_k^T \mathbf{e}_l) := \sum_{k,l} c_k c_l E_{kl}\]
+Hartree-Fock--Roothaan 方程还可以改写成密度矩阵的交换子形式：
+\[\mathbf{F}\mathbf{P}\mathbf{S}-\mathbf{S}\mathbf{P}\mathbf{F}=0\]
+这说明在 SCF 收敛时，由当前密度矩阵$\mathbf{P}$构造出来的 Fock 矩阵$\mathbf{F}$不会再把占据轨道子空间和非占据轨道子空间重新混合。\href{https://vergil.chemistry.gatech.edu/static/content/diis.pdf}{DIIS} (Direct Inversion in the Iterative Subspace, 也叫 Pulay mixing) 正是直接利用这个“残差应当趋于零”的条件来加速 SCF 收敛。它的核心思想不是只看当前一步，而是把最近若干步迭代得到的 Fock 矩阵拿出来，在它们张成的子空间里外推一个“更接近自洽点”的 Fock 矩阵。相比于朴素的固定点迭代，DIIS 往往能把收敛从线性提升到接近超线性的行为。
 
-引入拉格朗日乘数 $\lambda$ 来处理约束条件：
-\[L = \sum_{k,l} c_k c_l E_{kl} - 2\lambda \left(\sum_k c_k - 1\right)\]
-对 $c_i$ 求偏导：
-\[\frac{\partial L}{\partial c_i} = 2\sum_{k} c_k E_{ki} - 2\lambda = 0\]
+在非正交 AO 基下，更常见的做法是先引入正交化矩阵$\mathbf{X}$，满足：
+\[\mathbf{X}^{\dagger}\mathbf{S}\mathbf{X}=\mathbbm{1}\]
+例如对实对称重叠矩阵可取$\mathbf{X}=\mathbf{S}^{-1/2}$。然后定义第 $i$ 步迭代的残差矩阵：
+\[\mathbf{r}_i=\mathbf{F}_i\mathbf{P}_i\mathbf{S}-\mathbf{S}\mathbf{P}_i\mathbf{F}_i,\qquad \mathbf{e}_i=\mathbf{X}^{\dagger}\mathbf{r}_i\mathbf{X}\]
+其中$\mathbf{e}_i$就是在正交化基底下的误差矩阵；若$\mathbf{e}_i=0$，就说明当前迭代已经满足 Roothaan 方程。假设我们保存了最近 $n$ 步的 Fock 矩阵 $\mathbf{F}_1,\mathbf{F}_2,\ldots,\mathbf{F}_n$ 以及对应的误差矩阵 $\mathbf{e}_1,\mathbf{e}_2,\ldots,\mathbf{e}_n$，那么 DIIS 取一组待定系数$\{c_i\}_{i=1}^{n}$，构造：
+\[\mathbf{F}_{\rm DIIS}=\sum_{i=1}^{n}c_i\mathbf{F}_i,\qquad \mathbf{e}_{\rm DIIS}=\sum_{i=1}^{n}c_i\mathbf{e}_i,\qquad \sum_{i=1}^{n}c_i=1\]
+这里约束$\sum_i c_i=1$保证外推后的 Fock 矩阵在残差为常数时不发生无意义的整体漂移，但并不要求所有$c_i$都为正，因此 DIIS 不是简单的“加权平均”，而更像是一种外推。
 
-整理得到线性方程组：
-$$\begin{pmatrix}
-E_{11} & E_{12} & \cdots & E_{1n} & -1 \\
-E_{21} & E_{22} & \cdots & E_{2n} & -1 \\
+接下来令误差矩阵的 Frobenius 范数最小：
+\[\left\|\mathbf{e}_{\rm DIIS}\right\|_F^2=\left\|\sum_{i=1}^{n}c_i\mathbf{e}_i\right\|_F^2=\sum_{i,j=1}^{n}c_ic_j\,\mathrm{Tr}(\mathbf{e}_i^{\dagger}\mathbf{e}_j)=\sum_{i,j=1}^{n}c_ic_j B_{ij}\]
+其中定义 Pulay 的 $B$ 矩阵元：
+\[B_{ij}=\mathrm{Tr}(\mathbf{e}_i^{\dagger}\mathbf{e}_j)\]
+引入拉格朗日乘子$\lambda$处理约束：
+\[L(\{c_i\},\lambda)=\sum_{i,j=1}^{n}c_ic_j B_{ij}-2\lambda\left(\sum_{i=1}^{n}c_i-1\right)\]
+对$c_i$求偏导并整理，可得经典的增广线性方程组：
+\[
+\begin{pmatrix}
+B_{11} & B_{12} & \cdots & B_{1n} & -1 \\
+B_{21} & B_{22} & \cdots & B_{2n} & -1 \\
 \vdots & \vdots & \ddots & \vdots & \vdots \\
-E_{n1} & E_{n2} & \cdots & E_{nn} & -1 \\
+B_{n1} & B_{n2} & \cdots & B_{nn} & -1 \\
 -1 & -1 & \cdots & -1 & 0
 \end{pmatrix}
-\begin{pmatrix} c_1 \\ c_2 \\ \vdots \\ c_n \\ \lambda \end{pmatrix}
-= \begin{pmatrix} 0 \\ 0 \\ \vdots \\ 0 \\ -1 \end{pmatrix}$$
+\begin{pmatrix}
+c_1 \\ c_2 \\ \vdots \\ c_n \\ \lambda
+\end{pmatrix}
+=
+\begin{pmatrix}
+0 \\ 0 \\ \vdots \\ 0 \\ -1
+\end{pmatrix}
+\]
+解出$c_i$之后，就可以构造外推得到的 Fock 矩阵$\mathbf{F}_{\rm DIIS}$，再去解广义本征值问题：
+\[\mathbf{F}_{\rm DIIS}\mathbf{C}=\mathbf{S}\mathbf{C}\bm{\varepsilon}\]
+从而得到新的轨道系数矩阵$\mathbf{C}$和密度矩阵$\mathbf{P}$。因此，一个典型的 DIIS-SCF 循环可以概括为：
+\[
+\mathbf{P}_i \longrightarrow \mathbf{F}_i \longrightarrow \mathbf{e}_i \longrightarrow \mathbf{F}_{\rm DIIS} \longrightarrow \mathbf{P}_{i+1}
+\]
 
-通过求解该线性方程组得到最优的系数 $c_i$，进而构造最优的 Fock 矩阵。
+实践上，DIIS 在接近收敛时尤其高效，但在初猜很差、能级近简并、或者重叠矩阵病态时也可能变得不稳定。这时程序常会在前几步先配合 damping 或 level shift，等轨道形状进入合理区域后再切换到 DIIS；如果保存的子空间过大导致 $B$ 矩阵接近奇异，也会丢弃最旧的若干步信息重新开始。
 
 \newpage
 \subsection{部分基组}
