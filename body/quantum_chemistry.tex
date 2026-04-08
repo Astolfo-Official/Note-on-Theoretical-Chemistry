@@ -336,13 +336,11 @@ Hartree 近似把体系完全当成互不相互作用的独立电子来处理，
 由于$V_{\rm eff}^{\rm H}$本身依赖于所有轨道，这组方程不能一次直接解出，而必须通过不断更新轨道和势能直到收敛，这已经是 SCF 思想的雏形。不过 Hartree 方法虽然引入了平均场库伦势，但它仍然使用 Hartree 乘积作为波函数，不满足电子作为费米子的反对称性要求，也不会自动包含交换作用。沿着“平均场”这条思路再向前迈一步，把试探波函数从 Hartree 乘积升级为 Slater 行列式，就得到了 Hartree-Fock 方法。
 
 \subsection{正则轨道下的 Hartree-Fock}\label{sec:hf}
-前一小节中我们先看到了两个最直接的单电子化近似：完全忽略双体项的 Hartree 近似，以及把电子-电子相互作用替换成平均库伦势的 Hartree 方法。它们都保留了“每个电子在某个有效单电子势中运动”的 Mean field 思想，但 Hartree 乘积不满足费米子的反对称性要求，也无法自然给出交换效应。Hartree-Fock 方法正是在这里向前迈出的关键一步：它仍然利用变分法把精确哈密顿量近似成单电子算符的和，但试探波函数不再取 Hartree 乘积，而是改用由正交归一自旋轨道构成的 Slater 行列式。这样一来，交换项会在变分过程中自动出现。从 HF 出发，如果我们认为 Slater 行列式的形式已经足够好而哈密顿量还不够精确，就会得到 MP 等微扰方法；反过来，如果我们认为哈密顿量是精确的而波函数还不够好，那么从 Slater 行列式出发就会走向 CI, CC, MCSCF 等方法。
+前一小节中我们先看到了两个最直接的单电子化近似：完全忽略双体项的 Hartree 近似，以及把电子-电子相互作用替换成平均库伦势的 Hartree 方法。它们都保留了“每个电子在某个有效单电子势中运动”的 Mean field 思想，但 Hartree 乘积不满足费米子的反对称性要求，也无法自然给出交换效应。Hartree-Fock 方法正是在这里向前迈出的关键一步：它仍然利用变分法把精确哈密顿量近似成单电子算符的和，但试探波函数不再取 Hartree 乘积，而是改用由正交归一自旋轨道构成的 Slater 行列式。这样一来，交换项会在变分过程中自动出现。从 HF 出发，如果我们认为\textcolor{red}{\textbf{ Slater 行列式形式的波函数}}已经足够好而\textcolor{blue}{\textbf{近似的单电子哈密顿量}}还不够精确，就会得到 MP 等微扰方法；反过来，如果我们认为\textcolor{blue}{\textbf{近似的单电子哈密顿量}}是精确的而\textcolor{red}{\textbf{ Slater 行列式形式的波函数}}还不够好，那么从 Slater 行列式出发就会走向 CI, CC, MCSCF 等方法。
 
 由Condon-Slater规则 [定理\ref{slater-condon}]，正则轨道(正交归一的自旋轨道)组成的 Slater 行列式$\ket{\Psi}$对哈密顿量$\hat{H}$的期望（能量$E$）如下所示，其中$\bra{ij}\ket{ij},\bra{ij}\ket{ji}$为库伦积分和交换积分，$h_i$包括了动能项和核对电子的势能：
 \[E=\bra{\Psi}\hat{H}\ket{\Psi}=\sum_ih_i+\frac{1}{2}\sum_{i,j}\left(\bra{ij}\ket{ij}-\bra{ij}\ket{ji}\right)\]
-通过拉格朗日乘数法把正交归一条件引入泛函$\eta[\{\psi_i\},\lambda_{ij}]$进行变分，这里变分的目的是寻找到最佳的一组单电子轨道波函数$\{\psi_i\}$使得能量最小化，通过变分我们会获得一组单电子波函数$\{\psi_i\}$的约束方程。约定符号$\bra{\bm{r}}\ket{i}=\psi_i(\bm{r})\equiv\psi_i$，采用波函数表象时，正交归一条件写为：
-\[\int \psi_i^*(\bm{r})\psi_j(\bm{r})\dd{\bm{r}}=\delta_{ij}\]
-于是变分泛函为：
+通过拉格朗日乘数法把正交归一条件引入泛函$\eta[\{\psi_i\},\lambda_{ij}]$进行变分，这里变分的目的是寻找到最佳的一组单电子轨道波函数$\{\psi_i\}$使得能量最小化，通过变分我们会获得一组单电子波函数$\{\psi_i\}$的约束方程。约定符号$\bra{\bm{r}}\ket{i}=\psi_i(\bm{r})\equiv\psi_i$，采用波函数表象时定义变分泛函为：
 \begin{equation*}
 \begin{aligned}
 \eta[\{\psi_i\},\lambda_{ij}]&=\sum_i\int \psi_i^*(\bm{r})\hat{h}\psi_i(\bm{r})\dd{\bm{r}}\\
@@ -354,9 +352,23 @@ Hartree 近似把体系完全当成互不相互作用的独立电子来处理，
 对$\psi_p^*$做泛函变分，这里$p$表示被变分的轨道指标，以避免与泛函中求和指标$i,j$混淆。单电子项直接给出：
 \[\frac{\delta}{\delta \psi_p^*}\sum_i\int \psi_i^*(\bm{r}')\hat{h}\psi_i(\bm{r}')\dd{\bm{r}'}=\hat{h}\psi_p(\bm{r})\]
 对双电子中的库伦项，有：
-\[\frac{1}{2}\frac{\delta}{\delta \psi_p^*}\sum_{i,j}\iint\frac{\psi_i^*(\bm{r}_1)\psi_j^*(\bm{r}_2)\psi_i(\bm{r}_1)\psi_j(\bm{r}_2)}{r_{12}}\dd{\bm{r}_1}\dd{\bm{r}_2}=\sum_j\left(\int\frac{|\psi_j(\bm{r}')|^2}{|\bm{r}-\bm{r}'|}\dd{\bm{r}'}\right)\psi_p(\bm{r})\equiv\sum_j\hat{J}_j\psi_p(\bm{r})\]
+\[\begin{aligned}
+\frac{1}{2}\frac{\delta}{\delta \psi_p^*}
+&\sum_{i,j}\iint
+\frac{\psi_i^*(\bm{r}_1)\psi_j^*(\bm{r}_2)\psi_i(\bm{r}_1)\psi_j(\bm{r}_2)}{r_{12}}
+\dd{\bm{r}_1}\dd{\bm{r}_2}\\
+&=\frac{1}{2}\sum_j\left(\int\frac{|\psi_j(\bm{r}')|^2}{|\bm{r}-\bm{r}'|}\dd{\bm{r}'}\right)\psi_p(\bm{r})+\frac{1}{2}\sum_i\left(\int\frac{|\psi_i(\bm{r}')|^2}{|\bm{r}-\bm{r}'|}\dd{\bm{r}'}\right)\psi_p(\bm{r})\\
+&=\sum_j\left(\int\frac{|\psi_j(\bm{r}')|^2}{|\bm{r}-\bm{r}'|}\dd{\bm{r}'}\right)\psi_p(\bm{r})\equiv\sum_j\hat{J}_j\psi_p(\bm{r})
+\end{aligned}\]
 同理，交换项的变分为：
-\[-\frac{1}{2}\frac{\delta}{\delta \psi_p^*}\sum_{i,j}\iint\frac{\psi_i^*(\bm{r}_1)\psi_j^*(\bm{r}_2)\psi_j(\bm{r}_1)\psi_i(\bm{r}_2)}{r_{12}}\dd{\bm{r}_1}\dd{\bm{r}_2}=-\sum_j\left(\int\frac{\psi_j^*(\bm{r}')\psi_p(\bm{r}')}{|\bm{r}-\bm{r}'|}\dd{\bm{r}'}\right)\psi_j(\bm{r})\equiv-\sum_j\hat{K}_j\psi_p(\bm{r})\]
+\[\begin{aligned}
+-\frac{1}{2}\frac{\delta}{\delta \psi_p^*}
+&\sum_{i,j}\iint
+\frac{\psi_i^*(\bm{r}_1)\psi_j^*(\bm{r}_2)\psi_j(\bm{r}_1)\psi_i(\bm{r}_2)}{r_{12}}
+\dd{\bm{r}_1}\dd{\bm{r}_2}\\
+&=-\frac{1}{2}\sum_j\left(\int\frac{\psi_j^*(\bm{r}')\psi_p(\bm{r}')}{|\bm{r}-\bm{r}'|}\dd{\bm{r}'}\right)\psi_j(\bm{r})-\frac{1}{2}\sum_i\left(\int\frac{\psi_i^*(\bm{r}')\psi_p(\bm{r}')}{|\bm{r}-\bm{r}'|}\dd{\bm{r}'}\right)\psi_i(\bm{r})\\
+&=-\sum_j\left(\int\frac{\psi_j^*(\bm{r}')\psi_p(\bm{r}')}{|\bm{r}-\bm{r}'|}\dd{\bm{r}'}\right)\psi_j(\bm{r})\equiv-\sum_j\hat{K}_j\psi_p(\bm{r})
+\end{aligned}\]
 而正交归一约束项给出：
 \[-\frac{\delta}{\delta \psi_p^*}\sum_{i,j}\lambda_{ij}\left(\int \psi_i^*(\bm{r}')\psi_j(\bm{r}')\dd{\bm{r}'}-\delta_{ij}\right)=-\sum_j\lambda_{pj}\psi_j(\bm{r})\]
 将被变分的轨道指标$p$重新记回常用的$i$，得到单电子轨道的约束方程：
@@ -367,7 +379,7 @@ Hartree 近似把体系完全当成互不相互作用的独立电子来处理，
 \[\int \psi_k^*(\bm{r})\hat{F}\psi_i(\bm{r})\dd{\bm{r}}=\sum_j\lambda_{ij}\int \psi_k^*(\bm{r})\psi_j(\bm{r})\dd{\bm{r}}=\sum_j\lambda_{ij}\delta_{kj}=\lambda_{ik}\]
 另一方面，由于$\hat{h},\hat{J}_j,\hat{K}_j$都是厄密算符，故$\hat{F}$也是厄密算符，因此：
 \[\lambda_{ik}=\int \psi_k^*(\bm{r})\hat{F}\psi_i(\bm{r})\dd{\bm{r}}=\left(\int \psi_i^*(\bm{r})\hat{F}\psi_k(\bm{r})\dd{\bm{r}}\right)^*=\lambda_{ki}^*\]
-因此$\lambda_{ij}$构成厄密矩阵。由于占据轨道之间的酉变换不改变 Slater 行列式表示的能量，因此总可以在占据子空间内再做一次酉变换将其对角化，得到每个轨道对应的轨道能量$\varepsilon_i$，于是得到正则轨道下的 Hartree-Fock 方程和对应的平均场哈密顿量：
+因此$\lambda_{ij}$构成厄密矩阵。由于占据轨道之间的酉变换不改变 Slater 行列式表示的能量，因此总可以在占据子空间内再做一次酉变换将其对角化，得到每个轨道对应的轨道能量$\varepsilon_i$，于是得到正则轨道下的 Hartree-Fock 方程和对应的平均场哈密顿量$\hat{H}_0$：
 \[\hat{F}\psi_i(\bm{r})=\varepsilon_i\psi_i(\bm{r}), \quad \hat{H}_0=\sum_i\hat{F}_i=\sum_i\left(\hat{h}(i)+\sum_j(\hat{J}_j-\hat{K}_j)\right)\]
 其中轨道能量$\varepsilon_i$就是对角化后的拉格朗日乘子。库伦算符$\hat{J}_i$和交换算符$\hat{K}_i$的定义如下：
 \[\hat{J}_j\psi_i(\bm{r})=\left(\int\frac{|\psi_j(\bm{r}')|^2}{|\bm{r}-\bm{r}'|}\dd{\bm{r}'}\right)\psi_i(\bm{r}), \quad \hat{K}_j\psi_i(\bm{r})=\left(\int\frac{\psi_j^*(\bm{r}')\psi_i(\bm{r}')}{|\bm{r}-\bm{r}'|}\dd{\bm{r}'}\right)\psi_j(\bm{r})\]
@@ -377,11 +389,15 @@ Hartree 近似把体系完全当成互不相互作用的独立电子来处理，
 &=\sum_{j}(\bra{ij}\ket{ij}-\bra{ij}\ket{ji})
 \end{aligned}\]
 
+通过变分法我们直接得到的首先只是“最优轨道必须满足什么方程”，也就是自洽轨道约束方程（Hartree-Fock 方程），这个轨道方程告诉我们：在 Slater 行列式这个受限变分空间中，\textcolor{blue}{\textbf{每个电子都等效地在同一个由其他电子平均作用产生的单电子 Fock 算符$\hat{F}$下运动}}。我们把相应的多电子平均场问题定义为这些单电子算符之和$\hat{H}_0=\sum_i\hat{F}_i$。换句话说，\textcolor{blue}{\textbf{$\hat{H}_0$不是由$\hat{H}$严格推出的全空间算符恒等变换，而是在 Slater 行列式近似下与变分极值条件等价的最优单电子平均场哈密顿量}}。
+
 如果我们考虑空间轨道，则 HF 可以分为 RHF (闭壳层，电子成对)，UHF (开壳层，不同自旋单独考虑)和 ROHF (开壳层，部分成对部分单独)。对 UHF 之需要简单写两套能量加起来就好：
 \[E_{\rm{UHF}}=\sum_{i,\uparrow}h_i+\frac{1}{2}\sum_{i,j,\uparrow}\left(\bra{ij}\ket{ij}-\bra{ij}\ket{ji}\right)+\sum_{i,\downarrow}h_i+\frac{1}{2}\sum_{i,j,\downarrow}\left(\bra{ij}\ket{ij}-\bra{ij}\ket{ji}\right)\]
 ROHF 太复杂先不说，看看 RHF 能量：
 \[E_{\rm{RHF}}=2\sum_ih_i+\sum_{i,j}\left(2\bra{ij}\ket{ij}-\bra{ij}\ket{ji}\right)\]
-对单电子项，只有自己会跟自己的作用，所以写成空间轨道后加倍，库伦积分也类似，轨道只跟自己积分，但由于涉及了两个轨道，所以翻四倍，而交换积分涉及不同轨道积分，只有自旋相同的积分不为零，因此加倍。可以看到在 HF 中不同自旋的电子没有相互作用，可以同时出现在一个轨道上，但实际上由于瞬时库伦相互作用，电子会排斥其他电子出现在其附近(Coulomb hole)，这部分相互作用我们称之为\textcolor{blue}{\textbf{动态相关}}。另外的，当体系中存在近简并态时，单 Slater 行列式无法描述电子在这些近简并态间的跃迁（即存在多个不同的电子组态对体系影响重大，每一个电子组态对应一个 Slater 行列式，因此需要多个 Slater 行列式才能描述清楚系统的电子结构），这部分相互作用我们称之为\textcolor{blue}{\textbf{静态相关}}。HF 方法由于忽略了电子相关，因此计算结果一般会高于真实能量。
+对单电子项，只有自己会跟自己的作用，所以写成空间轨道后加倍，库伦积分也类似，轨道只跟自己积分，但由于涉及了两个轨道，所以翻四倍，而交换积分涉及不同轨道积分，只有自旋相同的积分不为零，因此加倍。
+
+可以看到在 HF 中不同自旋的电子没有相互作用，可以同时出现在一个轨道上，但实际上由于瞬时库伦相互作用，电子会排斥其他电子出现在其附近(Coulomb hole)，这部分相互作用我们称之为\textcolor{blue}{\textbf{动态相关}}。另外的，当体系中存在近简并态时，单 Slater 行列式无法描述电子在这些近简并态间的跃迁（即存在多个不同的电子组态对体系影响重大，每一个电子组态对应一个 Slater 行列式，因此需要多个 Slater 行列式才能描述清楚系统的电子结构），这部分相互作用我们称之为\textcolor{blue}{\textbf{静态相关}}。HF 方法由于忽略了电子相关，因此计算结果一般会高于真实能量。
 
 \subsection{Hartree-Fock-Roothaan 方法}
 假定正则轨道被已知的原子轨道基底下展开，则在此基底下 Fock 矩阵和 overlap 矩阵为：
