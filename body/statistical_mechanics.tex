@@ -1,0 +1,725 @@
+\section{经典统计力学}\label{sec:classical_sm}
+\subsection{从拉格朗日力学到相空间}\label{sec:lag_ham_phase}
+在\href{https://github.com/Astolfo-Official/Baby-Math-on-Quantum-Chemistry/blob/main/%E3%80%8A%E9%87%8F%E5%AD%90%E5%8C%96%E5%AD%A6%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%A6%E3%80%8B2.0.pdf}{我搬运的一本速通教材的第四章}中，我们简单过了一遍经典力学。感兴趣的可以先阅读一下前置章节，这里我们会跳过许多细节直接叙述经典力学的两大形式后进入经典相空间理论的介绍。经典相空间理论也是经典力学的一种等价表述方式，但是在处理大量自由度问题也即经典统计力学中，相空间理论有其他三种形式不可比拟的优势。简单来说，在经典统计力学中，我们最后要处理的对象并不是某一条具体轨道，而是\textbf{大量可能微观状态在相空间中的分布}。这对于牛顿力学，拉格朗日力学和哈密顿力学来说都是一个全新的挑战。
+
+在拉格朗日力学中，设体系有$3N$个广义坐标$q_i$，其运动由拉格朗日量$L(\bm{q},\dot{\bm{q}},t)=T(\bm{q},\dot{\bm{q}},t)-V(\bm{q},\dot{\bm{q}},t)$决定，其中$T$是动能，$V$是势能。对应的运动学方程即为 Euler-Lagrange 方程：
+\[\dv{}{t}\left(\pdv{L}{\dot{q}_i}\right)-\pdv{L}{q_i}=0,\quad (i=1,\ldots,3N)\]
+容易验证上述方程等价于牛顿第二定律。进一步地，我们还定义与广义坐标$q_i$对应的广义动量：
+\[p_i=\pdv{L}{\dot{q}_i}\]
+这个关系可以反解出$\dot{q}_i=\dot{q}_i(\bm{q},\bm{p},t)$，则我们可以对拉格朗日量做 Legendre 变换 [章节\ref{sec:legendre}]，进而定义哈密顿量$H(\bm{q},\bm{p},t)=\bm{p}\dot{\bm{q}}-L(\bm{q},\dot{\bm{q}},t)$。如果势能$V$与体系动量（或速度）无关，哈密顿量就是我们熟悉的总能量。把$H$看成$q_i,p_i$的函数后，对其微分并逐项比较可得哈密顿正则方程：
+\[\dot{q}_i=\pdv{H}{p_i},\quad \dot{p}_i=-\pdv{H}{q_i}\]
+
+在哈密顿形式下体系在某一时刻$t$的微观状态由全部坐标和动量唯一确定$\xi=(q_1,\ldots,q_f,p_1,\ldots,p_f)$，所有这样的点构成一个$6N$维空间，称为\textbf{相空间}；相空间中的一个点称为相点，它完整代表一个微观状态。体系随时间演化时，相点便在相空间中描出一条轨线，称为\textbf{相轨线}。如果\textcolor{blue}{\textbf{哈密顿量不显示含时间}}，则能量守恒，不同轨线被限制在各自能量面上，相空间中同一点出发的轨迹全部等同，任意交叉的轨迹都代表同一个微观状态。
+
+至此我们把研究对象从具体的轨道转向了相空间中的分布。这时就可以引入统计的概念：对同一个宏观系统，在给定时刻所有可能微观状态组成一个系综；若记相空间概率密度为$\rho(\bm{q},\bm{p},t)$，则满足归一化：
+\[\int\rho(\bm{q},\bm{p},t)\dd\bm{\Gamma}=\frac{1}{h^{3N}}\int\rho(\bm{q},\bm{p},t)\dd^{3N}\bm{q}\dd^{3N}\bm{p}=1\]
+这里$h$是相空间微分$\dd{\bm{\Gamma}}$的体积，一般取为普朗克常数。于是任意可观测量$F(\bm{p},\bm{q},t)$的系综平均都可写为：
+\[\langle F \rangle=\int F(\bm{p},\bm{q},t)\rho(\bm{q},\bm{p},t)\dd{\bm{\Gamma}}\]
+考虑对$F$求对时间$t$的全导数并带入哈密顿正则方程：
+\[\dv{F}{t}=\pdv{F}{t}+\sum_i\left(\pdv{F}{q_i}\dot{q}_i+\pdv{F}{p_i}\dot{p}_i\right)=\pdv{F}{t}+\sum_i\left(\pdv{F}{q_i}\pdv{H}{p_i}-\pdv{F}{p_i}\pdv{H}{q_i}\right)=\pdv{F}{t}+\{F,H\}\]
+其中 Poisson 括号定义为：
+\[\{F,G\}=\sum_i\left(\pdv{F}{q_i}\pdv{G}{p_i}-\pdv{F}{p_i}\pdv{G}{q_i}\right)\]
+另一方面，概率守恒要求概率密度$\rho(\bm{q},\bm{p},t)$满足连续性方程：
+\[\begin{aligned}
+\pdv{\rho}{t}+\nabla\cdot(\rho \dot{\xi})&=\pdv{\rho}{t}+\nabla\rho\cdot\dot{\xi}+\rho(\nabla\cdot\dot{\xi})=\pdv{\rho}{t}+\nabla\rho\cdot\dot{\xi}+\rho\sum_{i=1}^{f}\left(\pdv{\dot{q}_i}{q_i}+\pdv{\dot{p}_i}{p_i}\right)\\
+&=\pdv{\rho}{t}+\nabla\rho\cdot\dot{\xi}+\rho\sum_{i=1}^{f}\left(\pdv{}{q_i}\pdv{H}{p_i}-\pdv{}{p_i}\pdv{H}{q_i}\right)=\pdv{\rho}{t}+\nabla\rho\cdot\dot{\xi}=0 \quad \Leftrightarrow \quad \dv{\rho}{t}=0
+\end{aligned}\]
+这就是 Liouville 方程。它告诉我们：\textcolor{blue}{\textbf{在精确的哈密顿演化下，相空间中的概率流像不可压缩流体一样运动}}，局部概率密度沿着相轨线保持不变。若哈密顿量不显含时间，则能量守恒，相点始终停留在某个能量面，记为$\Gamma_E:\ H(\bm{q},\bm{p})=E$，在 Liouville 方程的约束下，轨迹的运动可以与流类比，我们考虑两种流：
+\begin{itemize}
+\item 1. 非遍历性流（Non-ergodic）：轨线在能量面上只占据一个子区域，如周期性运动；
+\item 2. 遍历性流（Ergodic）：轨线在能量面上占据整个区域。
+\end{itemize}
+如果体系的流是遍历的，那么一条足够长的轨线在长时间平均意义下就能代表整个能量面的平均，即：
+\[\overline{f}=\lim_{T\to\infty}\frac{1}{T}\int_0^T f(\bm{q},\bm{p})\dd t=\frac{1}{\Sigma_E}\int f(\bm{q},\bm{p})\delta(H(\bm{q},\bm{p})-E)\dd{\bm{\Gamma}}=\langle f \rangle_E\]
+此时可定义能量面截面（微正则配分函数）与微正则分布：
+\[\Sigma_E=\int\delta(H(\bm{q},\bm{p})-E)\dd{\bm{\Gamma}}, \quad \rho_E(\bm{q},\bm{p})=\frac{1}{\Sigma_E}\delta(H(\bm{q},\bm{p})-E)\]
+可以看出在给定能量时，能量面上每个可及微观状态都被赋予相同权重。再考虑\textbf{混合流}，一种特殊的遍历流，\textcolor{blue}{\textbf{从任意时刻$t$的（非平衡）分布$\rho(\bm{q},\bm{p},t)$开始演化，经过足够长的时间后，系统的分布都会演化成微正则分布}}：
+\[\lim_{t\to\infty}\rho(\bm{q},\bm{p},t)=\rho_E(\bm{q},\bm{p})\]
+刘维尔定理（体积元守恒）与混合效应相结合表明：相空间中的无穷小体积元会经历无限的拉伸与折叠，并最终弥散分布于整个能量曲面上。因此\textcolor{blue}{\textbf{微观分布与初始状态无关}}，这就是经典统计力学的核心假设之一。\textcolor{blue}{\textbf{微观分布一旦确定，宏观量都可以视为相空间的期望值}}。
+
+\subsection{微正则系综}
+上一小节我们介绍了微正则系综，并给出了微正则配分函数$\Sigma_E$和微正则分布$\rho_E$的定义。显然我们可以知道在微正则系综中系统粒子数$N$和能量$E$是固定的。我们再来考虑体积$V$，如果体积$V$是可变的那么，会导致哈密顿量的势能显含时间，不满足微正则系综的条件，因此微正则系综的控制变量是$(E,V,N)$。因此微正则系综既不与外界交换热，也不交换粒子，所有满足给定能量壳层的微观状态被赋予等概率。记微正则配分函数为：
+\[\Omega(E,V,N)=\int\delta(H(\bm{q},\bm{p})-E)\dd{\bm{\Gamma}}\]
+$\Omega(E,V,N)$可以认为是体系的微观状态数，微正则系综中每个可及状态的概率都等于$1/\Omega$，Boltzmann 熵定义为：
+\[S(E,V,N)=k_{\rm B}\ln \Omega(E,V,N)\]
+上述 Boltzmann 熵可以认为是 Gibbs 熵在微正则系综中（等概率情况）的特殊情况，从 Gibbs 熵的定义出发：
+\[S=-k_{\rm B}\int\rho(\bm{q},\bm{p})\ln\rho(\bm{q},\bm{p})\dd{\bm{\Gamma}}\]
+其中密度分布函数$\rho(\bm{q},\bm{p})$可以认为在一个极小能量壳层$(\bm{q},\bm{p})\in \Gamma_{E}$内均匀分布：
+\[\rho(\bm{q},\bm{p})=\frac{1}{\Omega(E,V,N)} \quad \Rightarrow \quad 
+S=-k_{\rm B}\int_{\Gamma_{E}}\frac{1}{\Omega}\ln\frac{1}{\Omega}\dd{\bm{\Gamma}}=-k_{\rm B}\frac{1}{\Omega}\ln\frac{1}{\Omega}\int_{\Gamma_{E}}\dd{\bm{\Gamma}}=-k_{\rm B}\frac{1}{\Omega}\ln\frac{1}{\Omega}\cdot \Omega=k_{\rm B}\ln\Omega\]
+对 Boltzmann 做全微分：
+\[\dd S=k_B\left(\pdv{\ln\Omega}{E}\right)_{V,N}\dd E+k_B\left(\pdv{\ln\Omega}{V}\right)_{E,N}\dd V+k_B\left(\pdv{\ln\Omega}{N}\right)_{E,V}\dd N\]
+另一方面，由热力学基本关系：
+\[\dd U=T\dd S-P\dd V+\mu \dd N \quad \Rightarrow \quad \dd S=\frac{1}{T}\dd U+\frac{P}{T}\dd V-\frac{\mu}{T}\dd N\]
+在微正则系综里$U=E$，逐项比较便得到：
+\[\frac{1}{T}=k_B\left(\pdv{\ln\Omega}{E}\right)_{V,N}, \quad P=k_B T\left(\pdv{\ln\Omega}{V}\right)_{E,N}, \quad \mu=-k_B T\left(\pdv{\ln\Omega}{N}\right)_{E,V}\]
+一旦$T,P,\mu$被确定，其余常见热力学势都可以通过 Legendre 变换得到：
+\[U=E,\quad F=U-TS=E-k_B T\ln\Omega, \quad H=U+PV=E+PV, \quad G=F+PV=U+PV-TS\]
+对于可加的均匀体系，Euler 关系还给出$G=\sum_i\mu_i N_i$，其中$i$指代不同种类的粒子。
+
+我们来看一个简单例子：对在体积$V$的盒子中的$N$个单原子理想气体，体系动量满足：
+\[\sum_{i=1}^{N}\frac{\bm{p}_i^2}{2m}=E\]
+我们先暂时\textbf{不考虑全同粒子交换导致的重复计数}，单纯按照经典相空间体积来数态，则
+\[
+\widetilde{\Omega}(E,V,N)=\frac{1}{h^{3N}}\int \delta\!\left(\sum_{i=1}^{N}\frac{\bm{p}_i^2}{2m}-E\right)\dd^{3N}\bm{q}\,\dd^{3N}\bm{p}.
+\]
+由于坐标积分与动量积分完全分离，坐标部分直接给出$V^N$，于是
+\[
+\widetilde{\Omega}(E,V,N)=\frac{V^N}{h^{3N}}I_{3N}(E),
+\qquad
+I_d(E)=\int \delta\!\left(\frac{p^2}{2m}-E\right)\dd^d\bm{p}.
+\]
+在$d$维球坐标中，半径为$p$的超球面面积为
+\[
+S_{d-1}(p)=\frac{2\pi^{d/2}}{\Gamma(d/2)}p^{d-1},
+\]
+因此
+\[
+\begin{aligned}
+I_d(E)
+&=\frac{2\pi^{d/2}}{\Gamma(d/2)}\int_0^\infty p^{d-1}\delta\!\left(\frac{p^2}{2m}-E\right)\dd p\\
+&=\frac{2\pi^{d/2}}{\Gamma(d/2)}\left(\sqrt{2mE}\right)^{d-1}\frac{m}{\sqrt{2mE}}\\
+&=\frac{(2\pi m)^{d/2}}{\Gamma(d/2)}E^{d/2-1}.
+\end{aligned}
+\]
+取$d=3N$便得到
+\[
+\boxed{
+\widetilde{\Omega}(E,V,N)=\frac{V^N}{h^{3N}}\frac{(2\pi m)^{3N/2}}{\Gamma(3N/2)}E^{3N/2-1}
+}.
+\]
+于是对应的熵为
+\[
+\widetilde{S}(E,V,N)=k_B\ln \widetilde{\Omega}(E,V,N).
+\]
+当$N\gg 1$时，用 Stirling 公式
+\[
+\ln\Gamma\!\left(\frac{3N}{2}\right)\simeq \frac{3N}{2}\ln\frac{3N}{2}-\frac{3N}{2},
+\]
+可得近似式
+\[
+\widetilde{S}(E,V,N)\simeq Nk_B\left[
+\ln\left(V\left(\frac{4\pi mE}{3Nh^2}\right)^{3/2}\right)+\frac{5}{2}
+\right].
+\]
+
+虽然这里还没有除以$N!$，但对$E$和$V$的导数已经能给出理想气体最基本的状态方程。首先
+\[
+\frac{1}{T}=\left(\pdv{\widetilde{S}}{E}\right)_{V,N}
+\simeq \frac{3Nk_B}{2E},
+\qquad
+\boxed{U=E=\frac{3}{2}Nk_B T}.
+\]
+其次
+\[
+P=T\left(\pdv{\widetilde{S}}{V}\right)_{E,N}
+=\frac{Nk_B T}{V},
+\qquad
+\boxed{PV=Nk_B T}.
+\]
+再来计算化学势：
+\[
+\widetilde{\mu}
+=-T\left(\pdv{\widetilde{S}}{N}\right)_{E,V}
+\simeq -k_B T\left[
+\ln\left(V\left(\frac{4\pi mE}{3Nh^2}\right)^{3/2}\right)+1
+\right].
+\]
+把$E=\frac{3}{2}Nk_BT$代回去，并引入热波长
+\[
+\Lambda=\frac{h}{\sqrt{2\pi mk_BT}},
+\]
+便得到
+\[
+\widetilde{\mu}=-k_B T\left[\ln\left(\frac{V}{\Lambda^3}\right)+1\right].
+\]
+这个结果已经暴露出问题：\textbf{化学势本应是强度量，但这里它直接依赖于总体积$V$而不是粒子密度$N/V$}。也就是说，不除以$N!$虽然还能给出正确的$U$和$PV$关系，却会在涉及$N$的热力学量上出问题。
+
+更严重的问题是熵不再是广延量。对于任意缩放因子$\lambda$，
+\[
+\widetilde{S}(\lambda E,\lambda V,\lambda N)
+=\lambda \widetilde{S}(E,V,N)+\lambda Nk_B\ln\lambda.
+\]
+特别地，考虑两份完全相同的同种理想气体，各自处于$(E,V,N)$。抽去隔板前总熵为
+\[
+\widetilde{S}_{\rm before}=2\widetilde{S}(E,V,N),
+\]
+抽去隔板后若仍把粒子当成可分辨粒子来数，则
+\[
+\widetilde{S}_{\rm after}=\widetilde{S}(2E,2V,2N)
+=2\widetilde{S}(E,V,N)+2Nk_B\ln 2,
+\]
+因此会得到
+\[
+\Delta \widetilde{S}=2Nk_B\ln 2>0.
+\]
+但这显然不合理，因为两边本来就是同一种气体、相同温度、相同密度，抽去隔板并没有产生新的可观测宏观状态，熵增理应为零。由此可见，我们必须把全同粒子的置换视为同一个微观状态，也就是把态数改写为
+\[
+\Omega(E,V,N)=\frac{\widetilde{\Omega}(E,V,N)}{N!}
+=\frac{V^N}{N!h^{3N}}\frac{(2\pi m)^{3N/2}}{\Gamma(3N/2)}E^{3N/2-1}.
+\]
+这时熵变成
+\[
+S(E,V,N)=k_B\ln\Omega(E,V,N)
+\simeq Nk_B\left[
+\ln\left(\frac{V}{N}\left(\frac{4\pi mE}{3Nh^2}\right)^{3/2}\right)+\frac{5}{2}
+\right],
+\]
+这就是单原子理想气体的 Sackur-Tetrode 公式。由它再来计算各个常见热力学量，就会得到完全正确且具有正常标度性质的结果：
+\[
+\boxed{U=\frac{3}{2}Nk_B T},
+\qquad
+\boxed{PV=Nk_B T},
+\]
+\[
+\boxed{\mu=k_B T\ln(n\Lambda^3)},
+\qquad n=\frac{N}{V},
+\]
+\[
+\boxed{F=U-TS=-Nk_B T\left[\ln\left(\frac{V}{N\Lambda^3}\right)+1\right]},
+\]
+\[
+\boxed{H=U+PV=\frac{5}{2}Nk_B T},
+\qquad
+\boxed{G=F+PV=\mu N=Nk_B T\ln(n\Lambda^3)},
+\]
+\[
+\boxed{C_V=\left(\pdv{U}{T}\right)_{V,N}=\frac{3}{2}Nk_B},
+\qquad
+\boxed{C_P=\left(\pdv{H}{T}\right)_{P,N}=\frac{5}{2}Nk_B}.
+\]
+于是我们就得到了一个非常具体的结论：\textcolor{blue}{\textbf{$1/N!$并不是事后“美化公式”的修正项，而是保证熵的广延性、保证化学势成为强度量并消除 Gibbs 悖论所必需的}}。
+
+
+\subsection{玻尔兹曼分布与麦克斯韦-玻尔兹曼气体能量统计}
+先考虑一个小系统$A$与一个巨大热浴$B$接触，二者组成的总体系隔离，总能量固定为$E_{\rm tot}$。若系统$A$处于能量本征值$E_i$对应的微观状态，则热浴的能量就是$E_{\rm tot}-E_i$，于是该状态出现的概率正比于热浴在该能量下的微观态数：
+\[
+P_i\propto \Omega_B(E_{\rm tot}-E_i).
+\]
+对热浴态数在$E_{\rm tot}$附近做 Taylor 展开：
+\[
+\ln \Omega_B(E_{\rm tot}-E_i)=\ln \Omega_B(E_{\rm tot})-\left(\pdv{\ln\Omega_B}{E_B}\right)_{V,N}E_i+\cdots
+\]
+根据微正则熵的定义$S_B=k_B\ln\Omega_B$，有
+\[
+\left(\pdv{\ln\Omega_B}{E_B}\right)_{V,N}=\frac{1}{k_B}\left(\pdv{S_B}{E_B}\right)_{V,N}=\frac{1}{k_B T}.
+\]
+于是
+\[
+P_i\propto e^{-\beta E_i},\qquad \beta=\frac{1}{k_B T}.
+\]
+归一化后便得到玻尔兹曼分布：
+\[
+\boxed{P_i=\frac{e^{-\beta E_i}}{Z}},\qquad Z=\sum_i e^{-\beta E_i}.
+\]
+若能级$E_i$有简并度$g_i$，则对应能量的概率为$P(E_i)=g_i e^{-\beta E_i}/Z$。在经典相空间表述下，上式对应的平衡分布密度就是
+\[
+\rho(\xi)=\frac{e^{-\beta H(\xi)}}{Z},\qquad Z=\int e^{-\beta H(\xi)}\dd\Gamma.
+\]
+也就是说，\textcolor{blue}{\textbf{热平衡时一切微观状态的权重都由同一个玻尔兹曼因子$e^{-\beta H}$决定}}，后面三个系综的推导本质上都是围绕这个权重展开的。
+
+对于单原子理想气体，单粒子的平动能量为$\varepsilon=p^2/2m=mv^2/2$。由玻尔兹曼权重可得三维速度分布：
+\[
+f(\mathbf{v})=\left(\frac{m}{2\pi k_B T}\right)^{3/2}\exp\left(-\frac{mv^2}{2k_B T}\right),
+\]
+进一步对速度方向积分，就得到速率分布：
+\[
+f(v)=4\pi \left(\frac{m}{2\pi k_B T}\right)^{3/2}v^2\exp\left(-\frac{mv^2}{2k_B T}\right),\qquad v\ge 0.
+\]
+把变量从$v$换成$\varepsilon=mv^2/2$，注意$\dd v=\dd\varepsilon/\sqrt{2m\varepsilon}$，于是单粒子平动能量分布为
+\[
+\boxed{f(\varepsilon)=\frac{2}{\sqrt{\pi}} \frac{\sqrt{\varepsilon}}{(k_B T)^{3/2}}e^{-\varepsilon/(k_B T)}},\qquad \varepsilon\ge 0.
+\]
+直接积分可得几个常用结果：
+\[
+\varepsilon_{\rm mp}=\frac{1}{2}k_B T,\qquad \expval{\varepsilon}=\frac{3}{2}k_B T,\qquad \expval{\varepsilon^2}-\expval{\varepsilon}^2=\frac{3}{2}(k_B T)^2.
+\]
+这里$\varepsilon_{\rm mp}$表示最概然能量。可见速率分布最可能对应的能量并不等于平均能量，这正是统计分布“偏斜”而非对称的体现。
+
+若进一步把$N$个粒子的平动能量加总，理想气体总动能$E$服从 Gamma 分布：
+\[
+P_N(E)=\frac{\beta^{3N/2}}{\Gamma(3N/2)}E^{3N/2-1}e^{-\beta E},\qquad E\ge 0.
+\]
+于是
+\[
+\expval{E}=\frac{3N}{2}k_B T,\qquad \expval{(\Delta E)^2}=\frac{3N}{2}(k_B T)^2,\qquad \frac{\sqrt{\expval{(\Delta E)^2}}}{\expval{E}}=\sqrt{\frac{2}{3N}}.
+\]
+这最后一个式子很重要：\textcolor{blue}{\textbf{随着粒子数增大，能量的相对涨落按$N^{-1/2}$衰减}}，这就是为什么不同系综在热力学极限下会给出相同的状态方程和热力学关系。
+
+\subsection{正则系综}
+正则系综对应与热浴接触、但粒子数固定的体系，自然变量是$T,V,N$。在这一系综中，微观状态的概率密度正是前面得到的玻尔兹曼分布：
+\[
+\rho(\xi)=\frac{e^{-\beta H(\xi)}}{Z_N(T,V)},\qquad 
+Z_N(T,V)=\int e^{-\beta H(\xi)}\dd\Gamma.
+\]
+这里$Z_N$就是正则配分函数。它的核心作用是把所有玻尔兹曼权重做归一化，同时也是热力学信息的生成函数。
+
+从微正则系综的角度回看正则系综，还能得到一个很有启发的结果。若把总概率改写成能量的分布，则
+\[
+p(E)=\frac{\Omega(E,V,N)e^{-\beta E}}{Z_N}
+=\frac{1}{Z_N}\exp\left[\frac{S(E,V,N)}{k_B}-\beta E\right]
+=\frac{1}{Z_N}e^{-\beta F(E)},
+\]
+其中
+\[
+F(E)=E-TS(E,V,N)
+\]
+可以理解为“把能量$E$当作变量时的自由能函数”。因此最概然能量对应的其实就是$F(E)$的极小值点，这也解释了为什么 Helmholtz 自由能会成为正则系综的核心热力学势。
+
+先看内能。由定义
+\[
+U=\int H(\xi)\rho(\xi)\dd\Gamma
+=\frac{1}{Z_N}\int H(\xi)e^{-\beta H(\xi)}\dd\Gamma,
+\]
+对$Z_N$对$\beta$求导：
+\[
+\pdv{Z_N}{\beta}=-\int H(\xi)e^{-\beta H(\xi)}\dd\Gamma=-Z_N U,
+\]
+于是
+\[
+\boxed{U=-\pdv{\ln Z_N}{\beta}}.
+\]
+
+正则系综对应的热力学势是 Helmholtz 自由能：
+\[
+\boxed{F(T,V,N)=-k_B T\ln Z_N}.
+\]
+将$F=U-TS$与上式结合，立刻得到熵
+\[
+\boxed{S=-\left(\pdv{F}{T}\right)_{V,N}=k_B\left(\ln Z_N+\beta U\right)}.
+\]
+对$F$做全微分：
+\[
+\dd F=-S\dd T-P\dd V+\mu \dd N,
+\]
+所以压强和化学势分别是
+\[
+\boxed{P=-\left(\pdv{F}{V}\right)_{T,N}=k_B T\left(\pdv{\ln Z_N}{V}\right)_{T,N}},
+\]
+\[
+\boxed{\mu=\left(\pdv{F}{N}\right)_{T,V}=-k_B T\left(\pdv{\ln Z_N}{N}\right)_{T,V}}.
+\]
+同理，其余常见热力学量也都能由$Z_N$恢复：
+\[
+H=U+PV,\qquad G=F+PV.
+\]
+如果体系满足通常的可加性关系，则依然有$G=\mu N$。
+
+正则系综里一个非常重要的结果是能量涨落公式。由
+\[
+\pdv[2]{\ln Z_N}{\beta}
+=\expval{H^2}-\expval{H}^2
+=\expval{(\Delta E)^2},
+\]
+再结合$U=-\partial\ln Z_N/\partial\beta$，可得
+\[
+C_V=\left(\pdv{U}{T}\right)_{V,N}
+=k_B\beta^2\expval{(\Delta E)^2},
+\]
+也就是
+\[
+\boxed{\expval{(\Delta E)^2}=k_B T^2 C_V}.
+\]
+因此热容不仅描述“升温有多难”，也直接控制平衡能量涨落的大小。
+
+一个很典型、也很适合练手的正则系综例子是双能级系统。设有$N$个彼此独立、固定在晶格位置上的缺陷或杂质，每个缺陷只有基态和激发态两种可能，记占据数$n_i=0,1$，激发能为$\varepsilon$，则哈密顿量为
+\[
+H=\varepsilon\sum_{i=1}^{N}n_i.
+\]
+由于这些缺陷是固定在各自位置上的，所以它们在经典计数里是可区分的，不需要额外再除以$N!$。此时配分函数可以直接因子化：
+\[
+Z_N=\sum_{\{n_i\}}e^{-\beta\varepsilon\sum_i n_i}
+=\prod_{i=1}^{N}\left(\sum_{n_i=0}^{1}e^{-\beta\varepsilon n_i}\right)
+=\left(1+e^{-\beta\varepsilon}\right)^N.
+\]
+于是
+\[
+F=-Nk_B T\ln\left(1+e^{-\beta\varepsilon}\right),
+\]
+\[
+U=-\pdv{\ln Z_N}{\beta}
+=\frac{N\varepsilon}{e^{\beta\varepsilon}+1},
+\]
+\[
+S=k_B\left(\ln Z_N+\beta U\right)
+=Nk_B\left[\ln\left(1+e^{-\beta\varepsilon}\right)+\frac{\beta\varepsilon}{e^{\beta\varepsilon}+1}\right].
+\]
+更进一步，单个缺陷处于激发态的概率就是
+\[
+p_1=\frac{e^{-\beta\varepsilon}}{1+e^{-\beta\varepsilon}}=\frac{1}{e^{\beta\varepsilon}+1},
+\]
+因此平均激发数为$Np_1$。这个例子很能体现正则系综的一个优点：\textcolor{blue}{\textbf{一旦体系由许多独立自由度组成，配分函数常常会自动因子化，热力学量也就跟着变得非常好算}}。
+
+对单原子经典理想气体，动量积分与坐标积分可以完全分离，得到
+\[
+Z_N=\frac{1}{N!}\left(\frac{V}{\Lambda^3}\right)^N,\qquad 
+\Lambda=\frac{h}{\sqrt{2\pi m k_B T}},
+\]
+其中$\Lambda$是热德布罗意波长。把这个$Z_N$带入上面的通式就有
+\[
+F=-Nk_B T\left[\ln\left(\frac{V}{N\Lambda^3}\right)+1\right],
+\]
+\[
+U=\frac{3}{2}Nk_B T,\qquad P=\frac{Nk_B T}{V},
+\]
+\[
+S=Nk_B\left[\ln\left(\frac{V}{N\Lambda^3}\right)+\frac{5}{2}\right],
+\]
+\[
+\mu=k_B T\ln\left(\frac{N\Lambda^3}{V}\right).
+\]
+这些关系把理想气体的状态方程、内能和熵一次性统一在同一个配分函数框架里，也展示了正则系综在实际计算中的高效性。
+
+\subsection{巨正则系综}
+巨正则系综对应体系既能与外界交换热，也能交换粒子，因此自然变量是$T,V,\mu$。此时需要同时统计不同粒子数$N$的全部可能微观状态。若记逸度$z=e^{\beta\mu}$，则巨正则配分函数定义为
+\[
+\Xi(T,V,\mu)=\sum_{N=0}^{\infty}z^N Z_N(T,V)
+=\sum_{N=0}^{\infty}e^{\beta\mu N}Z_N(T,V).
+\]
+等价地，也可以把它写成对所有$N$粒子相空间的求和积分：
+\[
+\Xi=\sum_{N=0}^{\infty}\int e^{-\beta[H_N(\xi)-\mu N]}\dd\Gamma.
+\]
+把求和按固定粒子数$N$来重新分组后，我们还能立刻读出“体系中恰好有$N$个粒子”的概率：
+\[
+p(N)=\frac{e^{\beta\mu N}Z_N(T,V)}{\Xi(T,V,\mu)}.
+\]
+于是$N$粒子相空间中某个微观状态的概率密度就是
+\[
+\rho_N(\xi)=\frac{e^{-\beta[H_N(\xi)-\mu N]}}{\Xi}.
+\]
+可以看到，巨正则权重和正则分布相比只是把能量$H$替换成了$H-\mu N$，即在能量代价之外还把“多放一个粒子”的化学势收益一起计入了。
+
+巨正则系综对应的热力学势称为巨势：
+\[
+\boxed{\Phi_G(T,V,\mu)=-k_B T\ln \Xi}.
+\]
+其全微分形式为
+\[
+\dd\Phi_G=-S\dd T-P\dd V-\bar N \dd\mu,
+\]
+因此平均粒子数、压强和熵分别满足
+\[
+\boxed{\bar N=-\left(\pdv{\Phi_G}{\mu}\right)_{T,V}=k_B T\left(\pdv{\ln\Xi}{\mu}\right)_{T,V}
+=z\left(\pdv{\ln\Xi}{z}\right)_{T,V}},
+\]
+\[
+\boxed{P=-\left(\pdv{\Phi_G}{V}\right)_{T,\mu}=k_B T\left(\pdv{\ln\Xi}{V}\right)_{T,\mu}},
+\]
+\[
+\boxed{S=-\left(\pdv{\Phi_G}{T}\right)_{V,\mu}}.
+\]
+对$\Xi$关于$\beta$求导，
+\[
+\pdv{\ln\Xi}{\beta}
+=-\expval{H-\mu N}
+=-(U-\mu \bar N),
+\]
+于是内能可写成
+\[
+\boxed{U=-\left(\pdv{\ln\Xi}{\beta}\right)_{V,\mu}+\mu \bar N}.
+\]
+再利用$\Phi_G=U-TS-\mu \bar N$，可得
+\[
+\boxed{S=k_B\left(\ln\Xi+\beta U-\beta\mu \bar N\right)}.
+\]
+其余热力学势同样可以由 Legendre 变换恢复：
+\[
+F=U-TS=\Phi_G+\mu \bar N,
+\]
+\[
+H=U+PV,
+\]
+\[
+G=F+PV.
+\]
+对于均匀单组分体系，仍然有
+\[
+\Phi_G=-PV,\qquad G=\mu \bar N.
+\]
+这也是为什么在凝聚态物理、吸附、开放体系和量子多体理论里，巨正则系综尤其常用：它把压强和粒子数都编码进一个对数$\ln\Xi$里了。
+
+巨正则系综另一个好处是粒子数涨落可以直接由$\Xi$给出。再对$\mu$求一次导数：
+\[
+\expval{(\Delta N)^2}
+=k_B T\left(\pdv{\bar N}{\mu}\right)_{T,V}.
+\]
+因此压缩性、本征浓度涨落等量都能直接和粒子数统计联系起来。和正则系综中的能量涨落一样，这里的方差通常也正比于$N$，所以相对涨落$\sqrt{\expval{(\Delta N)^2}}/\bar N$在热力学极限下同样按$N^{-1/2}$消失，这正是巨正则系综与定粒子数系综等价的统计学原因。
+
+对经典理想气体，有
+\[
+Z_N=\frac{1}{N!}\left(\frac{V}{\Lambda^3}\right)^N,
+\]
+从而
+\[
+\Xi=\sum_{N=0}^{\infty}\frac{1}{N!}\left(\frac{zV}{\Lambda^3}\right)^N
+=\exp\left(\frac{zV}{\Lambda^3}\right).
+\]
+于是
+\[
+\bar N=z\frac{V}{\Lambda^3},\qquad 
+P=\frac{k_B T}{V}\ln\Xi=\frac{zk_B T}{\Lambda^3},
+\]
+消去$z$后立刻得到
+\[
+PV=\bar N k_B T.
+\]
+可以看到，无论在微正则、正则还是巨正则系综里，理想气体最终都回到同一个状态方程；区别只在于中间计算时，最方便的控制变量究竟是$(E,V,N)$、$(T,V,N)$还是$(T,V,\mu)$。
+
+至此我们可以把三个系综的关系总结为：微正则系综以熵$S(E,V,N)$为出发点，正则系综以自由能$F(T,V,N)$为出发点，巨正则系综以巨势$\Phi_G(T,V,\mu)$为出发点。它们彼此之间通过 Legendre 变换相连，而在热力学极限下又给出相互一致的宏观物理。这种“同一物理、不同自然变量”的视角，正是后续处理化学平衡、相变和输运过程时最重要的基础。
+
+\section{量子统计力学}\label{sec:quantum_sm}
+经典统计力学把宏观状态描述为相空间上的概率密度，而量子统计力学则把宏观状态描述为希尔伯特空间上的密度算符。前文已经介绍过量子态、算符和表象理论，因此这里不再从头复述量子力学本身，而只保留统计力学真正需要的结构。
+
+\subsection{量子系综、密度算符与 Fock 空间}
+设体系的希尔伯特空间为$\mathcal{H}$，若系统处于归一化纯态$\ket{\Psi}$，则对应的密度算符为
+\[
+\hat{\rho}=\ket{\Psi}\bra{\Psi}.
+\]
+这时任意可观测量$\hat{A}$的期望值都可以写为
+\[
+\expval{A}=\Tr(\hat{\rho}\hat{A})=\bra{\Psi}\hat{A}\ket{\Psi}.
+\]
+若我们并不知道系统究竟处于哪一个纯态，只知道它以概率$p_n$处在一组正交归一态$\{\ket{\psi_n}\}$中，则体系处于混合态，其密度算符为
+\[
+\boxed{\hat{\rho}=\sum_n p_n\ket{\psi_n}\bra{\psi_n}},
+\qquad p_n\ge 0,\qquad \sum_n p_n=1.
+\]
+因此量子统计力学中“相空间概率密度$\rho(q,p)$”的角色，便由“希尔伯特空间上的密度算符$\hat{\rho}$”接替了。相应地，\textcolor{blue}{\textbf{经典统计中的相空间积分，在量子统计中被迹运算$\Tr$所取代}}。
+
+密度算符总满足
+\[
+\hat{\rho}^{\dagger}=\hat{\rho},\qquad \Tr\hat{\rho}=1,\qquad \bra{\phi}\hat{\rho}\ket{\phi}\ge 0\quad \forall\ket{\phi}\in\mathcal{H}.
+\]
+如果在$\hat{\rho}$的本征基$\{\ket{\alpha}\}$下将其对角化：
+\[
+\hat{\rho}=\sum_{\alpha}p_{\alpha}\ket{\alpha}\bra{\alpha},
+\]
+则量子统计熵可以写成
+\[
+\boxed{S=-k_B\Tr(\hat{\rho}\ln\hat{\rho})=-k_B\sum_{\alpha}p_{\alpha}\ln p_{\alpha}}.
+\]
+它正是经典 Gibbs 熵在量子力学里的自然推广。纯态时某个$p_{\alpha}=1$而其余全为$0$，因此$S=0$；完全无信息时$\hat{\rho}=\mathbbm{1}/\dim\mathcal{H}$，熵取最大值$S=k_B\ln\dim\mathcal{H}$。对两个独立系统，若总密度算符满足$\hat{\rho}_{12}=\hat{\rho}_1\otimes\hat{\rho}_2$，则熵满足可加性：
+\[
+S_{12}=S_1+S_2.
+\]
+
+对多粒子系统，还需要考虑全同粒子的交换对称性。若单粒子希尔伯特空间为$\mathcal{H}_1$，则$N$粒子希尔伯特空间并不是简单的$\mathcal{H}_1^{\otimes N}$，而是其对称或反对称子空间：
+\[
+\mathcal{H}_N^{({\rm B})}=S(\mathcal{H}_1^{\otimes N}),\qquad 
+\mathcal{H}_N^{({\rm F})}=A(\mathcal{H}_1^{\otimes N}),
+\]
+分别对应玻色子与费米子。为了统一处理不同粒子数的情形，我们引入 Fock 空间
+\[
+\mathcal{F}=\mathcal{H}^{(0)}\oplus \mathcal{H}^{(1)}\oplus \mathcal{H}^{(2)}\oplus\cdots.
+\]
+在 Fock 空间中，一个多体态可以用占据数表象表示为
+\[
+\ket{n_1,n_2,\ldots,n_l,\ldots},
+\]
+其中$n_l$表示第$l$个单粒子态上的占据数。对玻色子，$n_l=0,1,2,\cdots$；对费米子，$n_l=0,1$，这就是 Pauli 不相容原理。定义产生与湮灭算符$\hat{a}_l^{\dagger},\hat{a}_l$后，占据数算符为
+\[
+\hat{n}_l=\hat{a}_l^{\dagger}\hat{a}_l.
+\]
+若体系无相互作用，且$\{\ket{l}\}$是单粒子哈密顿量的本征态，单粒子能量为$\varepsilon_l$，则总哈密顿量与粒子数算符都可以写成非常简单的形式：
+\[
+\boxed{\hat{H}=\sum_l \varepsilon_l \hat{n}_l,\qquad \hat{N}=\sum_l \hat{n}_l.}
+\]
+这正是后面推导 Bose-Einstein 和 Fermi-Dirac 分布的出发点。
+
+\subsection{量子平衡分布与三个量子系综}
+平衡态的一个基本特征是密度算符不再显式随时间变化。由 Liouville-von Neumann 方程
+\[
+i\hbar \pdv{\hat{\rho}}{t}=[\hat{H},\hat{\rho}]
+\]
+可知，在平衡态中应有
+\[
+\pdv{\hat{\rho}}{t}=0\qquad \Rightarrow \qquad [\hat{H},\hat{\rho}]=0.
+\]
+也就是说，平衡态密度算符与哈密顿量可以同时对角化，因此平衡分布最终都可以写成$\hat{H}$（以及$\hat{N}$）的函数。
+
+微正则系综对应孤立量子体系。若体系能量被限制在区间$E<\hat{H}<E+\Delta E$内，则可定义到该能量壳层的投影算符$\hat{P}_{E,\Delta E}$，于是微正则密度算符为
+\[
+\boxed{\hat{\rho}_{E,\Delta E}=\frac{\hat{P}_{E,\Delta E}}{\Tr\hat{P}_{E,\Delta E}}}.
+\]
+若记
+\[
+\Omega(E,\Delta E)=\Tr \hat{P}_{E,\Delta E},
+\]
+则微正则熵就是
+\[
+\boxed{S(E,\Delta E)=k_B\ln \Omega(E,\Delta E)}.
+\]
+这与经典情形完全平行，只不过“能量壳层里的态数”现在由量子态数来给出。
+
+正则系综对应与热浴接触、但粒子数固定的量子体系。它可以通过极大化 Gibbs 熵
+\[
+S=-k_B\Tr(\hat{\rho}\ln\hat{\rho})
+\]
+并施加约束$\Tr\hat{\rho}=1$以及$\Tr(\hat{\rho}\hat{H})=E$得到。用拉格朗日乘子法变分：
+\[
+\delta\left[S-\lambda\Tr\hat{\rho}-\lambda'\Tr(\hat{\rho}\hat{H})\right]=0,
+\]
+可得量子 Gibbs 分布
+\[
+\boxed{\hat{\rho}_{\rm can}=\frac{e^{-\beta \hat{H}}}{Z}},\qquad Z=\Tr\left(e^{-\beta \hat{H}}\right).
+\]
+其中$Z$是正则配分函数。它一旦已知，量子体系的热力学量便与经典情况一样都能由它导出：
+\[
+\boxed{F=-k_B T\ln Z},
+\]
+\[
+\boxed{E=\expval{\hat{H}}=-\pdv{\ln Z}{\beta}},
+\]
+\[
+\boxed{S=k_B\left(\ln Z+\beta E\right)}.
+\]
+等价地，也可以把密度算符写成
+\[
+\hat{\rho}_{\rm can}=e^{\beta(F-\hat{H})}.
+\]
+对哈密顿量本征态$\hat{H}\ket{n}=E_n\ket{n}$而言，上式退化成熟悉的 Boltzmann 权重
+\[
+p_n=\frac{e^{-\beta E_n}}{Z}.
+\]
+
+巨正则系综对应既能交换热又能交换粒子的开放量子体系。此时要在熵极大化时同时固定$\Tr(\hat{\rho}\hat{H})=E$和$\Tr(\hat{\rho}\hat{N})=\bar N$，变分结果为
+\[
+\boxed{\hat{\rho}_{\rm gc}=\frac{e^{-\beta(\hat{H}-\mu \hat{N})}}{\Xi}},
+\qquad 
+\Xi=\Tr\left(e^{-\beta(\hat{H}-\mu \hat{N})}\right).
+\]
+这里$\Xi$是巨正则配分函数。对应的巨势为
+\[
+\boxed{\Phi_G=-k_B T\ln \Xi}.
+\]
+于是
+\[
+\boxed{\bar N=-\left(\pdv{\Phi_G}{\mu}\right)_{T,V}
+=k_B T\left(\pdv{\ln\Xi}{\mu}\right)_{T,V}},
+\]
+\[
+\boxed{E=-\pdv{\ln\Xi}{\beta}+\mu \bar N},
+\]
+\[
+\boxed{S=k_B\left(\ln\Xi+\beta E-\beta\mu \bar N\right)}.
+\]
+也可以写成
+\[
+\hat{\rho}_{\rm gc}=e^{\beta(\Phi_G-\hat{H}+\mu\hat{N})}.
+\]
+因此三个量子系综与经典系综在结构上是完全平行的：只是相空间积分变成了迹运算，而概率分布变成了密度算符。
+
+\subsection{理想量子气体与 Bose-Einstein / Fermi-Dirac 分布}
+对无相互作用体系，哈密顿量与粒子数算符都可写成占据数之和
+\[
+\hat{H}=\sum_l \varepsilon_l \hat{n}_l,\qquad \hat{N}=\sum_l \hat{n}_l.
+\]
+这时巨正则配分函数可以在每个单粒子能级上完全因子化，因此量子理想气体最自然的处理方式就是巨正则系综。
+
+对玻色子，$n_l=0,1,2,\cdots$，于是
+\[
+\Xi_{\rm BE}
+=\prod_l\sum_{n_l=0}^{\infty}e^{-\beta n_l(\varepsilon_l-\mu)}
+=\prod_l\frac{1}{1-e^{-\beta(\varepsilon_l-\mu)}}.
+\]
+对应的巨势为
+\[
+\Omega_{\rm BE}=k_B T\sum_l\ln\left(1-e^{-\beta(\varepsilon_l-\mu)}\right),
+\]
+平均占据数则是
+\[
+\boxed{\bar n_l^{\rm (BE)}=\frac{1}{e^{\beta(\varepsilon_l-\mu)}-1}}.
+\]
+
+对费米子，$n_l=0,1$，因此
+\[
+\Xi_{\rm FD}
+=\prod_l\sum_{n_l=0}^{1}e^{-\beta n_l(\varepsilon_l-\mu)}
+=\prod_l\left(1+e^{-\beta(\varepsilon_l-\mu)}\right),
+\]
+对应巨势
+\[
+\Omega_{\rm FD}=-k_B T\sum_l\ln\left(1+e^{-\beta(\varepsilon_l-\mu)}\right),
+\]
+以及平均占据数
+\[
+\boxed{\bar n_l^{\rm (FD)}=\frac{1}{e^{\beta(\varepsilon_l-\mu)}+1}}.
+\]
+这两个分布在形式上极其相似，但分母中的符号差异反映了截然不同的量子统计：玻色子倾向于“扎堆”占据同一个态，而费米子则受到 Pauli 不相容原理约束，每个单粒子态最多只能放一个粒子。
+
+从占据数分布出发，粒子总数和内能都可以写成单粒子态求和：
+\[
+\boxed{\bar N=\sum_l \bar n_l},\qquad 
+\boxed{U=\sum_l \varepsilon_l \bar n_l}.
+\]
+单个能级上的涨落也可直接算出：
+\[
+\expval{(\Delta n_l)^2}_{\rm BE}=\bar n_l(1+\bar n_l),\qquad
+\expval{(\Delta n_l)^2}_{\rm FD}=\bar n_l(1-\bar n_l).
+\]
+玻色子的正号表明占据存在 bunching 倾向，而费米子的负号则对应反聚束与占据抑制。
+
+在高温低密度极限下，若所有能级都满足$\bar n_l\ll 1$，则两种量子分布统一退化为
+\[
+\bar n_l \approx e^{-\beta(\varepsilon_l-\mu)},
+\]
+这就是 Maxwell-Boltzmann 分布。因此经典统计力学并不是量子统计力学之外的另一套理论，而是量子统计在稀薄极限下的近似。
+
+对自由粒子，若单粒子能量为$\varepsilon_{\mathbf{p}}=p^2/2m$，并把求和改为动量积分，则可以进一步得到量子理想气体的状态方程。对玻色子必须满足$\mu<\varepsilon_0$，在低温高密度下会出现基态宏观占据，这就是 Bose-Einstein 凝聚；而对费米子，在$T\to 0$时所有$\varepsilon_l<\mu$的能级被逐个填满，形成费米面。这两种现象都是纯粹由量子统计导致的，在经典极限中都不会出现。
+
+\subsection{两个典型例子：自由自旋与量子谐振子}
+作为例子，先看处在外磁场$B$中的$N$个彼此独立的自旋$\frac{1}{2}$粒子。设单个自旋的磁矩大小为$\mu$，则其两能级为
+\[
+\varepsilon_{\pm}=\mp \mu B.
+\]
+单个粒子的配分函数为
+\[
+z_1=e^{\beta\mu B}+e^{-\beta\mu B}=2\cosh(\beta\mu B),
+\]
+于是$N$个独立自旋的正则配分函数就是
+\[
+Z_N=z_1^N=\left[2\cosh(\beta\mu B)\right]^N.
+\]
+由此立刻得到自由能和内能
+\[
+F=-Nk_B T\ln\left[2\cosh(\beta\mu B)\right],
+\]
+\[
+U=-\pdv{\ln Z_N}{\beta}=-N\mu B\tanh(\beta\mu B).
+\]
+磁化强度可由自由能对磁场求导获得：
+\[
+M=-\left(\pdv{F}{B}\right)_{T,N}=N\mu\tanh(\beta\mu B).
+\]
+相应的热容为
+\[
+C_V=Nk_B(\beta\mu B)^2\,\text{sech}^2(\beta\mu B).
+\]
+这个模型虽然简单，却已经展示了量子能级离散化如何直接决定热容、磁化率和涨落行为。
+
+再看频率为$\omega$的一维量子谐振子，其能级为
+\[
+\varepsilon_n=\hbar\omega\left(n+\frac{1}{2}\right),\qquad n=0,1,2,\ldots.
+\]
+单个谐振子的配分函数可以直接求和得到
+\[
+z_1=\sum_{n=0}^{\infty}e^{-\beta\hbar\omega(n+1/2)}
+=\frac{e^{-\beta\hbar\omega/2}}{1-e^{-\beta\hbar\omega}}.
+\]
+于是
+\[
+F=-k_B T\ln z_1
+=\frac{1}{2}\hbar\omega+k_B T\ln\left(1-e^{-\beta\hbar\omega}\right),
+\]
+\[
+U=-\pdv{\ln z_1}{\beta}
+=\hbar\omega\left(\frac{1}{2}+\frac{1}{e^{\beta\hbar\omega}-1}\right).
+\]
+进一步得到热容
+\[
+C_V=k_B\frac{(\beta\hbar\omega)^2e^{\beta\hbar\omega}}{(e^{\beta\hbar\omega}-1)^2}.
+\]
+在高温极限$\beta\hbar\omega\ll 1$时，上式趋于$k_B$，回到经典等分配定理；而在低温极限下，热容指数衰减到$0$，这正是量子化能级结构的直接后果。
+
+综上所述，量子统计力学只是把“经典相空间中的概率密度”替换成了“希尔伯特空间中的密度算符”，但这一替换会带来两个深刻的新现象：一是熵和热力学量必须通过迹运算来定义；二是全同粒子的交换对称性会把系统分成玻色子与费米子两大类，并最终导致 Bose-Einstein 与 Fermi-Dirac 统计。理解了这两点，后续无论是处理电子气、光子气、声子、磁性模型还是凝聚态多体系统，都会有统一的出发点。
