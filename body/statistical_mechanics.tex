@@ -13,7 +13,7 @@
 
 至此我们把研究对象从具体的轨道转向了相空间中的分布。这时就可以引入统计的概念：对同一个宏观系统，在给定时刻所有可能微观状态组成一个系综；若记相空间概率密度为$\rho(\bm{q},\bm{p},t)$，则满足归一化：
 \[\int\rho(\bm{q},\bm{p},t)\dd\bm{\Gamma}=\frac{1}{h^{3N}}\int\rho(\bm{q},\bm{p},t)\dd^{3N}\bm{q}\dd^{3N}\bm{p}=1\]
-这里$h$是相空间微分$\dd{\bm{\Gamma}}$的体积，一般取为普朗克常数。于是任意可观测量$F(\bm{p},\bm{q},t)$的系综平均都可写为：
+这里$h$是相空间微分$\dd{\bm{\Gamma}}$的体积，一般取为 Planck 常数。于是任意可观测量$F(\bm{p},\bm{q},t)$的系综平均都可写为：
 \[\langle F \rangle=\int F(\bm{p},\bm{q},t)\rho(\bm{q},\bm{p},t)\dd{\bm{\Gamma}}\]
 考虑对$F$求对时间$t$的全导数并带入哈密顿正则方程：
 \[\dv{F}{t}=\pdv{F}{t}+\sum_i\left(\pdv{F}{q_i}\dot{q}_i+\pdv{F}{p_i}\dot{p}_i\right)=\pdv{F}{t}+\sum_i\left(\pdv{F}{q_i}\pdv{H}{p_i}-\pdv{F}{p_i}\pdv{H}{q_i}\right)=\pdv{F}{t}+\{F,H\}\]
@@ -37,7 +37,7 @@
 \[\lim_{t\to\infty}\rho(\bm{q},\bm{p},t)=\rho_E(\bm{q},\bm{p})\]
 刘维尔定理（体积元守恒）与混合效应相结合表明：相空间中的无穷小体积元会经历无限的拉伸与折叠，并最终弥散分布于整个能量曲面上。因此\textcolor{blue}{\textbf{微观分布与初始状态无关}}，这就是经典统计力学的核心假设之一。\textcolor{blue}{\textbf{微观分布一旦确定，宏观量都可以视为相空间的期望值}}。
 
-\subsection{微正则系综}
+\subsection{微正则系综}\label{sec:wzz}
 上一小节我们介绍了微正则系综，并给出了微正则配分函数$\Sigma_E$和微正则分布$\rho_E$的定义。显然我们可以知道在微正则系综中系统粒子数$N$和能量$E$是固定的。我们再来考虑体积$V$，如果体积$V$是可变的那么，会导致哈密顿量的势能显含时间，不满足微正则系综的条件，因此微正则系综的控制变量是$(N,V,E)$。因此微正则系综既不与外界交换热，也不交换粒子，所有满足给定能量壳层的微观状态被赋予等概率。记微正则配分函数为：
 \[\Omega(N,V,E)=\int\delta(H(\bm{q},\bm{p})-E)\dd{\bm{\Gamma}}\]
 $\Omega(N,V,E)$可以认为是体系的微观状态数，微正则系综中每个可及状态的概率都等于$1/\Omega$，Boltzmann 熵定义为：
@@ -66,8 +66,8 @@ S=-k_{\rm B}\int_{\Gamma_{E}}\frac{1}{\Omega}\ln\frac{1}{\Omega}\dd{\bm{\Gamma}}
 \[U=E,\quad F=U-TS=E-k_{\rm B} T\ln\Omega, \quad H=U+PV=E+PV, \quad G=F+PV=U+PV-TS\]
 对于可加的均匀体系，Euler 关系还给出$G=\sum_i\mu_i N_i$，其中$i$指代不同种类的粒子。
 \begin{proposition}[微正则系综下的单原子理想气体]
-在体积$V$的盒子中的$N$个单原子理想气体，体系能量（动能）满足：
-\[\sum_{i=1}^{N}\frac{\bm{p}_i^2}{2m}=E\]
+在体积$V$的盒子中的$N$个单原子理想气体，体系哈密顿量满足：
+\[H=\sum_{i=1}^{N}\frac{\bm{p}_i^2}{2m}=E\]
 \end{proposition}
 按照定义，容易看出微正则配分函数为：
 \[\widetilde{\Omega}(N,V,E)=\frac{1}{h^{3N}}\int \delta\!\left(\sum_{i=1}^{N}\frac{\bm{p}_i^2}{2m}-E\right)\dd^{3N}\bm{q}\,\dd^{3N}\bm{p}=\frac{V^N}{h^{3N}}\int \delta\!\left(\frac{\bm{p}^2}{2m}-E\right)\dd^{3N}\bm{p}\equiv \frac{V^N}{h^{3N}}I\]
@@ -121,7 +121,7 @@ C_P&=\left(\pdv{H}{T}\right)_{P,N}=\frac{5}{2}Nk_{\rm B}\\
 
 但是话说回来，原先在经典统计中定义的相空间微元：
 \[\dd{\bm{\Gamma}}=\frac{\dd{^{3N}\bm{p}}\dd{^{3N}\bm{q}}}{h^{3N}}\]
-在经典框架内也并不意味着有问题。比如在很多教材中会出现的\textbf{经典定域子系统}，如果考虑经典粒子的话上述定义是完全合理的。但是当我们把统计的边界逐渐推向微观世界时，经典理论的框架就会逐渐失效。Gibbs 和 Boltzmann 等人对气体系统的研究也为后续量子力学的萌芽奠定了基础。当引入量子后即使是定域子系统也需要考虑粒子的全同性。
+在经典框架内也并不意味着有问题。比如在很多教材中会出现的\textbf{经典定域子系统}，如果考虑经典粒子的话上述定义是完全合理的。但是当我们把统计的边界逐渐推向微观世界时，经典理论的框架就会逐渐失效。Gibbs 和 Boltzmann 等人对气体系统的研究也为后续量子力学的萌芽奠定了基础。当引入量子后即使是定域子系统也需要考虑粒子的全同性。其实把相点的体积取为 Planck 常数也是为了让经典统计力学的结果与量子统计力学的结果在热力学极限下保持一致而引入的一个修正。
 
 \newpage
 \subsection{正则系综与玻尔兹曼分布}
@@ -162,45 +162,107 @@ C_V&=\left(\pdv{U}{T}\right)_{N,V}=k_{\rm B}\beta^2\pdv[2]{\ln Z}{\beta}\\
 因此热容不仅描述“升温有多难”，也直接控制平衡能量涨落的大小。下面我们来看两个具体例子。
 
 \begin{proposition}[正则系综下的单原子理想气体]
-对$N$个单原子经典理想气体，动量积分与坐标积分可以完全分离，因此正则配分函数为
-\[
-Z(N,V,T)=\frac{1}{N!}\left(\frac{V}{\Lambda^3}\right)^N,\qquad 
-\Lambda=\frac{h}{\sqrt{2\pi m k_{\rm B} T}}.
-\]
+在在温度$T$，体积$V$的盒子中的$N$个单原子理想气体，体系哈密顿量由动能给出：
+\[H=\sum_{i=1}^{N}\frac{\bm{p}_i^2}{2m}=\sum_{i=1}^{N}\frac{1}{2}m\bm{v}_i^2=\frac{1}{2}m\bm{v}^2, \quad \bm{v}^2=\sum_{i=1}^{N}\bm{v}_i^2\]
 \end{proposition}
+对单个理想气体粒子而言，玻尔兹曼权重直接给出三维速度分布，积分掉角度部分，另$v=|\bm{v}|$，则：
+\[f(\bm{v})=\left(\frac{m}{2\pi k_{\rm B} T}\right)^{3/2}\exp\left(-\frac{m\bm{v}^2}{2k_{\rm B} T}\right) \quad \Rightarrow \quad f(v)=4\pi \left(\frac{m}{2\pi k_{\rm B} T}\right)^{3/2}v^2\exp\left(-\frac{mv^2}{2k_{\rm B} T}\right)\]
+把变量从$v$换成$\varepsilon=mv^2/2$，由概率守恒$f(\varepsilon)\dd\varepsilon=f(v)\dd v$可得单粒子平动能量分布：
+\[f(\varepsilon)
+=f(v)\left|\dv{v}{\varepsilon}\right|=4\pi \left(\frac{m}{2\pi k_{\rm B} T}\right)^{3/2}\left(\frac{2\varepsilon}{m}\right)\exp\left(-\frac{\varepsilon}{k_{\rm B} T}\right)\frac{1}{\sqrt{2m\varepsilon}}=\frac{2}{\sqrt{\pi}} \frac{\sqrt{\varepsilon}}{(k_{\rm B} T)^{3/2}}e^{-\varepsilon/(k_{\rm B} T)}\]
+最概然能量由$f(\varepsilon)$的极大值条件决定。对$\ln f(\varepsilon)$求导更方便：
+\[
+\dv{}{\varepsilon}\ln f(\varepsilon)=\frac{1}{2\varepsilon}-\frac{1}{k_{\rm B} T}=0
+\quad \Rightarrow \quad
+\varepsilon_{\rm mp}=\frac{1}{2}k_{\rm B} T.
+\]
+更一般地，令$x=\varepsilon/(k_{\rm B}T)$，则任意矩都可以写成 Gamma 函数积分：
+\[\expval{\varepsilon^n}=\int_0^\infty \varepsilon^n f(\varepsilon)\dd\varepsilon=\frac{2}{\sqrt{\pi}}(k_{\rm B} T)^n\int_0^\infty x^{n+1/2}e^{-x}\dd x=\frac{2}{\sqrt{\pi}}\Gamma\left(n+\frac{3}{2}\right)(k_{\rm B} T)^n\]
+取$n=1,2$便得到平均能量$\expval{\varepsilon}$和平均平方能量$\expval{\varepsilon^2}$，以及能量涨落$\expval{(\Delta \varepsilon)^2}$：
+\[\boxed{\expval{\varepsilon}=\frac{3}{2}k_{\rm B} T,\quad \expval{\varepsilon^2}=\frac{15}{4}(k_{\rm B} T)^2,\quad \expval{(\Delta \varepsilon)^2}=\expval{\varepsilon^2}-\expval{\varepsilon}^2=\frac{3}{2}(k_{\rm B} T)^2}\]
 
-另一方面，对单个理想气体粒子而言，玻尔兹曼权重直接给出三维速度分布：
-\[
-f(\mathbf{v})=\left(\frac{m}{2\pi k_{\rm B} T}\right)^{3/2}\exp\left(-\frac{mv^2}{2k_{\rm B} T}\right),
-\]
-进一步对速度方向积分，就得到速率分布：
-\[
-f(v)=4\pi \left(\frac{m}{2\pi k_{\rm B} T}\right)^{3/2}v^2\exp\left(-\frac{mv^2}{2k_{\rm B} T}\right),\qquad v\ge 0.
-\]
-把变量从$v$换成$\varepsilon=mv^2/2$，注意$\dd v=\dd\varepsilon/\sqrt{2m\varepsilon}$，于是单粒子平动能量分布为
-\[
-\boxed{f(\varepsilon)=\frac{2}{\sqrt{\pi}} \frac{\sqrt{\varepsilon}}{(k_{\rm B} T)^{3/2}}e^{-\varepsilon/(k_{\rm B} T)}},\qquad \varepsilon\ge 0.
-\]
-直接积分可得几个常用结果：
-\[
-\varepsilon_{\rm mp}=\frac{1}{2}k_{\rm B} T,\qquad \expval{\varepsilon}=\frac{3}{2}k_{\rm B} T,\qquad \expval{\varepsilon^2}-\expval{\varepsilon}^2=\frac{3}{2}(k_{\rm B} T)^2.
-\]
-这里$\varepsilon_{\rm mp}$表示最概然能量。可见速率分布最可能对应的能量并不等于平均能量，这正是统计分布“偏斜”而非对称的体现。
-
-若进一步把$N$个粒子的平动能量加总，理想气体总动能$E$服从 Gamma 分布：
+上述操作是针对单个理想气体分子的，由于计算平均性质，因此把上述结果或者其他性质乘以粒子数$N$，就能得到正则系综下单原子理想气体的热力学性质。这也是 Boltzmann 的做法，但是既然介绍了相空间理论，那我必然不欣赏这种做法，相空间理论提供了一个更统一的框架，还是从（正则）分布函数出发：
+\[P_N(E)=\frac{\Omega(N,V,E)e^{-\beta E}}{Z(N,V,T)}\]
+对单原子理想气体，在微正则系综中 [章节\ref{sec:wzz}] 我吗已经算出微正则配分函数作为能量$E$的函数为：
+\[\Omega(N,V,E)=\frac{V^N}{N!h^{3N}}\frac{(2\pi m)^{3N/2}}{\Gamma(3N/2)}E^{3N/2-1}\]
+因此正则配分函数$Z(N,V,T)$为：
+\[\begin{aligned}
+Z(N,V,T)&=\int_0^\infty \Omega(N,V,E)e^{-\beta E}\dd E=\frac{V^N}{N!h^{3N}}\frac{(2\pi m)^{3N/2}}{\Gamma(3N/2)}\int_0^\infty E^{3N/2-1}e^{-\beta E}\dd E\\
+&=\frac{V^N}{N!h^{3N}}\frac{(2\pi m)^{3N/2}}{\Gamma(3N/2)}\beta^{-3N/2}\int_0^\infty x^{3N/2-1}e^{-x}\dd x=\frac{V^N}{N!h^{3N}}\frac{(2\pi m)^{3N/2}}{\beta^{3N/2}}=\frac{1}{N!}\left(\frac{V}{\Lambda^3}\right)^N
+\end{aligned}\]
+把这个$Z$代回$P_N(E)$，体积、质量等常数都会约掉，理想气体总动能便服从 Gamma 分布：
 \[
 P_N(E)=\frac{\beta^{3N/2}}{\Gamma(3N/2)}E^{3N/2-1}e^{-\beta E},\qquad E\ge 0.
 \]
-于是
+同样利用 Gamma 积分，
 \[
-\expval{E}=\frac{3N}{2}k_{\rm B} T,\qquad \expval{(\Delta E)^2}=\frac{3N}{2}(k_{\rm B} T)^2,\qquad \frac{\sqrt{\expval{(\Delta E)^2}}}{\expval{E}}=\sqrt{\frac{2}{3N}}.
+\expval{E^n}
+=\int_0^\infty E^n P_N(E)\dd E
+=\frac{\Gamma(3N/2+n)}{\Gamma(3N/2)}\frac{1}{\beta^n}.
+\]
+取$n=1,2$可得
+\[
+\expval{E}=\frac{3N}{2\beta}=\frac{3N}{2}k_{\rm B} T,\qquad
+\expval{E^2}=\frac{3N}{2}\left(\frac{3N}{2}+1\right)\frac{1}{\beta^2},
+\]
+于是方差与相对涨落为
+\[
+\expval{(\Delta E)^2}=\expval{E^2}-\expval{E}^2=\frac{3N}{2}(k_{\rm B} T)^2,\qquad
+\frac{\sqrt{\expval{(\Delta E)^2}}}{\expval{E}}=\sqrt{\frac{2}{3N}}.
 \]
 这最后一个式子很重要：\textcolor{blue}{\textbf{随着粒子数增大，能量的相对涨落按$N^{-1/2}$衰减}}，这就是为什么不同系综在热力学极限下会给出相同的状态方程和热力学关系。
+
+有了$Z$之后，其余热力学量就都可以从正则系综的通式直接求出。先取对数：
+\[
+\ln Z=-\ln N!+N\ln V-3N\ln\Lambda.
+\]
+对大体系使用 Stirling 公式$\ln N!\sim N\ln N-N$，便有
+\[
+\ln Z\sim N\left[\ln\left(\frac{V}{N\Lambda^3}\right)+1\right].
+\]
+于是
+\[
+F=-k_{\rm B}T\ln Z\sim -Nk_{\rm B} T\left[\ln\left(\frac{V}{N\Lambda^3}\right)+1\right].
+\]
+内能由$\beta$导数给出：
+\[
+U=-\pdv{\ln Z}{\beta}
+=-\pdv{}{\beta}\left[\frac{3N}{2}\ln\left(\frac{1}{\beta}\right)\right]
+=\frac{3N}{2\beta}
+=\frac{3}{2}Nk_{\rm B} T.
+\]
+熵则为
+\[
+S=k_{\rm B}\left(\ln Z+\beta U\right)
+\sim Nk_{\rm B}\left[\ln\left(\frac{V}{N\Lambda^3}\right)+\frac{5}{2}\right].
+\]
+化学势可以直接对$F$求偏导：
+\[
+\mu=\left(\pdv{F}{N}\right)_{V,T}
+=-k_{\rm B}T\pdv{}{N}\left\{N\left[\ln\left(\frac{V}{N\Lambda^3}\right)+1\right]\right\}
+=k_{\rm B} T\ln(n\Lambda^3).
+\]
+再由压强定义
+\[
+P=k_{\rm B} T\left(\pdv{\ln Z}{V}\right)_{N,T}
+=k_{\rm B} T\frac{N}{V}
+\quad \Rightarrow \quad
+PV=Nk_{\rm B} T.
+\]
+于是焓、Gibbs 自由能和热容也都能顺次得到：
+\[
+H=U+PV=\frac{5}{2}Nk_{\rm B} T,\qquad
+G=F+PV=\mu N=Nk_{\rm B} T\ln(n\Lambda^3),
+\]
+\[
+C_V=\left(\pdv{U}{T}\right)_{N,V}=\frac{3}{2}Nk_{\rm B},\qquad
+C_P=\left(\pdv{H}{T}\right)_{N,P}=\frac{5}{2}Nk_{\rm B}.
+\]
 
 \begin{theorem}[正则系综下单原子理想气体的热力学函数]
 记粒子数密度$n=N/V$，则
 \[
-Z(N,V,T)=\frac{1}{N!}\left(\frac{V}{\Lambda^3}\right)^N,\qquad 
+Z(N,V,T)=\frac{1}{N!}\left(\frac{V}{\Lambda^3}\right)^N,\qquad
 \Lambda=\frac{h}{\sqrt{2\pi m k_{\rm B} T}}
 \]
 \[
