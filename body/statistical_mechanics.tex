@@ -202,128 +202,54 @@ Z(N,V,T)&=\int_0^\infty \Omega(N,V,E)e^{-\beta E}\dd E=\frac{V^N}{N!h^{3N}}\frac
 \[P_N(E)=\frac{\beta^{3N/2}}{\Gamma(3N/2)}E^{3N/2-1}e^{-\beta E} \quad \Rightarrow \quad \expval{E^n}=\int_0^\infty E^n P_N(E)\dd E=\frac{\Gamma(3N/2+n)}{\Gamma(3N/2)}\frac{1}{\beta^n}\]
 \[\boxed{\expval{E}=\frac{3N}{2\beta}=\frac{3N}{2}k_{\rm B} T,\quad \expval{E^2}=\frac{3N}{2}\left(\frac{3N}{2}+1\right)(k_{\rm B} T)^2, \quad \expval{(\Delta E)^2}=\expval{E^2}-\expval{E}^2=\frac{3N}{2}(k_{\rm B} T)^2}\]
 
-有了正则配分函数$Z(N,V,T)$之后，其余热力学量就都可以从正则系综的通式直接求出：
-\[
-\ln Z=-\ln N!+N\ln V-3N\ln\Lambda.
-\]
-对大体系使用 Stirling 公式$\ln N!\sim N\ln N-N$，便有
-\[
-\ln Z\sim N\left[\ln\left(\frac{V}{N\Lambda^3}\right)+1\right].
-\]
-于是
-\[
-F=-k_{\rm B}T\ln Z\sim -Nk_{\rm B} T\left[\ln\left(\frac{V}{N\Lambda^3}\right)+1\right].
-\]
-内能由$\beta$导数给出：
-\[
-U=-\pdv{\ln Z}{\beta}
-=-\pdv{}{\beta}\left[\frac{3N}{2}\ln\left(\frac{1}{\beta}\right)\right]
-=\frac{3N}{2\beta}
-=\frac{3}{2}Nk_{\rm B} T.
-\]
-熵则为
-\[
-S=k_{\rm B}\left(\ln Z+\beta U\right)
-\sim Nk_{\rm B}\left[\ln\left(\frac{V}{N\Lambda^3}\right)+\frac{5}{2}\right].
-\]
-化学势可以直接对$F$求偏导：
-\[
-\mu=\left(\pdv{F}{N}\right)_{V,T}
-=-k_{\rm B}T\pdv{}{N}\left\{N\left[\ln\left(\frac{V}{N\Lambda^3}\right)+1\right]\right\}
-=k_{\rm B} T\ln(n\Lambda^3).
-\]
-再由压强定义
-\[
-P=k_{\rm B} T\left(\pdv{\ln Z}{V}\right)_{N,T}
-=k_{\rm B} T\frac{N}{V}
-\quad \Rightarrow \quad
-PV=Nk_{\rm B} T.
-\]
-于是焓、Gibbs 自由能和热容也都能顺次得到：
-\[
-H=U+PV=\frac{5}{2}Nk_{\rm B} T,\qquad
-G=F+PV=\mu N=Nk_{\rm B} T\ln(n\Lambda^3),
-\]
-\[
-C_V=\left(\pdv{U}{T}\right)_{N,V}=\frac{3}{2}Nk_{\rm B},\qquad
-C_P=\left(\pdv{H}{T}\right)_{N,P}=\frac{5}{2}Nk_{\rm B}.
-\]
-
 \begin{theorem}[正则系综下单原子理想气体的热力学函数]
-记粒子数密度$n=N/V$，则
-\[
-Z(N,V,T)=\frac{1}{N!}\left(\frac{V}{\Lambda^3}\right)^N,\qquad
-\Lambda=\frac{h}{\sqrt{2\pi m k_{\rm B} T}}
-\]
-\[
-\left\{\begin{aligned}
-F&=-Nk_{\rm B} T\left[\ln\left(\frac{V}{N\Lambda^3}\right)+1\right]\\
-U&=\frac{3}{2}Nk_{\rm B} T\\
-S&=Nk_{\rm B}\left[\ln\left(\frac{V}{N\Lambda^3}\right)+\frac{5}{2}\right]\\
-\mu&=k_{\rm B} T\ln(n\Lambda^3)
+\[Z(N,V,T)=\frac{1}{N!}\left(\frac{V}{\Lambda^3}\right)^N,\quad S=k_{\rm B}\left(\ln Z+\beta U\right)\sim Nk_{\rm B}\left[\ln\left(\frac{V}{N\Lambda^3}\right)+\frac{5}{2}\right]\]
+\[\left\{\begin{aligned}
+F&=-k_{\rm B}T\ln Z\sim -Nk_{\rm B} T\left[\ln\left(\frac{V}{N\Lambda^3}\right)+1\right]\\
+U&=-\pdv{\ln Z}{\beta}=\frac{3}{2}Nk_{\rm B} T\\
+H&=U+PV=\frac{5}{2}Nk_{\rm B} T\\
+G&=F+PV=\mu N=Nk_{\rm B} T\ln\left(\frac{N\Lambda^3}{V}\right)
 \end{aligned}\right.
 \quad \Rightarrow \quad
 \left\{\begin{aligned}
-PV&=Nk_{\rm B} T\\
-H&=\frac{5}{2}Nk_{\rm B} T\\
-G&=\mu N=Nk_{\rm B} T\ln(n\Lambda^3)\\
-C_V&=\frac{3}{2}Nk_{\rm B}\\
-C_P&=\frac{5}{2}Nk_{\rm B}
-\end{aligned}\right.
-\]
+P&=k_{\rm B} T\left(\pdv{\ln Z}{V}\right)_{N,T}=\frac{Nk_{\rm B} T}{V}\\
+\mu&=\left(\pdv{F}{N}\right)_{V,T}=k_{\rm B} T\ln\left(\frac{N\Lambda^3}{V}\right)\\
+C_V&=\left(\pdv{U}{T}\right)_{N,V}=\frac{3}{2}Nk_{\rm B}\\
+C_P&=\left(\pdv{H}{T}\right)_{N,P}=\frac{5}{2}Nk_{\rm B}
+\end{aligned}\right.\]
 \end{theorem}
 
 \begin{proposition}[正则系综下的两态系统]
-设有$N$个彼此独立、固定在晶格位置上的缺陷或杂质，每个缺陷只有基态和激发态两种可能，记占据数$n_i=0,1$，激发能为$\varepsilon$，则哈密顿量为
-\[
-H=\varepsilon\sum_{i=1}^{N}n_i.
-\]
-由于这些缺陷是固定在各自位置上的，所以它们在经典计数里是可区分的，不需要额外再除以$N!$。此时配分函数可以直接因子化：
-\[
-Z(N,V,T)=\sum_{\{n_i\}}e^{-\beta\varepsilon\sum_i n_i}
-=\prod_{i=1}^{N}\left(\sum_{n_i=0}^{1}e^{-\beta\varepsilon n_i}\right)
-=\left(1+e^{-\beta\varepsilon}\right)^N.
-\]
-于是
-\[
-F=-Nk_{\rm B} T\ln\left(1+e^{-\beta\varepsilon}\right),
-\]
-\[
-U=-\pdv{\ln Z(N,V,T)}{\beta}
-=\frac{N\varepsilon}{e^{\beta\varepsilon}+1},
-\]
-\[
-S=k_{\rm B}\left(\ln Z(N,V,T)+\beta U\right)
-=Nk_{\rm B}\left[\ln\left(1+e^{-\beta\varepsilon}\right)+\frac{\beta\varepsilon}{e^{\beta\varepsilon}+1}\right].
-\]
-更进一步，单个缺陷处于激发态的概率就是
-\[
-p_1=\frac{e^{-\beta\varepsilon}}{1+e^{-\beta\varepsilon}}=\frac{1}{e^{\beta\varepsilon}+1},
-\]
-因此平均激发数为$Np_1$。这个例子很能体现正则系综的一个优点：\textcolor{blue}{\textbf{一旦体系由许多独立自由度组成，配分函数常常会自动因子化，热力学量也就跟着变得非常好算}}。
+设有$N$个彼此独立、固定在晶格位置上的缺陷或杂质，每个缺陷只有基态和激发态两种可能，记占据数$n_i=0,1$，激发能为$\varepsilon$，则哈密顿量为：
+\[H=\varepsilon\sum_{i=1}^{N}n_i\]
+由于这些缺陷是固定在各自位置上的，所以它们在经典计数里是可区分的。
 \end{proposition}
-
+此时配分函数可以直接因子化：
+\[Z(N,V,T)=\sum_{\{n_i\}}\exp\left(-\beta\varepsilon\sum_i n_i\right)=\prod_{i=1}^{N}\left(\sum_{n_i=0}^{1}e^{-\beta\varepsilon n_i}\right)=\left(1+e^{-\beta\varepsilon}\right)^N\]
+继而可以构建出正则系综下相空间的密度分布函数：
+\[\rho(\{n_i\})=\frac{e^{-\beta H(\{n_i\})}}{Z(N,V,T)}=\frac{1}{Z(N,V,T)}\exp\left(-\beta\varepsilon\sum_{\{n_i\}} n_i\right)\]
+在位置$\alpha$上粒子被被占据的概率为：
+\[p_\alpha=\frac{1}{Z(N,V,T)}\sum_{\{n_i\}}n_\alpha\exp\left(-\beta\varepsilon\sum_i n_i\right)=\frac{e^{-\beta\varepsilon}}{1+e^{-\beta\varepsilon}}=\frac{1}{1+e^{\beta\varepsilon}}\]
 \begin{theorem}[正则系综下两态系统的热力学函数]
-\[
-Z(N,V,T)=\left(1+e^{-\beta\varepsilon}\right)^N
-\]
-\[
-\left\{\begin{aligned}
-F&=-Nk_{\rm B} T\ln\left(1+e^{-\beta\varepsilon}\right)\\
-U&=\frac{N\varepsilon}{e^{\beta\varepsilon}+1}\\
-S&=Nk_{\rm B}\left[\ln\left(1+e^{-\beta\varepsilon}\right)+\frac{\beta\varepsilon}{e^{\beta\varepsilon}+1}\right]\\
-p_1&=\frac{1}{e^{\beta\varepsilon}+1}
+\[Z(N,V,T)=\left(1+e^{-\beta\varepsilon}\right)^N\]
+\[\left\{\begin{aligned}
+F&=-k_{\rm B}T\ln Z=-Nk_{\rm B} T\ln\left(1+e^{-\beta\varepsilon}\right)\\
+U&=-\pdv{\ln Z}{\beta}=\frac{N\varepsilon}{e^{\beta\varepsilon}+1}\\
+H&=U+PV=U=\frac{N\varepsilon}{e^{\beta\varepsilon}+1}\\
+G&=F+PV=F=-Nk_{\rm B} T\ln\left(1+e^{-\beta\varepsilon}\right)
 \end{aligned}\right.
 \quad \Rightarrow \quad
 \left\{\begin{aligned}
-\bar n_{\rm exc}&=Np_1\\
-C_V&=Nk_{\rm B}(\beta\varepsilon)^2\frac{e^{\beta\varepsilon}}{(e^{\beta\varepsilon}+1)^2}
-\end{aligned}\right.
-\]
+\bar n_{\rm exc}&=Np_{\alpha}=\frac{N}{1+e^{\beta\varepsilon}}\\
+P&=k_{\rm B} T\left(\pdv{\ln Z}{V}\right)_{N,T}=0\\
+S&=Nk_{\rm B}\left[\ln\left(1+e^{-\beta\varepsilon}\right)+\frac{\beta\varepsilon}{e^{\beta\varepsilon}+1}\right]\\
+C_V&=\left(\pdv{U}{T}\right)_{N,V}=Nk_{\rm B}(\beta\varepsilon)^2\frac{e^{\beta\varepsilon}}{(e^{\beta\varepsilon}+1)^2}
+\end{aligned}\right.\]
 \end{theorem}
 
-最后汇总一下这一小节的核心逻辑：\textcolor{blue}{\textbf{玻尔兹曼分布给出正则系综中每个微观状态的权重，而正则配分函数$Z(N,V,T)$则把这些权重统一起来；一旦$Z(N,V,T)$已知，体系的全部热力学性质原则上都可以由它恢复出来。}}
+在正则系综中通过对每一个给定能量的微正则配分函数$\Omega(N,V,E)$进行 Boltzmann 权重加权，我们得到了能量分布$p(E)$，进而构建了正则系综的配分函数$Z(N,V,T)$。巨正则系综的思路也是类似的，在正则系综的配分函数$Z(N,V,T)$的基础上对粒子数$N$进行求和。
 
+\newpage
 \subsection{巨正则系综}
 巨正则系综对应体系既能与外界交换热，也能交换粒子，因此自然变量是$T,V,\mu$。此时需要同时统计不同粒子数$N$的全部可能微观状态。若记逸度$z=e^{\beta\mu}$，则巨正则配分函数定义为
 \[
