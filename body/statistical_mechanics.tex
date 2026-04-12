@@ -1,5 +1,5 @@
-\section{经典统计力学}\label{sec:classical_sm}
-\subsection{从拉格朗日力学到相空间}\label{sec:lag_ham_phase}
+\section{经典统计力学}
+\subsection{从拉格朗日力学到相空间}
 在\href{https://github.com/Astolfo-Official/Baby-Math-on-Quantum-Chemistry/blob/main/%E3%80%8A%E9%87%8F%E5%AD%90%E5%8C%96%E5%AD%A6%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%A6%E3%80%8B2.0.pdf}{我搬运的一本速通教材的第四章}中，我们简单过了一遍经典力学。感兴趣的可以先阅读一下前置章节，这里我们会跳过许多细节直接叙述经典力学的两大形式后进入经典相空间理论的介绍。经典相空间理论也是经典力学的一种等价表述方式，但是在处理大量自由度问题也即经典统计力学中，相空间理论有其他三种形式不可比拟的优势。简单来说，在经典统计力学中，我们最后要处理的对象并不是某一条具体轨道，而是\textbf{大量可能微观状态在相空间中的分布}。这对于牛顿力学，拉格朗日力学和哈密顿力学来说都是一个全新的挑战。
 
 在拉格朗日力学中，设体系有$3N$个广义坐标$q_i$，其运动由拉格朗日量$L(\bm{q},\dot{\bm{q}},t)=T(\bm{q},\dot{\bm{q}},t)-V(\bm{q},\dot{\bm{q}},t)$决定，其中$T$是动能，$V$是势能。对应的运动学方程即为 Euler-Lagrange 方程：
@@ -38,157 +38,91 @@
 刘维尔定理（体积元守恒）与混合效应相结合表明：相空间中的无穷小体积元会经历无限的拉伸与折叠，并最终弥散分布于整个能量曲面上。因此\textcolor{blue}{\textbf{微观分布与初始状态无关}}，这就是经典统计力学的核心假设之一。\textcolor{blue}{\textbf{微观分布一旦确定，宏观量都可以视为相空间的期望值}}。
 
 \subsection{微正则系综}
-上一小节我们介绍了微正则系综，并给出了微正则配分函数$\Sigma_E$和微正则分布$\rho_E$的定义。显然我们可以知道在微正则系综中系统粒子数$N$和能量$E$是固定的。我们再来考虑体积$V$，如果体积$V$是可变的那么，会导致哈密顿量的势能显含时间，不满足微正则系综的条件，因此微正则系综的控制变量是$(E,V,N)$。因此微正则系综既不与外界交换热，也不交换粒子，所有满足给定能量壳层的微观状态被赋予等概率。记微正则配分函数为：
-\[\Omega(E,V,N)=\int\delta(H(\bm{q},\bm{p})-E)\dd{\bm{\Gamma}}\]
-$\Omega(E,V,N)$可以认为是体系的微观状态数，微正则系综中每个可及状态的概率都等于$1/\Omega$，Boltzmann 熵定义为：
-\[S(E,V,N)=k_{\rm B}\ln \Omega(E,V,N)\]
+上一小节我们介绍了微正则系综，并给出了微正则配分函数$\Sigma_E$和微正则分布$\rho_E$的定义。显然我们可以知道在微正则系综中系统粒子数$N$和能量$E$是固定的。我们再来考虑体积$V$，如果体积$V$是可变的那么，会导致哈密顿量的势能显含时间，不满足微正则系综的条件，因此微正则系综的控制变量是$(N,V,E)$。因此微正则系综既不与外界交换热，也不交换粒子，所有满足给定能量壳层的微观状态被赋予等概率。记微正则配分函数为：
+\[\Omega(N,V,E)=\int\delta(H(\bm{q},\bm{p})-E)\dd{\bm{\Gamma}}\]
+$\Omega(N,V,E)$可以认为是体系的微观状态数，微正则系综中每个可及状态的概率都等于$1/\Omega$，Boltzmann 熵定义为：
+\[S(N,V,E)=k_{\rm B}\ln \Omega(N,V,E)\]
 上述 Boltzmann 熵可以认为是 Gibbs 熵在微正则系综中（等概率情况）的特殊情况，从 Gibbs 熵的定义出发：
 \[S=-k_{\rm B}\int\rho(\bm{q},\bm{p})\ln\rho(\bm{q},\bm{p})\dd{\bm{\Gamma}}\]
 其中密度分布函数$\rho(\bm{q},\bm{p})$可以认为在一个极小能量壳层$(\bm{q},\bm{p})\in \Gamma_{E}$内均匀分布：
-\[\rho(\bm{q},\bm{p})=\frac{1}{\Omega(E,V,N)} \quad \Rightarrow \quad 
+\[\rho(\bm{q},\bm{p})=\frac{1}{\Omega(N,V,E)} \quad \Rightarrow \quad 
 S=-k_{\rm B}\int_{\Gamma_{E}}\frac{1}{\Omega}\ln\frac{1}{\Omega}\dd{\bm{\Gamma}}=-k_{\rm B}\frac{1}{\Omega}\ln\frac{1}{\Omega}\int_{\Gamma_{E}}\dd{\bm{\Gamma}}=-k_{\rm B}\frac{1}{\Omega}\ln\frac{1}{\Omega}\cdot \Omega=k_{\rm B}\ln\Omega\]
+同时我们也可以证明当 Gibbs 熵对分布函数做变分，在满足归一化约束的条件下达到极大值时，分布函数必然是微正则分布$\rho_E$，此时 Gibbs 熵就退化成 Boltzmann 熵。考虑对以下函数做变分：
+\[\mathcal{S}=-k_{\rm B}\int\rho(\bm{q},\bm{p})\ln\rho(\bm{q},\bm{p})\dd{\bm{\Gamma}}-\lambda\left(\int\rho(\bm{q},\bm{p})\dd{\bm{\Gamma}}-1\right) \quad \Rightarrow \quad \delta\mathcal{S}=-k_{\rm B}\int\delta\rho(\bm{q},\bm{p})\left[\ln\rho(\bm{q},\bm{p})+1-\lambda\right]\dd{\bm{\Gamma}}=0\]
+因此要求$\rho(\bm{q},\bm{p})$为常数，带入归一化条件：
+\[\int \rho(\bm{q},\bm{p}) \dd{\bm{\Gamma}} = \rho(\bm{q},\bm{p})\int \dd{\bm{\Gamma}} = \rho(\bm{q},\bm{p})\Omega(N,V,E) = 1 \quad \Leftrightarrow \quad \rho(\bm{q},\bm{p}) = \frac{1}{\Omega(N,V,E)}\]
+此时，在对$\mathcal{S}$做二阶变分：
+\[\delta^2\mathcal{S}=-k_{\rm B}\int\frac{1}{2}\delta^2\rho(\bm{q},\bm{p})\cdot\frac{1}{\rho(\bm{q},\bm{p})}\dd{\bm{\Gamma}}<0\]
+即😄$\mathcal{S}$在微正则分布处取得极大值。此外如果系统的密度分布满足$\rho=\rho_1\rho_2$，则\textcolor{blue}{\textbf{体系的熵$S$满足可加性}}：
+\[S=-k_{\rm B}\int\rho\ln\rho\dd{\bm{\Gamma}}=-k_{\rm B}\left(\int\rho_1\ln\rho_1\dd{\bm{\Gamma}_1}\cdot\int\rho_2\dd{\bm{\Gamma}_2}+\int\rho_2\ln\rho_2\dd{\bm{\Gamma}_2}\cdot\int\rho_1\dd{\bm{\Gamma}_1}\right)=S_1+S_2\]
+
 对 Boltzmann 做全微分：
-\[\dd S=k_B\left(\pdv{\ln\Omega}{E}\right)_{V,N}\dd E+k_B\left(\pdv{\ln\Omega}{V}\right)_{E,N}\dd V+k_B\left(\pdv{\ln\Omega}{N}\right)_{E,V}\dd N\]
+\[\dd S=k_{\rm B}\left(\pdv{\ln\Omega}{N}\right)_{V,E}\dd N+k_{\rm B}\left(\pdv{\ln\Omega}{V}\right)_{N,E}\dd V+k_{\rm B}\left(\pdv{\ln\Omega}{E}\right)_{N,V}\dd E\]
 另一方面，由热力学基本关系：
 \[\dd U=T\dd S-P\dd V+\mu \dd N \quad \Rightarrow \quad \dd S=\frac{1}{T}\dd U+\frac{P}{T}\dd V-\frac{\mu}{T}\dd N\]
 在微正则系综里$U=E$，逐项比较便得到：
-\[\frac{1}{T}=k_B\left(\pdv{\ln\Omega}{E}\right)_{V,N}, \quad P=k_B T\left(\pdv{\ln\Omega}{V}\right)_{E,N}, \quad \mu=-k_B T\left(\pdv{\ln\Omega}{N}\right)_{E,V}\]
+\[\frac{1}{T}=k_{\rm B}\left(\pdv{\ln\Omega}{E}\right)_{N,V}, \quad P=k_{\rm B} T\left(\pdv{\ln\Omega}{V}\right)_{N,E}, \quad \mu=-k_{\rm B} T\left(\pdv{\ln\Omega}{N}\right)_{V,E}\]
 一旦$T,P,\mu$被确定，其余常见热力学势都可以通过 Legendre 变换得到：
-\[U=E,\quad F=U-TS=E-k_B T\ln\Omega, \quad H=U+PV=E+PV, \quad G=F+PV=U+PV-TS\]
+\[U=E,\quad F=U-TS=E-k_{\rm B} T\ln\Omega, \quad H=U+PV=E+PV, \quad G=F+PV=U+PV-TS\]
 对于可加的均匀体系，Euler 关系还给出$G=\sum_i\mu_i N_i$，其中$i$指代不同种类的粒子。
-
-我们来看一个简单例子：对在体积$V$的盒子中的$N$个单原子理想气体，体系动量满足：
+\begin{proposition}[微正则系综下的单原子理想气体]
+在体积$V$的盒子中的$N$个单原子理想气体，体系能量（动能）满足：
 \[\sum_{i=1}^{N}\frac{\bm{p}_i^2}{2m}=E\]
-我们先暂时\textbf{不考虑全同粒子交换导致的重复计数}，单纯按照经典相空间体积来数态，则
-\[
-\widetilde{\Omega}(E,V,N)=\frac{1}{h^{3N}}\int \delta\!\left(\sum_{i=1}^{N}\frac{\bm{p}_i^2}{2m}-E\right)\dd^{3N}\bm{q}\,\dd^{3N}\bm{p}.
-\]
-由于坐标积分与动量积分完全分离，坐标部分直接给出$V^N$，于是
-\[
-\widetilde{\Omega}(E,V,N)=\frac{V^N}{h^{3N}}I_{3N}(E),
-\qquad
-I_d(E)=\int \delta\!\left(\frac{p^2}{2m}-E\right)\dd^d\bm{p}.
-\]
-在$d$维球坐标中，半径为$p$的超球面面积为
-\[
-S_{d-1}(p)=\frac{2\pi^{d/2}}{\Gamma(d/2)}p^{d-1},
-\]
-因此
-\[
-\begin{aligned}
-I_d(E)
-&=\frac{2\pi^{d/2}}{\Gamma(d/2)}\int_0^\infty p^{d-1}\delta\!\left(\frac{p^2}{2m}-E\right)\dd p\\
-&=\frac{2\pi^{d/2}}{\Gamma(d/2)}\left(\sqrt{2mE}\right)^{d-1}\frac{m}{\sqrt{2mE}}\\
-&=\frac{(2\pi m)^{d/2}}{\Gamma(d/2)}E^{d/2-1}.
-\end{aligned}
-\]
-取$d=3N$便得到
-\[
-\boxed{
-\widetilde{\Omega}(E,V,N)=\frac{V^N}{h^{3N}}\frac{(2\pi m)^{3N/2}}{\Gamma(3N/2)}E^{3N/2-1}
-}.
-\]
-于是对应的熵为
-\[
-\widetilde{S}(E,V,N)=k_B\ln \widetilde{\Omega}(E,V,N).
-\]
-当$N\gg 1$时，用 Stirling 公式
-\[
-\ln\Gamma\!\left(\frac{3N}{2}\right)\simeq \frac{3N}{2}\ln\frac{3N}{2}-\frac{3N}{2},
-\]
-可得近似式
-\[
-\widetilde{S}(E,V,N)\simeq Nk_B\left[
-\ln\left(V\left(\frac{4\pi mE}{3Nh^2}\right)^{3/2}\right)+\frac{5}{2}
-\right].
-\]
+\end{proposition}
+按照定义，容易看出微正则配分函数为：
+\[\widetilde{\Omega}(N,V,E)=\frac{1}{h^{3N}}\int \delta\!\left(\sum_{i=1}^{N}\frac{\bm{p}_i^2}{2m}-E\right)\dd^{3N}\bm{q}\,\dd^{3N}\bm{p}=\frac{V^N}{h^{3N}}\int \delta\!\left(\frac{\bm{p}^2}{2m}-E\right)\dd^{3N}\bm{p}\equiv \frac{V^N}{h^{3N}}I\]
+上式中的动量积分可以实际上是$3N$维空间中对一个半径为$\sqrt{2mE}$的超球面进行积分。利用$\delta$函数的性质：
+\[\delta\!\left(\frac{p^2}{2m}-E\right)=\frac{\delta(p-\sqrt{2mE})}{|f'(\sqrt{2mE})|}=\sqrt{\frac{m}{2E}}\delta(p-\sqrt{2mE})\]
+这个超球面的面积为：
+\[\begin{aligned}
+I&=\int\delta\!\left(\frac{p^2}{2m}-E\right)p^{3N-1}\dd p\dd{\bm{\Gamma}_{3N-1}}=\frac{2\pi^{3N/2}}{\Gamma(3N/2)}\int_0^\infty p^{3N-1}\delta\!\left(\frac{p^2}{2m}-E\right)\dd p\\
+&=\frac{2\pi^{3N/2}}{\Gamma(3N/2)}\sqrt{\frac{m}{2E}}\int_0^\infty p^{3N-1}\delta(p-\sqrt{2mE})\dd p=\frac{2\pi^{3N/2}}{\Gamma(3N/2)}\sqrt{\frac{m}{2E}}\sqrt{2mE}^{3N-1}=\frac{(2\pi m)^{3N/2}}{\Gamma(3N/2)}E^{3N/2-1}
+\end{aligned}\]
+从而：
+\[\widetilde{\Omega}(N,V,E)=\frac{V^N}{h^{3N}}\frac{(2\pi m)^{3N/2}}{\Gamma(3N/2)}E^{3N/2-1}\]
+利用 Stirling 公式$\ln\Gamma(n)\sim n\ln n-n$，对应的微正则熵为：
+\[\widetilde{S}(N,V,E)=k_{\rm B}\ln \widetilde{\Omega}(N,V,E)\sim Nk_{\rm B}\left\{\ln\left[V\left(\frac{4\pi mE}{3Nh^2}\right)^{3/2}\right]+\frac{3}{2}\right\}\]
+进而可以求解其他热力学函数，首先是温度$T$和压强$P$：
+\[\frac{1}{T}=\left(\pdv{\widetilde{S}}{E}\right)_{N,V}\sim\frac{3Nk_{\rm B}}{2E}, \quad P=T\left(\pdv{\widetilde{S}}{V}\right)_{N,E}=\frac{Nk_{\rm B} T}{V}\]
+稍微改写一下就可以获得单原子理想气体能量$U=E=3Nk_{\rm B} T/2$以及状态方程$PV=Nk_{\rm B}T$。计算化学势：
+\[\widetilde{\mu}=-T\left(\pdv{\widetilde{S}}{N}\right)_{V,E}=-k_{\rm B} T\ln\left[V\left(\frac{4\pi mE}{3Nh^2}\right)^{3/2}\right]\]
+这个结果已经暴露出问题：\textcolor{blue}{\textbf{化学势本应是强度量，但这里它直接依赖于总体积$V$而不是粒子密度$N/V$}}。更严重的问题是熵不再是广延量：考虑两份完全相同的同种理想气体，各自处于$(N,V,E)$。抽去隔板前总熵为$2\widetilde{S}(N,V,E)$，抽去隔板后若仍把粒子当成可分辨粒子来数，则$\widetilde{S}_{\rm after}=2\widetilde{S}(N,V,E)+2Nk_{\rm B}\ln 2$，\textcolor{blue}{\textbf{但这显然不合理，因为两边本来就是同一种气体、相同温度、相同密度，抽去隔板并没有产生新的可观测宏观状态，熵增理应为零}}。
 
-虽然这里还没有除以$N!$，但对$E$和$V$的导数已经能给出理想气体最基本的状态方程。首先
-\[
-\frac{1}{T}=\left(\pdv{\widetilde{S}}{E}\right)_{V,N}
-\simeq \frac{3Nk_B}{2E},
-\qquad
-\boxed{U=E=\frac{3}{2}Nk_B T}.
-\]
-其次
-\[
-P=T\left(\pdv{\widetilde{S}}{V}\right)_{E,N}
-=\frac{Nk_B T}{V},
-\qquad
-\boxed{PV=Nk_B T}.
-\]
-再来计算化学势：
-\[
-\widetilde{\mu}
-=-T\left(\pdv{\widetilde{S}}{N}\right)_{E,V}
-\simeq -k_B T\left[
-\ln\left(V\left(\frac{4\pi mE}{3Nh^2}\right)^{3/2}\right)+1
-\right].
-\]
-把$E=\frac{3}{2}Nk_BT$代回去，并引入热波长
-\[
-\Lambda=\frac{h}{\sqrt{2\pi mk_BT}},
-\]
-便得到
-\[
-\widetilde{\mu}=-k_B T\left[\ln\left(\frac{V}{\Lambda^3}\right)+1\right].
-\]
-这个结果已经暴露出问题：\textbf{化学势本应是强度量，但这里它直接依赖于总体积$V$而不是粒子密度$N/V$}。也就是说，不除以$N!$虽然还能给出正确的$U$和$PV$关系，却会在涉及$N$的热力学量上出问题。
+上述问题也被称为\textbf{ Gibbs 悖论}。在20世纪初期 Gibbs 本人提出了一个备受争议的解决方案：如果两个完全相同的相交换粒子不改变围观状态，因此在围观状态数中引入了因子$1/N!$以消除过度计数问题：
+\[\Omega(N,V,E)=\frac{\widetilde{\Omega}(N,V,E)}{N!}=\frac{V^N}{N!h^{3N}}\frac{(2\pi m)^{3N/2}}{\Gamma(3N/2)}E^{3N/2-1}\]
+1911 年到 1916 年，Sackur、Tetrode、Planck 更进一步，将上述 Gibbs 提出的修正过的围观状态数应用于熵与化学式熵，解决了熵无法广延 [Sackur-Tetrode 公式] 和化学势不是强度量的问题：
+\[\begin{aligned}
+S(N,V,E) &=Nk_{\rm B}\left\{\ln\left[\frac{V}{N}\left(\frac{4\pi mE}{3Nh^2}\right)^{3/2}\right]+\frac{5}{2}\right\}\\
+\mu(N,V,E)&=-k_{\rm B} T\ln\left[\frac{V}{N}\left(\frac{4\pi mE}{3Nh^2}\right)^{3/2}\right]
+\end{aligned}\]
+但这在当时并没有被所有人接受。1921 年 Ehrenfest 和 Trkal 还批评说：在经典力学里粒子原则上可以靠轨迹区分，所以$1/N!$并不是由经典动力学“强迫”出来的，而更像是为了让统计热力学与经验热力学一致而加上的规则。
 
-更严重的问题是熵不再是广延量。对于任意缩放因子$\lambda$，
-\[
-\widetilde{S}(\lambda E,\lambda V,\lambda N)
-=\lambda \widetilde{S}(E,V,N)+\lambda Nk_B\ln\lambda.
-\]
-特别地，考虑两份完全相同的同种理想气体，各自处于$(E,V,N)$。抽去隔板前总熵为
-\[
-\widetilde{S}_{\rm before}=2\widetilde{S}(E,V,N),
-\]
-抽去隔板后若仍把粒子当成可分辨粒子来数，则
-\[
-\widetilde{S}_{\rm after}=\widetilde{S}(2E,2V,2N)
-=2\widetilde{S}(E,V,N)+2Nk_B\ln 2,
-\]
-因此会得到
-\[
-\Delta \widetilde{S}=2Nk_B\ln 2>0.
-\]
-但这显然不合理，因为两边本来就是同一种气体、相同温度、相同密度，抽去隔板并没有产生新的可观测宏观状态，熵增理应为零。由此可见，我们必须把全同粒子的置换视为同一个微观状态，也就是把态数改写为
-\[
-\Omega(E,V,N)=\frac{\widetilde{\Omega}(E,V,N)}{N!}
-=\frac{V^N}{N!h^{3N}}\frac{(2\pi m)^{3N/2}}{\Gamma(3N/2)}E^{3N/2-1}.
-\]
-这时熵变成
-\[
-S(E,V,N)=k_B\ln\Omega(E,V,N)
-\simeq Nk_B\left[
-\ln\left(\frac{V}{N}\left(\frac{4\pi mE}{3Nh^2}\right)^{3/2}\right)+\frac{5}{2}
-\right],
-\]
-这就是单原子理想气体的 Sackur-Tetrode 公式。由它再来计算各个常见热力学量，就会得到完全正确且具有正常标度性质的结果：
-\[
-\boxed{U=\frac{3}{2}Nk_B T},
-\qquad
-\boxed{PV=Nk_B T},
-\]
-\[
-\boxed{\mu=k_B T\ln(n\Lambda^3)},
-\qquad n=\frac{N}{V},
-\]
-\[
-\boxed{F=U-TS=-Nk_B T\left[\ln\left(\frac{V}{N\Lambda^3}\right)+1\right]},
-\]
-\[
-\boxed{H=U+PV=\frac{5}{2}Nk_B T},
-\qquad
-\boxed{G=F+PV=\mu N=Nk_B T\ln(n\Lambda^3)},
-\]
-\[
-\boxed{C_V=\left(\pdv{U}{T}\right)_{V,N}=\frac{3}{2}Nk_B},
-\qquad
-\boxed{C_P=\left(\pdv{H}{T}\right)_{P,N}=\frac{5}{2}Nk_B}.
-\]
-于是我们就得到了一个非常具体的结论：\textcolor{blue}{\textbf{$1/N!$并不是事后“美化公式”的修正项，而是保证熵的广延性、保证化学势成为强度量并消除 Gibbs 悖论所必需的}}。
+但不管怎么说我们最终获得了正确的微正则配分函数，由它再来计算与粒子数相关的热力学量，就会得到完全正确且具有正常标度性质的结果。我们把单原子理想气体能量$U=E=3Nk_{\rm B} T/2$带入上述熵和化学式中对数函数中的那一大坨：
+\[\frac{4\pi mE}{3Nh^2}=\frac{4\pi m}{3h^2}\left(\frac{3Nk_{\rm B} T}{2}\right)=\frac{2\pi m k_{\rm B} T}{h^2} \quad \Rightarrow \quad \Lambda=\frac{h}{\sqrt{2\pi mk_{\rm B}T}}\]
+通过上述方式定义出来的$\Lambda$被称为\textbf{热波长}，它是一个长度量纲的物理量，代表了粒子热运动的空间尺度。之后我们会经常见到它。\textcolor{blue}{\textbf{记住，在微正则系综可以作为变量的函数只有N，V和E，因此即使上述热波长引入了温度也不要把温度作为变量去运算，正确的做法应该是以N，V和E作为变量运算后再最后带入热波长进行化简！！！}}最后汇总一下微正则系综下单原子理想气体的热力学函数，记粒子数密度$n=N/V$：
+\begin{theorem}[微正则系综下单原子理想气体的热力学函数]
+\[\Omega(N,V,E)=\frac{V^N}{N!h^{3N}}\frac{(2\pi m)^{3N/2}}{\Gamma(3N/2)}E^{3N/2-1}, \quad S(N,V,E) \sim Nk_{\rm B}\left[\frac{5}{2}-\ln(n\Lambda^3)\right]\]
+\[\left\{\begin{aligned}
+U&=E=\frac{3}{2}Nk_{\rm B} T\\
+F&=U-TS=-Nk_{\rm B} T\left[\ln\left(\frac{V}{N\Lambda^3}\right)+1\right]\\
+H&=U+PV=\frac{5}{2}Nk_{\rm B} T\\
+G&=F+PV=\mu N=Nk_{\rm B} T\ln(n\Lambda^3)\\
+\end{aligned}\right.
+\quad \Rightarrow \quad
+\left\{\begin{aligned}
+PV&=Nk_{\rm B} T\\
+C_V&=\left(\pdv{U}{T}\right)_{V,N}=\frac{3}{2}Nk_{\rm B}\\
+C_P&=\left(\pdv{H}{T}\right)_{P,N}=\frac{5}{2}Nk_{\rm B}\\
+\mu&=k_{\rm B} T\ln(n\Lambda^3)
+\end{aligned}\right.\]
+\end{theorem}
+
+最后的最后我们以马后炮角度来看看 Gibbs 悖论的解决方案。作为一个21世纪的学过量子力学的人我们知道$1/N!$的引入是由于\textcolor{blue}{\textbf{微观粒子的全同性}}的必然要求。Gibbs 在一个还没有量子力学的时代敢提出这个解决方案也是非常的超前。但我们也要注意到，量子力学的全同性原则是一个后续发展出来的理论，而不是从经典力学中直接推导出来的，因此在经典力学框架下，$1/N!$的引入确实是一个人为的修正。
+
+但是话说回来，原先在经典统计中定义的相空间微元：
+\[\dd{\bm{\Gamma}}=\frac{\dd{^{3N}\bm{p}}\dd{^{3N}\bm{q}}}{h^{3N}}\]
+在经典框架内也并不意味着有问题。比如在很多教材中会出现的\textbf{经典定域子系统}，如果考虑经典粒子的话上述定义是完全合理的。但是当我们把统计的边界逐渐推向微观世界时，经典理论的框架就会逐渐失效。Gibbs 和 Boltzmann 等人对气体系统的研究也为后续量子力学的萌芽奠定了基础。当引入量子后即使是定域子系统也需要考虑粒子的全同性。
+
 
 
 \subsection{玻尔兹曼分布与麦克斯韦-玻尔兹曼气体能量统计}
@@ -200,13 +134,13 @@ P_i\propto \Omega_B(E_{\rm tot}-E_i).
 \[
 \ln \Omega_B(E_{\rm tot}-E_i)=\ln \Omega_B(E_{\rm tot})-\left(\pdv{\ln\Omega_B}{E_B}\right)_{V,N}E_i+\cdots
 \]
-根据微正则熵的定义$S_B=k_B\ln\Omega_B$，有
+根据微正则熵的定义$S_B=k_{\rm B}\ln\Omega_B$，有
 \[
-\left(\pdv{\ln\Omega_B}{E_B}\right)_{V,N}=\frac{1}{k_B}\left(\pdv{S_B}{E_B}\right)_{V,N}=\frac{1}{k_B T}.
+\left(\pdv{\ln\Omega_B}{E_B}\right)_{V,N}=\frac{1}{k_{\rm B}}\left(\pdv{S_B}{E_B}\right)_{V,N}=\frac{1}{k_{\rm B} T}.
 \]
 于是
 \[
-P_i\propto e^{-\beta E_i},\qquad \beta=\frac{1}{k_B T}.
+P_i\propto e^{-\beta E_i},\qquad \beta=\frac{1}{k_{\rm B} T}.
 \]
 归一化后便得到玻尔兹曼分布：
 \[
@@ -220,19 +154,19 @@ P_i\propto e^{-\beta E_i},\qquad \beta=\frac{1}{k_B T}.
 
 对于单原子理想气体，单粒子的平动能量为$\varepsilon=p^2/2m=mv^2/2$。由玻尔兹曼权重可得三维速度分布：
 \[
-f(\mathbf{v})=\left(\frac{m}{2\pi k_B T}\right)^{3/2}\exp\left(-\frac{mv^2}{2k_B T}\right),
+f(\mathbf{v})=\left(\frac{m}{2\pi k_{\rm B} T}\right)^{3/2}\exp\left(-\frac{mv^2}{2k_{\rm B} T}\right),
 \]
 进一步对速度方向积分，就得到速率分布：
 \[
-f(v)=4\pi \left(\frac{m}{2\pi k_B T}\right)^{3/2}v^2\exp\left(-\frac{mv^2}{2k_B T}\right),\qquad v\ge 0.
+f(v)=4\pi \left(\frac{m}{2\pi k_{\rm B} T}\right)^{3/2}v^2\exp\left(-\frac{mv^2}{2k_{\rm B} T}\right),\qquad v\ge 0.
 \]
 把变量从$v$换成$\varepsilon=mv^2/2$，注意$\dd v=\dd\varepsilon/\sqrt{2m\varepsilon}$，于是单粒子平动能量分布为
 \[
-\boxed{f(\varepsilon)=\frac{2}{\sqrt{\pi}} \frac{\sqrt{\varepsilon}}{(k_B T)^{3/2}}e^{-\varepsilon/(k_B T)}},\qquad \varepsilon\ge 0.
+\boxed{f(\varepsilon)=\frac{2}{\sqrt{\pi}} \frac{\sqrt{\varepsilon}}{(k_{\rm B} T)^{3/2}}e^{-\varepsilon/(k_{\rm B} T)}},\qquad \varepsilon\ge 0.
 \]
 直接积分可得几个常用结果：
 \[
-\varepsilon_{\rm mp}=\frac{1}{2}k_B T,\qquad \expval{\varepsilon}=\frac{3}{2}k_B T,\qquad \expval{\varepsilon^2}-\expval{\varepsilon}^2=\frac{3}{2}(k_B T)^2.
+\varepsilon_{\rm mp}=\frac{1}{2}k_{\rm B} T,\qquad \expval{\varepsilon}=\frac{3}{2}k_{\rm B} T,\qquad \expval{\varepsilon^2}-\expval{\varepsilon}^2=\frac{3}{2}(k_{\rm B} T)^2.
 \]
 这里$\varepsilon_{\rm mp}$表示最概然能量。可见速率分布最可能对应的能量并不等于平均能量，这正是统计分布“偏斜”而非对称的体现。
 
@@ -242,7 +176,7 @@ P_N(E)=\frac{\beta^{3N/2}}{\Gamma(3N/2)}E^{3N/2-1}e^{-\beta E},\qquad E\ge 0.
 \]
 于是
 \[
-\expval{E}=\frac{3N}{2}k_B T,\qquad \expval{(\Delta E)^2}=\frac{3N}{2}(k_B T)^2,\qquad \frac{\sqrt{\expval{(\Delta E)^2}}}{\expval{E}}=\sqrt{\frac{2}{3N}}.
+\expval{E}=\frac{3N}{2}k_{\rm B} T,\qquad \expval{(\Delta E)^2}=\frac{3N}{2}(k_{\rm B} T)^2,\qquad \frac{\sqrt{\expval{(\Delta E)^2}}}{\expval{E}}=\sqrt{\frac{2}{3N}}.
 \]
 这最后一个式子很重要：\textcolor{blue}{\textbf{随着粒子数增大，能量的相对涨落按$N^{-1/2}$衰减}}，这就是为什么不同系综在热力学极限下会给出相同的状态方程和热力学关系。
 
@@ -257,7 +191,7 @@ Z_N(T,V)=\int e^{-\beta H(\xi)}\dd\Gamma.
 从微正则系综的角度回看正则系综，还能得到一个很有启发的结果。若把总概率改写成能量的分布，则
 \[
 p(E)=\frac{\Omega(E,V,N)e^{-\beta E}}{Z_N}
-=\frac{1}{Z_N}\exp\left[\frac{S(E,V,N)}{k_B}-\beta E\right]
+=\frac{1}{Z_N}\exp\left[\frac{S(E,V,N)}{k_{\rm B}}-\beta E\right]
 =\frac{1}{Z_N}e^{-\beta F(E)},
 \]
 其中
@@ -282,11 +216,11 @@ U=\int H(\xi)\rho(\xi)\dd\Gamma
 
 正则系综对应的热力学势是 Helmholtz 自由能：
 \[
-\boxed{F(T,V,N)=-k_B T\ln Z_N}.
+\boxed{F(T,V,N)=-k_{\rm B} T\ln Z_N}.
 \]
 将$F=U-TS$与上式结合，立刻得到熵
 \[
-\boxed{S=-\left(\pdv{F}{T}\right)_{V,N}=k_B\left(\ln Z_N+\beta U\right)}.
+\boxed{S=-\left(\pdv{F}{T}\right)_{V,N}=k_{\rm B}\left(\ln Z_N+\beta U\right)}.
 \]
 对$F$做全微分：
 \[
@@ -294,10 +228,10 @@ U=\int H(\xi)\rho(\xi)\dd\Gamma
 \]
 所以压强和化学势分别是
 \[
-\boxed{P=-\left(\pdv{F}{V}\right)_{T,N}=k_B T\left(\pdv{\ln Z_N}{V}\right)_{T,N}},
+\boxed{P=-\left(\pdv{F}{V}\right)_{T,N}=k_{\rm B} T\left(\pdv{\ln Z_N}{V}\right)_{T,N}},
 \]
 \[
-\boxed{\mu=\left(\pdv{F}{N}\right)_{T,V}=-k_B T\left(\pdv{\ln Z_N}{N}\right)_{T,V}}.
+\boxed{\mu=\left(\pdv{F}{N}\right)_{T,V}=-k_{\rm B} T\left(\pdv{\ln Z_N}{N}\right)_{T,V}}.
 \]
 同理，其余常见热力学量也都能由$Z_N$恢复：
 \[
@@ -314,11 +248,11 @@ H=U+PV,\qquad G=F+PV.
 再结合$U=-\partial\ln Z_N/\partial\beta$，可得
 \[
 C_V=\left(\pdv{U}{T}\right)_{V,N}
-=k_B\beta^2\expval{(\Delta E)^2},
+=k_{\rm B}\beta^2\expval{(\Delta E)^2},
 \]
 也就是
 \[
-\boxed{\expval{(\Delta E)^2}=k_B T^2 C_V}.
+\boxed{\expval{(\Delta E)^2}=k_{\rm B} T^2 C_V}.
 \]
 因此热容不仅描述“升温有多难”，也直接控制平衡能量涨落的大小。
 
@@ -334,15 +268,15 @@ Z_N=\sum_{\{n_i\}}e^{-\beta\varepsilon\sum_i n_i}
 \]
 于是
 \[
-F=-Nk_B T\ln\left(1+e^{-\beta\varepsilon}\right),
+F=-Nk_{\rm B} T\ln\left(1+e^{-\beta\varepsilon}\right),
 \]
 \[
 U=-\pdv{\ln Z_N}{\beta}
 =\frac{N\varepsilon}{e^{\beta\varepsilon}+1},
 \]
 \[
-S=k_B\left(\ln Z_N+\beta U\right)
-=Nk_B\left[\ln\left(1+e^{-\beta\varepsilon}\right)+\frac{\beta\varepsilon}{e^{\beta\varepsilon}+1}\right].
+S=k_{\rm B}\left(\ln Z_N+\beta U\right)
+=Nk_{\rm B}\left[\ln\left(1+e^{-\beta\varepsilon}\right)+\frac{\beta\varepsilon}{e^{\beta\varepsilon}+1}\right].
 \]
 更进一步，单个缺陷处于激发态的概率就是
 \[
@@ -353,20 +287,20 @@ p_1=\frac{e^{-\beta\varepsilon}}{1+e^{-\beta\varepsilon}}=\frac{1}{e^{\beta\vare
 对单原子经典理想气体，动量积分与坐标积分可以完全分离，得到
 \[
 Z_N=\frac{1}{N!}\left(\frac{V}{\Lambda^3}\right)^N,\qquad 
-\Lambda=\frac{h}{\sqrt{2\pi m k_B T}},
+\Lambda=\frac{h}{\sqrt{2\pi m k_{\rm B} T}},
 \]
 其中$\Lambda$是热德布罗意波长。把这个$Z_N$带入上面的通式就有
 \[
-F=-Nk_B T\left[\ln\left(\frac{V}{N\Lambda^3}\right)+1\right],
+F=-Nk_{\rm B} T\left[\ln\left(\frac{V}{N\Lambda^3}\right)+1\right],
 \]
 \[
-U=\frac{3}{2}Nk_B T,\qquad P=\frac{Nk_B T}{V},
+U=\frac{3}{2}Nk_{\rm B} T,\qquad P=\frac{Nk_{\rm B} T}{V},
 \]
 \[
-S=Nk_B\left[\ln\left(\frac{V}{N\Lambda^3}\right)+\frac{5}{2}\right],
+S=Nk_{\rm B}\left[\ln\left(\frac{V}{N\Lambda^3}\right)+\frac{5}{2}\right],
 \]
 \[
-\mu=k_B T\ln\left(\frac{N\Lambda^3}{V}\right).
+\mu=k_{\rm B} T\ln\left(\frac{N\Lambda^3}{V}\right).
 \]
 这些关系把理想气体的状态方程、内能和熵一次性统一在同一个配分函数框架里，也展示了正则系综在实际计算中的高效性。
 
@@ -392,7 +326,7 @@ p(N)=\frac{e^{\beta\mu N}Z_N(T,V)}{\Xi(T,V,\mu)}.
 
 巨正则系综对应的热力学势称为巨势：
 \[
-\boxed{\Phi_G(T,V,\mu)=-k_B T\ln \Xi}.
+\boxed{\Phi_G(T,V,\mu)=-k_{\rm B} T\ln \Xi}.
 \]
 其全微分形式为
 \[
@@ -400,11 +334,11 @@ p(N)=\frac{e^{\beta\mu N}Z_N(T,V)}{\Xi(T,V,\mu)}.
 \]
 因此平均粒子数、压强和熵分别满足
 \[
-\boxed{\bar N=-\left(\pdv{\Phi_G}{\mu}\right)_{T,V}=k_B T\left(\pdv{\ln\Xi}{\mu}\right)_{T,V}
+\boxed{\bar N=-\left(\pdv{\Phi_G}{\mu}\right)_{T,V}=k_{\rm B} T\left(\pdv{\ln\Xi}{\mu}\right)_{T,V}
 =z\left(\pdv{\ln\Xi}{z}\right)_{T,V}},
 \]
 \[
-\boxed{P=-\left(\pdv{\Phi_G}{V}\right)_{T,\mu}=k_B T\left(\pdv{\ln\Xi}{V}\right)_{T,\mu}},
+\boxed{P=-\left(\pdv{\Phi_G}{V}\right)_{T,\mu}=k_{\rm B} T\left(\pdv{\ln\Xi}{V}\right)_{T,\mu}},
 \]
 \[
 \boxed{S=-\left(\pdv{\Phi_G}{T}\right)_{V,\mu}}.
@@ -421,7 +355,7 @@ p(N)=\frac{e^{\beta\mu N}Z_N(T,V)}{\Xi(T,V,\mu)}.
 \]
 再利用$\Phi_G=U-TS-\mu \bar N$，可得
 \[
-\boxed{S=k_B\left(\ln\Xi+\beta U-\beta\mu \bar N\right)}.
+\boxed{S=k_{\rm B}\left(\ln\Xi+\beta U-\beta\mu \bar N\right)}.
 \]
 其余热力学势同样可以由 Legendre 变换恢复：
 \[
@@ -442,7 +376,7 @@ G=F+PV.
 巨正则系综另一个好处是粒子数涨落可以直接由$\Xi$给出。再对$\mu$求一次导数：
 \[
 \expval{(\Delta N)^2}
-=k_B T\left(\pdv{\bar N}{\mu}\right)_{T,V}.
+=k_{\rm B} T\left(\pdv{\bar N}{\mu}\right)_{T,V}.
 \]
 因此压缩性、本征浓度涨落等量都能直接和粒子数统计联系起来。和正则系综中的能量涨落一样，这里的方差通常也正比于$N$，所以相对涨落$\sqrt{\expval{(\Delta N)^2}}/\bar N$在热力学极限下同样按$N^{-1/2}$消失，这正是巨正则系综与定粒子数系综等价的统计学原因。
 
@@ -458,11 +392,11 @@ Z_N=\frac{1}{N!}\left(\frac{V}{\Lambda^3}\right)^N,
 于是
 \[
 \bar N=z\frac{V}{\Lambda^3},\qquad 
-P=\frac{k_B T}{V}\ln\Xi=\frac{zk_B T}{\Lambda^3},
+P=\frac{k_{\rm B} T}{V}\ln\Xi=\frac{zk_{\rm B} T}{\Lambda^3},
 \]
 消去$z$后立刻得到
 \[
-PV=\bar N k_B T.
+PV=\bar N k_{\rm B} T.
 \]
 可以看到，无论在微正则、正则还是巨正则系综里，理想气体最终都回到同一个状态方程；区别只在于中间计算时，最方便的控制变量究竟是$(E,V,N)$、$(T,V,N)$还是$(T,V,\mu)$。
 
