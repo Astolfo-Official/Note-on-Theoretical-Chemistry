@@ -123,16 +123,53 @@ C_P&=\left(\pdv{H}{T}\right)_{P,N}=\frac{5}{2}Nk_{\rm B}\\
 \[\dd{\bm{\Gamma}}=\frac{\dd{^{3N}\bm{p}}\dd{^{3N}\bm{q}}}{h^{3N}}\]
 在经典框架内也并不意味着有问题。比如在很多教材中会出现的\textbf{经典定域子系统}，如果考虑经典粒子的话上述定义是完全合理的。但是当我们把统计的边界逐渐推向微观世界时，经典理论的框架就会逐渐失效。Gibbs 和 Boltzmann 等人对气体系统的研究也为后续量子力学的萌芽奠定了基础。当引入量子后即使是定域子系统也需要考虑粒子的全同性。
 
+\newpage
 \subsection{正则系综与玻尔兹曼分布}
 从时间上来说，人类对统计力学的研究始于 Boltzmann 对微正则系综（孤立系统）中能量交换的研究，因此我们也将以 Boltzmann 分布的推导作开始本小节正则系综的介绍。考虑一个小系统$A$与一个巨大热浴$B$接触，二者组成的总体系孤立，总能量固定为$E_{\rm tot}$，是一个微正则系综。若系统$A$处于能量本征值$E_i$对应的微观状态，则热浴的能量就是$E_{\rm tot}-E_i$，于是该状态出现的概率正比于热浴在该能量下的微观态数：
 \[P_i\propto \Omega_B(E_{\rm tot}-E_i)\]
 给定体系能量后热浴$B$的能量也确定，因此也是微正则系综，对热浴态数在$E_{\rm tot}$附近做 Taylor 展开：
 \[\ln \Omega_B(E_{\rm tot}-E_i)=\ln \Omega_B(E_{\rm tot})-\left(\pdv{\ln\Omega_B}{E_B}\right)_{V,N}E_i+\cdots \quad \Rightarrow \quad \left(\pdv{\ln\Omega_B}{E_B}\right)_{V,N}=\frac{1}{k_{\rm B}}\left(\pdv{S_B}{E_B}\right)_{V,N}=\frac{1}{k_{\rm B} T}\]
 进而可知系统$A$处于能量本征值$E_i$的概率（简并度为$g_i$）以及归一化因子$Z$为：
-\[P_i=\frac{g_i}{Z}\exp\left(-\frac{E_i}{k_{\rm B} T}\right), \quad Z=\sum_i g_i\exp\left(-\frac{E_i}{k_{\rm B} T}\right)\]
+\[P_i=\frac{g_i}{Z}\exp\left(-\frac{E_i}{k_{\rm B} T}\right)\equiv\frac{g_i}{Z}e^{-\beta E_i}, \quad Z=\sum_i g_i\exp\left(-\frac{E_i}{k_{\rm B} T}\right)\equiv\sum_i g_i e^{-\beta E_i}\]
+Boltzmann 研究的系统能与热浴交换能量、但体积$V$和粒子数$N$都固定，其全部微观状态按这一权重组成的统计集合就称为\textcolor{blue}{\textbf{正则系综}}。因此正则系综的自然变量是$(N,V,T)$。在经典相空间表述下，玻尔兹曼分布可以写成：
+\[\rho(\xi)=\frac{e^{-\beta H(\xi)}}{Z(N,V,T)},\quad Z(N,V,T)=\int e^{-\beta H(\xi)}\dd\bm{\Gamma}\]
+从 Gibbs 熵定义出发，带入正则分布可以获得熵关于正则配分函数的表达式：
+\[S=-k_{\rm B}\int \rho(\xi)\ln\rho(\xi)\dd\Gamma=k_{\rm B}\beta\int \rho(\xi)H(\xi)\dd\Gamma+k_{\rm B}\ln Z(N,V,T)\int \rho(\xi)\dd\Gamma=k_{\rm B}\beta U+k_{\rm B}\ln Z(N,V,T)\]
 
+从微正则系综的角度回看正则系综，还能得到一个很有启发的结果。若把总概率改写成能量的分布，则：
+\[p(E)=\frac{\Omega(N,V,E)e^{-\beta E}}{Z(N,V,T)}=\frac{1}{Z(N,V,T)}\exp\left[\frac{S(N,V,E)}{k_{\rm B}}-\beta E\right]=\frac{1}{Z(N,V,T)}e^{-\beta F(N,V,E)}\]
+因此最概然能量对应的其实就是$F(N,V,E)$的极小值点，这也解释了为什么\textcolor{blue}{\textbf{ Helmholtz 自由能会成为正则系综的核心热力学势}}。由定义（callback 一下$\xi=(\bm{p},\bm{q})$是相点）出发推导其他热力学函数，如内能：
+\[U=\int H(\xi)\rho(\xi)\dd\Gamma=\frac{1}{Z}\int H(\xi)e^{-\beta H(\xi)}\dd\Gamma=-\frac{1}{Z}\pdv{Z}{\beta}=-\pdv{\ln Z}{\beta}\]
+再利用$F=U-TS$，得到 Helmholtz 自由能$F=U-T\left[k_{\rm B}\beta U+k_{\rm B}\ln Z\right]=-k_{\rm B}T\ln Z$。考虑$F$的全微分$\dd F=-S\dd T-P\dd V+\mu \dd N$可以得到压强$P$和化学势$\mu$，以及其他热力学函数如下：
+\begin{theorem}[正则系综的基本热力学关系]
+\[\rho(\xi)=\frac{e^{-\beta H(\xi)}}{Z},\quad Z=\int e^{-\beta H(\xi)}\dd\Gamma, \quad S=k_{\rm B}\left(\ln Z+\beta U\right)\]
+\[\left\{\begin{aligned}
+U&=-\pdv{\ln Z}{\beta}\\
+F&=-k_{\rm B} T\ln Z\\
+H&=-\pdv{\ln Z}{\beta}+k_{\rm B}TV\left(\pdv{\ln Z}{V}\right)_{N,T}\\
+G&=-k_{\rm B} T\ln Z+k_{\rm B}TV\left(\pdv{\ln Z}{V}\right)_{N,T}
+\end{aligned}\right.
+\quad \Rightarrow \quad
+\left\{\begin{aligned}
+P&=k_{\rm B} T\left(\pdv{\ln Z}{V}\right)_{N,T}\\
+\mu&=-k_{\rm B} T\left(\pdv{\ln Z}{N}\right)_{V,T}\\
+C_V&=\left(\pdv{U}{T}\right)_{N,V}=k_{\rm B}\beta^2\pdv[2]{\ln Z}{\beta}\\
+\expval{(\Delta E)^2}&=\pdv[2]{\ln Z}{\beta}=k_{\rm B} T^2 C_V
+\end{aligned}\right.\]
+\end{theorem}
+如果体系满足通常的可加性关系，则依然有$G=\mu N$。正则系综里一个非常重要的结果是能量涨落公式：
+\[\expval{(\Delta E)^2}=\expval{H^2}-\expval{H}^2=\frac{1}{Z}\pdv[2]{Z}{\beta}-\frac{1}{Z^2}\left(\pdv{Z}{\beta}\right)^2=\pdv[2]{\ln Z}{\beta}=k_{\rm B} T^2 C_V\]
+因此热容不仅描述“升温有多难”，也直接控制平衡能量涨落的大小。下面我们来看两个具体例子。
 
-对于单原子理想气体，单粒子的平动能量为$\varepsilon=p^2/2m=mv^2/2$。由玻尔兹曼权重可得三维速度分布：
+\begin{proposition}[正则系综下的单原子理想气体]
+对$N$个单原子经典理想气体，动量积分与坐标积分可以完全分离，因此正则配分函数为
+\[
+Z(N,V,T)=\frac{1}{N!}\left(\frac{V}{\Lambda^3}\right)^N,\qquad 
+\Lambda=\frac{h}{\sqrt{2\pi m k_{\rm B} T}}.
+\]
+\end{proposition}
+
+另一方面，对单个理想气体粒子而言，玻尔兹曼权重直接给出三维速度分布：
 \[
 f(\mathbf{v})=\left(\frac{m}{2\pi k_{\rm B} T}\right)^{3/2}\exp\left(-\frac{mv^2}{2k_{\rm B} T}\right),
 \]
@@ -160,89 +197,38 @@ P_N(E)=\frac{\beta^{3N/2}}{\Gamma(3N/2)}E^{3N/2-1}e^{-\beta E},\qquad E\ge 0.
 \]
 这最后一个式子很重要：\textcolor{blue}{\textbf{随着粒子数增大，能量的相对涨落按$N^{-1/2}$衰减}}，这就是为什么不同系综在热力学极限下会给出相同的状态方程和热力学关系。
 
-\subsection{正则系综}
-正则系综对应与热浴接触、但粒子数固定的体系，自然变量是$T,V,N$。在这一系综中，微观状态的概率密度正是前面得到的玻尔兹曼分布：
+\begin{theorem}[正则系综下单原子理想气体的热力学函数]
+记粒子数密度$n=N/V$，则
 \[
-\rho(\xi)=\frac{e^{-\beta H(\xi)}}{Z_N(T,V)},\qquad 
-Z_N(T,V)=\int e^{-\beta H(\xi)}\dd\Gamma.
+Z(N,V,T)=\frac{1}{N!}\left(\frac{V}{\Lambda^3}\right)^N,\qquad 
+\Lambda=\frac{h}{\sqrt{2\pi m k_{\rm B} T}}
 \]
-这里$Z_N$就是正则配分函数。它的核心作用是把所有玻尔兹曼权重做归一化，同时也是热力学信息的生成函数。
+\[
+\left\{\begin{aligned}
+F&=-Nk_{\rm B} T\left[\ln\left(\frac{V}{N\Lambda^3}\right)+1\right]\\
+U&=\frac{3}{2}Nk_{\rm B} T\\
+S&=Nk_{\rm B}\left[\ln\left(\frac{V}{N\Lambda^3}\right)+\frac{5}{2}\right]\\
+\mu&=k_{\rm B} T\ln(n\Lambda^3)
+\end{aligned}\right.
+\quad \Rightarrow \quad
+\left\{\begin{aligned}
+PV&=Nk_{\rm B} T\\
+H&=\frac{5}{2}Nk_{\rm B} T\\
+G&=\mu N=Nk_{\rm B} T\ln(n\Lambda^3)\\
+C_V&=\frac{3}{2}Nk_{\rm B}\\
+C_P&=\frac{5}{2}Nk_{\rm B}
+\end{aligned}\right.
+\]
+\end{theorem}
 
-从微正则系综的角度回看正则系综，还能得到一个很有启发的结果。若把总概率改写成能量的分布，则
-\[
-p(E)=\frac{\Omega(E,V,N)e^{-\beta E}}{Z_N}
-=\frac{1}{Z_N}\exp\left[\frac{S(E,V,N)}{k_{\rm B}}-\beta E\right]
-=\frac{1}{Z_N}e^{-\beta F(E)},
-\]
-其中
-\[
-F(E)=E-TS(E,V,N)
-\]
-可以理解为“把能量$E$当作变量时的自由能函数”。因此最概然能量对应的其实就是$F(E)$的极小值点，这也解释了为什么 Helmholtz 自由能会成为正则系综的核心热力学势。
-
-先看内能。由定义
-\[
-U=\int H(\xi)\rho(\xi)\dd\Gamma
-=\frac{1}{Z_N}\int H(\xi)e^{-\beta H(\xi)}\dd\Gamma,
-\]
-对$Z_N$对$\beta$求导：
-\[
-\pdv{Z_N}{\beta}=-\int H(\xi)e^{-\beta H(\xi)}\dd\Gamma=-Z_N U,
-\]
-于是
-\[
-\boxed{U=-\pdv{\ln Z_N}{\beta}}.
-\]
-
-正则系综对应的热力学势是 Helmholtz 自由能：
-\[
-\boxed{F(T,V,N)=-k_{\rm B} T\ln Z_N}.
-\]
-将$F=U-TS$与上式结合，立刻得到熵
-\[
-\boxed{S=-\left(\pdv{F}{T}\right)_{V,N}=k_{\rm B}\left(\ln Z_N+\beta U\right)}.
-\]
-对$F$做全微分：
-\[
-\dd F=-S\dd T-P\dd V+\mu \dd N,
-\]
-所以压强和化学势分别是
-\[
-\boxed{P=-\left(\pdv{F}{V}\right)_{T,N}=k_{\rm B} T\left(\pdv{\ln Z_N}{V}\right)_{T,N}},
-\]
-\[
-\boxed{\mu=\left(\pdv{F}{N}\right)_{T,V}=-k_{\rm B} T\left(\pdv{\ln Z_N}{N}\right)_{T,V}}.
-\]
-同理，其余常见热力学量也都能由$Z_N$恢复：
-\[
-H=U+PV,\qquad G=F+PV.
-\]
-如果体系满足通常的可加性关系，则依然有$G=\mu N$。
-
-正则系综里一个非常重要的结果是能量涨落公式。由
-\[
-\pdv[2]{\ln Z_N}{\beta}
-=\expval{H^2}-\expval{H}^2
-=\expval{(\Delta E)^2},
-\]
-再结合$U=-\partial\ln Z_N/\partial\beta$，可得
-\[
-C_V=\left(\pdv{U}{T}\right)_{V,N}
-=k_{\rm B}\beta^2\expval{(\Delta E)^2},
-\]
-也就是
-\[
-\boxed{\expval{(\Delta E)^2}=k_{\rm B} T^2 C_V}.
-\]
-因此热容不仅描述“升温有多难”，也直接控制平衡能量涨落的大小。
-
-一个很典型、也很适合练手的正则系综例子是双能级系统。设有$N$个彼此独立、固定在晶格位置上的缺陷或杂质，每个缺陷只有基态和激发态两种可能，记占据数$n_i=0,1$，激发能为$\varepsilon$，则哈密顿量为
+\begin{proposition}[正则系综下的两态系统]
+设有$N$个彼此独立、固定在晶格位置上的缺陷或杂质，每个缺陷只有基态和激发态两种可能，记占据数$n_i=0,1$，激发能为$\varepsilon$，则哈密顿量为
 \[
 H=\varepsilon\sum_{i=1}^{N}n_i.
 \]
 由于这些缺陷是固定在各自位置上的，所以它们在经典计数里是可区分的，不需要额外再除以$N!$。此时配分函数可以直接因子化：
 \[
-Z_N=\sum_{\{n_i\}}e^{-\beta\varepsilon\sum_i n_i}
+Z(N,V,T)=\sum_{\{n_i\}}e^{-\beta\varepsilon\sum_i n_i}
 =\prod_{i=1}^{N}\left(\sum_{n_i=0}^{1}e^{-\beta\varepsilon n_i}\right)
 =\left(1+e^{-\beta\varepsilon}\right)^N.
 \]
@@ -251,11 +237,11 @@ Z_N=\sum_{\{n_i\}}e^{-\beta\varepsilon\sum_i n_i}
 F=-Nk_{\rm B} T\ln\left(1+e^{-\beta\varepsilon}\right),
 \]
 \[
-U=-\pdv{\ln Z_N}{\beta}
+U=-\pdv{\ln Z(N,V,T)}{\beta}
 =\frac{N\varepsilon}{e^{\beta\varepsilon}+1},
 \]
 \[
-S=k_{\rm B}\left(\ln Z_N+\beta U\right)
+S=k_{\rm B}\left(\ln Z(N,V,T)+\beta U\right)
 =Nk_{\rm B}\left[\ln\left(1+e^{-\beta\varepsilon}\right)+\frac{\beta\varepsilon}{e^{\beta\varepsilon}+1}\right].
 \]
 更进一步，单个缺陷处于激发态的概率就是
@@ -263,32 +249,34 @@ S=k_{\rm B}\left(\ln Z_N+\beta U\right)
 p_1=\frac{e^{-\beta\varepsilon}}{1+e^{-\beta\varepsilon}}=\frac{1}{e^{\beta\varepsilon}+1},
 \]
 因此平均激发数为$Np_1$。这个例子很能体现正则系综的一个优点：\textcolor{blue}{\textbf{一旦体系由许多独立自由度组成，配分函数常常会自动因子化，热力学量也就跟着变得非常好算}}。
+\end{proposition}
 
-对单原子经典理想气体，动量积分与坐标积分可以完全分离，得到
+\begin{theorem}[正则系综下两态系统的热力学函数]
 \[
-Z_N=\frac{1}{N!}\left(\frac{V}{\Lambda^3}\right)^N,\qquad 
-\Lambda=\frac{h}{\sqrt{2\pi m k_{\rm B} T}},
-\]
-其中$\Lambda$是热德布罗意波长。把这个$Z_N$带入上面的通式就有
-\[
-F=-Nk_{\rm B} T\left[\ln\left(\frac{V}{N\Lambda^3}\right)+1\right],
+Z(N,V,T)=\left(1+e^{-\beta\varepsilon}\right)^N
 \]
 \[
-U=\frac{3}{2}Nk_{\rm B} T,\qquad P=\frac{Nk_{\rm B} T}{V},
+\left\{\begin{aligned}
+F&=-Nk_{\rm B} T\ln\left(1+e^{-\beta\varepsilon}\right)\\
+U&=\frac{N\varepsilon}{e^{\beta\varepsilon}+1}\\
+S&=Nk_{\rm B}\left[\ln\left(1+e^{-\beta\varepsilon}\right)+\frac{\beta\varepsilon}{e^{\beta\varepsilon}+1}\right]\\
+p_1&=\frac{1}{e^{\beta\varepsilon}+1}
+\end{aligned}\right.
+\quad \Rightarrow \quad
+\left\{\begin{aligned}
+\bar n_{\rm exc}&=Np_1\\
+C_V&=Nk_{\rm B}(\beta\varepsilon)^2\frac{e^{\beta\varepsilon}}{(e^{\beta\varepsilon}+1)^2}
+\end{aligned}\right.
 \]
-\[
-S=Nk_{\rm B}\left[\ln\left(\frac{V}{N\Lambda^3}\right)+\frac{5}{2}\right],
-\]
-\[
-\mu=k_{\rm B} T\ln\left(\frac{N\Lambda^3}{V}\right).
-\]
-这些关系把理想气体的状态方程、内能和熵一次性统一在同一个配分函数框架里，也展示了正则系综在实际计算中的高效性。
+\end{theorem}
+
+最后汇总一下这一小节的核心逻辑：\textcolor{blue}{\textbf{玻尔兹曼分布给出正则系综中每个微观状态的权重，而正则配分函数$Z(N,V,T)$则把这些权重统一起来；一旦$Z(N,V,T)$已知，体系的全部热力学性质原则上都可以由它恢复出来。}}
 
 \subsection{巨正则系综}
 巨正则系综对应体系既能与外界交换热，也能交换粒子，因此自然变量是$T,V,\mu$。此时需要同时统计不同粒子数$N$的全部可能微观状态。若记逸度$z=e^{\beta\mu}$，则巨正则配分函数定义为
 \[
-\Xi(T,V,\mu)=\sum_{N=0}^{\infty}z^N Z_N(T,V)
-=\sum_{N=0}^{\infty}e^{\beta\mu N}Z_N(T,V).
+\Xi(T,V,\mu)=\sum_{N=0}^{\infty}z^N Z(N,V,T)
+=\sum_{N=0}^{\infty}e^{\beta\mu N}Z(N,V,T).
 \]
 等价地，也可以把它写成对所有$N$粒子相空间的求和积分：
 \[
@@ -296,7 +284,7 @@ S=Nk_{\rm B}\left[\ln\left(\frac{V}{N\Lambda^3}\right)+\frac{5}{2}\right],
 \]
 把求和按固定粒子数$N$来重新分组后，我们还能立刻读出“体系中恰好有$N$个粒子”的概率：
 \[
-p(N)=\frac{e^{\beta\mu N}Z_N(T,V)}{\Xi(T,V,\mu)}.
+p(N)=\frac{e^{\beta\mu N}Z(N,V,T)}{\Xi(T,V,\mu)}.
 \]
 于是$N$粒子相空间中某个微观状态的概率密度就是
 \[
@@ -362,7 +350,7 @@ G=F+PV.
 
 对经典理想气体，有
 \[
-Z_N=\frac{1}{N!}\left(\frac{V}{\Lambda^3}\right)^N,
+Z(N,V,T)=\frac{1}{N!}\left(\frac{V}{\Lambda^3}\right)^N,
 \]
 从而
 \[
@@ -378,9 +366,9 @@ P=\frac{k_{\rm B} T}{V}\ln\Xi=\frac{zk_{\rm B} T}{\Lambda^3},
 \[
 PV=\bar N k_{\rm B} T.
 \]
-可以看到，无论在微正则、正则还是巨正则系综里，理想气体最终都回到同一个状态方程；区别只在于中间计算时，最方便的控制变量究竟是$(E,V,N)$、$(T,V,N)$还是$(T,V,\mu)$。
+可以看到，无论在微正则、正则还是巨正则系综里，理想气体最终都回到同一个状态方程；区别只在于中间计算时，最方便的控制变量究竟是$(N,V,E)$、$(N,V,T)$还是$(T,V,\mu)$。
 
-至此我们可以把三个系综的关系总结为：微正则系综以熵$S(E,V,N)$为出发点，正则系综以自由能$F(T,V,N)$为出发点，巨正则系综以巨势$\Phi_G(T,V,\mu)$为出发点。它们彼此之间通过 Legendre 变换相连，而在热力学极限下又给出相互一致的宏观物理。这种“同一物理、不同自然变量”的视角，正是后续处理化学平衡、相变和输运过程时最重要的基础。
+至此我们可以把三个系综的关系总结为：微正则系综以熵$S(N,V,E)$为出发点，正则系综以自由能$F(N,V,T)$为出发点，巨正则系综以巨势$\Phi_G(T,V,\mu)$为出发点。它们彼此之间通过 Legendre 变换相连，而在热力学极限下又给出相互一致的宏观物理。这种“同一物理、不同自然变量”的视角，正是后续处理化学平衡、相变和输运过程时最重要的基础。
 
 \section{量子统计力学}\label{sec:quantum_sm}
 经典统计力学把宏观状态描述为相空间上的概率密度，而量子统计力学则把宏观状态描述为希尔伯特空间上的密度算符。前文已经介绍过量子态、算符和表象理论，因此这里不再从头复述量子力学本身，而只保留统计力学真正需要的结构。
