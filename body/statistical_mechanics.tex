@@ -123,34 +123,14 @@ C_P&=\left(\pdv{H}{T}\right)_{P,N}=\frac{5}{2}Nk_{\rm B}\\
 \[\dd{\bm{\Gamma}}=\frac{\dd{^{3N}\bm{p}}\dd{^{3N}\bm{q}}}{h^{3N}}\]
 在经典框架内也并不意味着有问题。比如在很多教材中会出现的\textbf{经典定域子系统}，如果考虑经典粒子的话上述定义是完全合理的。但是当我们把统计的边界逐渐推向微观世界时，经典理论的框架就会逐渐失效。Gibbs 和 Boltzmann 等人对气体系统的研究也为后续量子力学的萌芽奠定了基础。当引入量子后即使是定域子系统也需要考虑粒子的全同性。
 
+\subsection{正则系综与玻尔兹曼分布}
+从时间上来说，人类对统计力学的研究始于 Boltzmann 对微正则系综（孤立系统）中能量交换的研究，因此我们也将以 Boltzmann 分布的推导作开始本小节正则系综的介绍。考虑一个小系统$A$与一个巨大热浴$B$接触，二者组成的总体系孤立，总能量固定为$E_{\rm tot}$，是一个微正则系综。若系统$A$处于能量本征值$E_i$对应的微观状态，则热浴的能量就是$E_{\rm tot}-E_i$，于是该状态出现的概率正比于热浴在该能量下的微观态数：
+\[P_i\propto \Omega_B(E_{\rm tot}-E_i)\]
+给定体系能量后热浴$B$的能量也确定，因此也是微正则系综，对热浴态数在$E_{\rm tot}$附近做 Taylor 展开：
+\[\ln \Omega_B(E_{\rm tot}-E_i)=\ln \Omega_B(E_{\rm tot})-\left(\pdv{\ln\Omega_B}{E_B}\right)_{V,N}E_i+\cdots \quad \Rightarrow \quad \left(\pdv{\ln\Omega_B}{E_B}\right)_{V,N}=\frac{1}{k_{\rm B}}\left(\pdv{S_B}{E_B}\right)_{V,N}=\frac{1}{k_{\rm B} T}\]
+进而可知系统$A$处于能量本征值$E_i$的概率（简并度为$g_i$）以及归一化因子$Z$为：
+\[P_i=\frac{g_i}{Z}\exp\left(-\frac{E_i}{k_{\rm B} T}\right), \quad Z=\sum_i g_i\exp\left(-\frac{E_i}{k_{\rm B} T}\right)\]
 
-
-\subsection{玻尔兹曼分布与麦克斯韦-玻尔兹曼气体能量统计}
-先考虑一个小系统$A$与一个巨大热浴$B$接触，二者组成的总体系隔离，总能量固定为$E_{\rm tot}$。若系统$A$处于能量本征值$E_i$对应的微观状态，则热浴的能量就是$E_{\rm tot}-E_i$，于是该状态出现的概率正比于热浴在该能量下的微观态数：
-\[
-P_i\propto \Omega_B(E_{\rm tot}-E_i).
-\]
-对热浴态数在$E_{\rm tot}$附近做 Taylor 展开：
-\[
-\ln \Omega_B(E_{\rm tot}-E_i)=\ln \Omega_B(E_{\rm tot})-\left(\pdv{\ln\Omega_B}{E_B}\right)_{V,N}E_i+\cdots
-\]
-根据微正则熵的定义$S_B=k_{\rm B}\ln\Omega_B$，有
-\[
-\left(\pdv{\ln\Omega_B}{E_B}\right)_{V,N}=\frac{1}{k_{\rm B}}\left(\pdv{S_B}{E_B}\right)_{V,N}=\frac{1}{k_{\rm B} T}.
-\]
-于是
-\[
-P_i\propto e^{-\beta E_i},\qquad \beta=\frac{1}{k_{\rm B} T}.
-\]
-归一化后便得到玻尔兹曼分布：
-\[
-\boxed{P_i=\frac{e^{-\beta E_i}}{Z}},\qquad Z=\sum_i e^{-\beta E_i}.
-\]
-若能级$E_i$有简并度$g_i$，则对应能量的概率为$P(E_i)=g_i e^{-\beta E_i}/Z$。在经典相空间表述下，上式对应的平衡分布密度就是
-\[
-\rho(\xi)=\frac{e^{-\beta H(\xi)}}{Z},\qquad Z=\int e^{-\beta H(\xi)}\dd\Gamma.
-\]
-也就是说，\textcolor{blue}{\textbf{热平衡时一切微观状态的权重都由同一个玻尔兹曼因子$e^{-\beta H}$决定}}，后面三个系综的推导本质上都是围绕这个权重展开的。
 
 对于单原子理想气体，单粒子的平动能量为$\varepsilon=p^2/2m=mv^2/2$。由玻尔兹曼权重可得三维速度分布：
 \[
