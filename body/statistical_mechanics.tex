@@ -341,64 +341,69 @@ G&=F+PV=\mu \expval{N}=\expval{N} k_{\rm B}T\ln(\bar n\Lambda^3)
 
 \newpage
 \section{量子统计力学}\label{sec:quantum_sm}
-经典统计力学把宏观状态描述为相空间上的概率密度，而量子统计力学则把宏观状态描述为希尔伯特空间上的密度算符。前文已经介绍过量子态、算符和表象理论，因此这里不再从头复述量子力学本身，而只保留统计力学真正需要的结构。
+\subsection{相空间理论量子化}
+在章节\ref{sec:qm_basic}中我们简单介绍了量子力学，这里不再赘述。应该要注意的，量子力学中我们并没有涉及到温度这个概念，我们只关注了体系可能存在的量子态以及各种算符的本征值和期望值，但是我们没有讨论过系统如何在这些量子态上分布，这也是量子统计需要解决的问题，因此可以认为量子力学是量子统计在$T=0 \ \rm{K}$的特殊情况。从量子力学中的算符 [Eq.\eqref{eq:operator_qm}] 出发，假设$\{\ket{\phi_{\alpha}}\}$是一组完备基，则算符$\hat{O}$可以展开为：
+\[\hat{O}=\mathbbm{1}\hat{O}\mathbbm{1}=\sum_{\alpha\alpha'}\ket{\phi_{\alpha}}w(\alpha)\bra{\phi_{\alpha}}\hat{O}\ket{\phi_{\alpha'}}w(\alpha')\bra{\phi_{\alpha'}}\]
+计算算符$\hat{O}$在态$\ket{\psi}$上的期望值$\bra{\psi}\hat{O}\ket{\psi}$：
+\[\begin{aligned}
+\langle\hat{O}\rangle=\bra{\psi}\hat{O}\ket{\psi}&=\sum_{\alpha\alpha'}\bra{\psi}\ket{\phi_{\alpha}}w(\alpha)\bra{\phi_{\alpha}}\hat{O}\ket{\phi_{\alpha'}}w(\alpha')\bra{\phi_{\alpha'}}\ket{\psi}=\sum_{\alpha\alpha'}w(\alpha)\bra{\phi_{\alpha}}\hat{O}\ket{\phi_{\alpha'}}w(\alpha')\bra{\phi_{\alpha'}}\ket{\psi}\bra{\psi}\ket{\phi_{\alpha}}\\
+&=\sum_{\alpha}w(\alpha)\bra{\phi_{\alpha}}\hat{O}\left(\sum_{\alpha'}\ket{\phi_{\alpha'}}w(\alpha')\bra{\phi_{\alpha'}}\right)\ket{\psi}\bra{\psi}\ket{\phi_{\alpha}}=\sum_{\alpha}w(\alpha)\bra{\phi_{\alpha}}\hat{O}\ket{\psi}\bra{\psi}\ket{\phi_{\alpha}}\\
+\end{aligned}\]
+定义密度算符$\hat{\rho}$为：
+\[\ket{\psi}=\sum_{\alpha}c_{\alpha}\ket{\phi_{\alpha}} \quad \Rightarrow \quad \boxed{\hat{\rho}=\ket{\psi}\bra{\psi}=\sum_{\alpha\alpha'}c_{\alpha}c^{\dagger}_{\alpha'}\ket{\phi_{\alpha}}\bra{\phi_{\alpha'}}:=\sum_{\alpha\alpha'}\rho_{\alpha\alpha'}\ket{\phi_{\alpha}}\bra{\phi_{\alpha'}}}\]
+上式中可以称矩阵元为$\rho_{\alpha\alpha'}=c_{\alpha}c^{\dagger}_{\alpha'}$的矩阵$\bm{\rho}$为密度矩阵。由此在基底$\{\ket{\phi_{\alpha}}\}$下，期望值$\langle\hat{O}\rangle$可以写成：
+\[\boxed{\langle\hat{O}\rangle=\sum_{\alpha}w(\alpha)\bra{\phi_{\alpha}}\hat{O}\ket{\psi}\bra{\psi}\ket{\phi_{\alpha}}=\sum_{\alpha}w(\alpha)\bra{\phi_{\alpha}}\hat{O}\hat{\rho}\ket{\phi_{\alpha}}=\Tr(\hat{O}\hat{\rho})=\Tr(\hat{\rho}\hat{O})}\]
+密度算符总满足$\hat{\rho}^{\dagger}=\hat{\rho}$和$\Tr\hat{\rho}=1$，且$\forall \ket{\phi}\in\mathcal{H}$有$\bra{\phi}\hat{\rho}\ket{\phi}\ge 0$，即是半正定的厄米算符。如果$\ket{\psi}$是一个纯态，则$\Tr\hat{\rho}^2=\Tr\hat{\rho}$；如果$\ket{\psi}$是一个混态，则$\Tr\hat{\rho}^2<\Tr\hat{\rho}$。我们可以把 Gibbs 熵在量子统计中推广为：
+\[\boxed{S=-k_{\rm B}\Tr(\hat{\rho}\ln\hat{\rho})}\]
+出于方便我们要求$\mathcal{H}=\text{span}\{\ket{\phi_{\alpha}}\}$是正交归一的完备基，或者说某个算符的本征态（纯态），那么$\hat{\rho}$可以写成：
+\[\hat{\rho}=\sum_{\alpha}p_{\alpha}\ket{\phi_{\alpha}}\bra{\phi_{\alpha}}, \quad p_{\alpha}\ge 0, \quad \sum_{\alpha}p_{\alpha}=1\]
+则 Gibbs 熵可以写成：
+\[S=-k_{\rm B}\Tr(\hat{\rho}\ln\hat{\rho})=-k_{\rm B}\sum_{\alpha}p_{\alpha}\ln p_{\alpha}\]
+纯态时某个$p_{\alpha}=1$而其余全为$0$，因此$S=0$；完全无信息时$\hat{\rho}=\mathbbm{1}/\dim\mathcal{H}$，熵取最大值$S=k_{\rm B}\ln\dim\mathcal{H}$。
+\begin{proposition}[单电子自旋系统]
+在章节\ref{sec:spin}中我们已经介绍了三个 Pauli 矩阵$\sigma_x$、$\sigma_y$和$\sigma_z$是电子自旋空间的基底，因此我们可以把它们作为完备基来展开密度算符：
+\[\hat{\rho}=\frac{1}{2}\left(\mathbbm{1}+\mathbf{P}\cdot\hat{\bm{\sigma}}\right), \quad \mathbf{P}=(P_x,P_y,P_z)\in\mathbb{R}^3, \quad |\mathbf{P}|\le 1\]
+其中$\mathbf{P}$是 Bloch 向量。当$|\mathbf{P}|=1$时，$\hat{\rho}$是一个纯态；当$|\mathbf{P}|<1$时，$\hat{\rho}$是一个混态。布洛赫向量的方向表示自旋的平均取向，而模长则表示自旋的纯度。
 
-\subsection{量子系综、密度算符与 Fock 空间}
-设体系的希尔伯特空间为$\mathcal{H}$，若系统处于归一化纯态$\ket{\Psi}$，则对应的密度算符为
-\[
-\hat{\rho}=\ket{\Psi}\bra{\Psi}.
-\]
-这时任意可观测量$\hat{A}$的期望值都可以写为
-\[
-\expval{A}=\Tr(\hat{\rho}\hat{A})=\bra{\Psi}\hat{A}\ket{\Psi}.
-\]
-若我们并不知道系统究竟处于哪一个纯态，只知道它以概率$p_n$处在一组正交归一态$\{\ket{\psi_n}\}$中，则体系处于混合态，其密度算符为
-\[
-\boxed{\hat{\rho}=\sum_n p_n\ket{\psi_n}\bra{\psi_n}},
-\qquad p_n\ge 0,\qquad \sum_n p_n=1.
-\]
-因此量子统计力学中“相空间概率密度$\rho(q,p)$”的角色，便由“希尔伯特空间上的密度算符$\hat{\rho}$”接替了。相应地，\textcolor{blue}{\textbf{经典统计中的相空间积分，在量子统计中被迹运算$\Tr$所取代}}。
+一个自然而然的问题是：电子密度矩阵的自由度是多少？理论上四个矩阵元是复数应该有8个自由度，但是由于厄米性，非对角线满足共轭关系且对角线上是实数，只有四个自由度；然后由$\Tr\hat{\rho}=1$，最终只有3个自由度，且是实数，与 Bloch 向量对应。我们可以计算电子自旋的期望值$\langle\hat{\mathbf{S}}\rangle$：
+\[\langle\hat{\mathbf{S}}\rangle=\frac{\hbar}{2}\Tr(\hat{\rho}\hat{\bm{\sigma}})=\frac{\hbar}{4}\Tr\left(\hat{\bm{\sigma}}+\mathbf{P}\cdot\hat{\bm{\sigma}}^2\right)=\frac{\hbar}{4}\left(0+2\mathbf{P}\right)=\frac{\hbar}{2}\mathbf{P}\]
+callback 一下 Pauli 矩阵的性质$\hat{\sigma}^2_i=\mathbf{I}$，$\Tr\hat{\sigma}_i=0$。如果不知道也可以直接按照定义展开$2 \times 2$矩阵计算。
+\end{proposition}
 
-密度算符总满足
-\[
-\hat{\rho}^{\dagger}=\hat{\rho},\qquad \Tr\hat{\rho}=1,\qquad \bra{\phi}\hat{\rho}\ket{\phi}\ge 0\quad \forall\ket{\phi}\in\mathcal{H}.
-\]
-如果在$\hat{\rho}$的本征基$\{\ket{\alpha}\}$下将其对角化：
-\[
-\hat{\rho}=\sum_{\alpha}p_{\alpha}\ket{\alpha}\bra{\alpha},
-\]
-则量子统计熵可以写成
-\[
-\boxed{S=-k_B\Tr(\hat{\rho}\ln\hat{\rho})=-k_B\sum_{\alpha}p_{\alpha}\ln p_{\alpha}}.
-\]
-它正是经典 Gibbs 熵在量子力学里的自然推广。纯态时某个$p_{\alpha}=1$而其余全为$0$，因此$S=0$；完全无信息时$\hat{\rho}=\mathbbm{1}/\dim\mathcal{H}$，熵取最大值$S=k_B\ln\dim\mathcal{H}$。对两个独立系统，若总密度算符满足$\hat{\rho}_{12}=\hat{\rho}_1\otimes\hat{\rho}_2$，则熵满足可加性：
-\[
-S_{12}=S_1+S_2.
-\]
+\begin{proposition}[其他基底下的单电子自旋系统]
+上述例子中我们采用了$\sigma_z$的本征态作为密度算符的基底，也即$\ket{\uparrow}$和$\ket{\downarrow}$，其方向刚好与$z$轴对齐。如果我们考虑旋转坐标轴到以单位向量$\mathbf{n}=(\sin\theta\cos\phi,\sin\theta\sin\phi,\cos\theta)$为$z$轴，那么$\hat{\rho}$的基底就变成了$\hat{\mathbf{n}}\cdot\hat{\bm{\sigma}}$的本征态$\ket{\uparrow_{\mathbf{n}}}$和$\ket{\downarrow_{\mathbf{n}}}$，其与原先基底的关系是：
+\[\ket{\uparrow_{\mathbf{n}}}=\cos\frac{\theta}{2}\ket{\uparrow}+e^{i\phi}\sin\frac{\theta}{2}\ket{\downarrow}, \quad \ket{\downarrow_{\mathbf{n}}}=-e^{-i\phi}\sin\frac{\theta}{2}\ket{\uparrow}+\cos\frac{\theta}{2}\ket{\downarrow}\]
+其中$\theta$和$\phi$是单位向量$\mathbf{n}$在球坐标系中的极角和方位角。此时沿着$\mathbf{n}$正方向的投影算符的展开式为：
+\[\hat{P}_{\uparrow_{\mathbf{n}}}=\ket{\uparrow_{\mathbf{n}}}\bra{\uparrow_{\mathbf{n}}}=\frac{1}{2}\left(\mathbbm{1}+\mathbf{n}\cdot\hat{\bm{\sigma}}\right)\]
+因此沿着$\mathbf{n}$方向的自旋期望值为：
+\[\langle\hat{P}_{\uparrow_{\mathbf{n}}}\rangle=\Tr(\hat{P}_{\uparrow_{\mathbf{n}}}\hat{\rho})=\frac{1}{4}\Tr[\left(\mathbbm{1}+\mathbf{n}\cdot\hat{\bm{\sigma}}\right)\left(\mathbbm{1}+\mathbf{P}\cdot\hat{\bm{\sigma}}\right)]=\frac{1}{4}\left(2+0+0+2\mathbf{n}\cdot\mathbf{P}\right)=\frac{1}{2}(1+\mathbf{n}\cdot\mathbf{P})\]
+当然还是可以暴力展开$2 \times 2$矩阵计算。
+\end{proposition}
 
-对多粒子系统，还需要考虑全同粒子的交换对称性。若单粒子希尔伯特空间为$\mathcal{H}_1$，则$N$粒子希尔伯特空间并不是简单的$\mathcal{H}_1^{\otimes N}$，而是其对称或反对称子空间：
-\[
-\mathcal{H}_N^{({\rm B})}=S(\mathcal{H}_1^{\otimes N}),\qquad 
-\mathcal{H}_N^{({\rm F})}=A(\mathcal{H}_1^{\otimes N}),
-\]
-分别对应玻色子与费米子。为了统一处理不同粒子数的情形，我们引入 Fock 空间
-\[
-\mathcal{F}=\mathcal{H}^{(0)}\oplus \mathcal{H}^{(1)}\oplus \mathcal{H}^{(2)}\oplus\cdots.
-\]
-在 Fock 空间中，一个多体态可以用占据数表象表示为
-\[
-\ket{n_1,n_2,\ldots,n_l,\ldots},
-\]
-其中$n_l$表示第$l$个单粒子态上的占据数。对玻色子，$n_l=0,1,2,\cdots$；对费米子，$n_l=0,1$，这就是 Pauli 不相容原理。定义产生与湮灭算符$\hat{a}_l^{\dagger},\hat{a}_l$后，占据数算符为
-\[
-\hat{n}_l=\hat{a}_l^{\dagger}\hat{a}_l.
-\]
-若体系无相互作用，且$\{\ket{l}\}$是单粒子哈密顿量的本征态，单粒子能量为$\varepsilon_l$，则总哈密顿量与粒子数算符都可以写成非常简单的形式：
-\[
-\boxed{\hat{H}=\sum_l \varepsilon_l \hat{n}_l,\qquad \hat{N}=\sum_l \hat{n}_l.}
-\]
-这正是后面推导 Bose-Einstein 和 Fermi-Dirac 分布的出发点。
+如果系统可以拆分成两个子系统$A$和$B$，即总希尔伯特空间是子空间张量积$\mathcal{H}_{AB}=\mathcal{H}_A\otimes\mathcal{H}_B$，记$\{\ket{i^{(A)}}\}$和$\{\ket{\mu^{(B)}}\}$分别是$\mathcal{H}_A$与$\mathcal{H}_B$的正交归一完备基，则$\{\ket{i^{(A)}}\otimes\ket{\mu^{(B)}}\}$构成总空间$\mathcal{H}_{AB}$的正交归一完备乘积基底。对于彼此独立的复合系统，其总密度算符满足$\hat{\rho}_{AB}=\hat{\rho}_A\otimes\hat{\rho}_B$：
+\[\hat{\rho}_A=\sum_i p_i\ket{i^{(A)}}\bra{i^{(A)}}, \quad \hat{\rho}_B=\sum_{\mu}q_{\mu}\ket{\mu^{(B)}}\bra{\mu^{(B)}} \quad \Rightarrow \quad \hat{\rho}_{AB}=\sum_{i,\mu}p_iq_{\mu}\left(\ket{i^{(A)}}\bra{i^{(A)}}\right)\otimes\left(\ket{\mu^{(B)}}\bra{\mu^{(B)}}\right)\]
+可以验证此时系统的熵满足可加性：
+\[S_{AB}=-k_{\rm B}\sum_{i,\mu}p_iq_{\mu}\ln(p_iq_{\mu})=-k_{\rm B}\sum_ip_i\ln p_i-k_{\rm B}\sum_{\mu}q_{\mu}\ln q_{\mu}=S_A+S_B\]
+如果我们只关心其中一个子系统，而忽略另一个子系统的自由度，就需要对后者作偏迹并定义约化密度算符：
+\[\boxed{\hat{\rho}_A=\Tr_B\hat{\rho}_{AB}=\sum_{\mu}\bra{\mu^{(B)}}\hat{\rho}_{AB}\ket{\mu^{(B)}}}, \qquad \boxed{\hat{\rho}_B=\Tr_A\hat{\rho}_{AB}=\sum_i\bra{i^{(A)}}\hat{\rho}_{AB}\ket{i^{(A)}}}\]
+偏迹的结果与在子空间所选基底无关，并且满足：
+\[\Tr_A(\hat{\rho}_A\hat{O}_A)=\Tr_{AB}\left[\hat{\rho}_{AB}\left(\hat{O}_A\otimes\mathbbm{1}_B\right)\right]\]
+因此$\hat{\rho}_A$完整编码了子系统$A$上一切局域可观测量的统计信息。
 
+上面的内容如果反过来说，对于任意纯态$\ket{\Psi^{(AB)}}\in\mathcal{H}_A\otimes\mathcal{H}_B$，总可以找到两个子空间$\mathcal{H}_A$和$\mathcal{H}_B$的两组正交归一基底$\{\ket{u_{\alpha}^{(A)}}\}$和$\{\ket{v_{\alpha}^{(B)}}\}$，使它写成施密特分解，满足$\lambda_{\alpha}\ge 0$，$\sum\lambda_{\alpha}=1$：
+\[\ket{\Psi^{(AB)}}=\sum_{\alpha}\sqrt{\lambda_{\alpha}}\ket{u_{\alpha}^{(A)}}\otimes\ket{v_{\alpha}^{(B)}}, \quad \hat{\rho}_A=\sum_{\alpha}\lambda_{\alpha}\ket{u_{\alpha}^{(A)}}\bra{u_{\alpha}^{(A)}}, \quad \hat{\rho}_B=\sum_{\alpha}\lambda_{\alpha}\ket{v_{\alpha}^{(B)}}\bra{v_{\alpha}^{(B)}}\]
+两个子系统拥有完全相同的非零本征值，熵也相等。
+
+\begin{proposition}[两态系统与单模光场的耦合]
+考虑一个两态系统$A$，基底为$\{\ket{g},\ket{e}\}$，以及一个只保留$0,1$光子子空间的单模光场$F$，基底为$\{\ket{0},\ket{1}\}$。若总系统处于纯态$\ket{\Psi}=\sqrt{p}\ket{e}\otimes\ket{0}+e^{i\phi}\sqrt{q}\ket{g}\otimes\ket{1}$，其中$p+q=1$，总密度算符为：
+\[\hat{\rho}=p\ket{e}\otimes\ket{0}\bra{e}\otimes\bra{0}+q\ket{g}\otimes\ket{1}\bra{g}\otimes\bra{1}+e^{i\phi}\sqrt{pq}\ket{e}\otimes\ket{0}\bra{g}\otimes\bra{1}+e^{-i\phi}\sqrt{pq}\ket{g}\otimes\ket{1}\bra{e}\otimes\bra{0}\]
+对光与物质场作偏迹可得两态系统的约化密度算符：
+\[\hat{\rho}_A=\Tr_F\hat{\rho}=\sum_{i=0,1}\bra{i}\hat{\rho}\ket{i}=p\ket{e}\bra{e}+(1-p)\ket{g}\bra{g}\]
+\[\hat{\rho}_F=\Tr_A\hat{\rho}=\sum_{i=g,e}\bra{i}\hat{\rho}\ket{i}=p\ket{0}\bra{0}+(1-p)\ket{1}\bra{1}\]
+因此两子系统具有相同的约化熵$S_A=S_F=-k_{\rm B}\left[p\ln p+(1-p)\ln(1-p)\right]$。特别地，当$p=1/2$时，耦合态纠缠最强，熵达到最大值$S_A=S_F=k_{\rm B}\ln 2$；当$p=0$或$p=1$时，总态退化为乘积态，约化熵为$0$。
+\end{proposition}
+
+\newpage
 \subsection{量子平衡分布与三个量子系综}
 平衡态的一个基本特征是密度算符不再显式随时间变化。由 Liouville-von Neumann 方程
 \[

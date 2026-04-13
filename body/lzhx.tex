@@ -1,4 +1,4 @@
-\section{量子力学基本假设}
+\section{量子力学基本假设}\label{sec:qm_basic}
 \subsection{态叠加原理与完备性假设}\label{sec:space}
 我们用$\ket{\cdot}$表示一个量子态。
 \begin{theorem}[态叠加原理]
@@ -173,7 +173,9 @@ $\hat{A}^{\dagger}$是定义在右矢空间$R=\{\ket{\cdot}\}$的对偶空间$L=
 \subsection{表象变换}
 表象理论的一大核心内容是表象之间的变换，这也是$\mathbbm{1}$发挥作用的重要领域。表象变换也即态空间的基底变换，假设我们已知基底$\{\ket{\phi_{\alpha}}\}$，某两个态$\ket{p},\ket{q}$与算符$\hat{O}$，则内积$\bra{p}\ket{q}$与算符$\hat{O}$在基底$\{\ket{\phi_{\alpha}}\}$下的表示为：
 \[\bra{p}\ket{q}=\bra{p}\mathbbm{1}\ket{q}=\sum_{\alpha}\bra{p}\ket{\phi_{\alpha}}w(\alpha)\bra{\phi_{\alpha}}\ket{q}=\sum_{\alpha}w(\alpha)c_{p\alpha}^*c_{q\alpha}\]
-\[\hat{O}=\mathbbm{1}\hat{O}\mathbbm{1}=\sum_{\alpha\alpha'}\ket{\phi_{\alpha}}w(\alpha)\bra{\phi_{\alpha}}\hat{O}\ket{\phi_{\alpha'}}w(\alpha')\bra{\phi_{\alpha'}}:=\sum_{\alpha\alpha'}\ket{\phi_{\alpha}}w(\alpha)O_{\alpha\alpha'}w(\alpha')\bra{\phi_{\alpha'}}\]
+\begin{equation}\label{eq:operator_qm}
+\hat{O}=\mathbbm{1}\hat{O}\mathbbm{1}=\sum_{\alpha\alpha'}\ket{\phi_{\alpha}}w(\alpha)\bra{\phi_{\alpha}}\hat{O}\ket{\phi_{\alpha'}}w(\alpha')\bra{\phi_{\alpha'}}:=\sum_{\alpha\alpha'}\ket{\phi_{\alpha}}w(\alpha)O_{\alpha\alpha'}w(\alpha')\bra{\phi_{\alpha'}}
+\end{equation}
 这里$O_{\alpha\alpha'}$是算符在基底$\{\ket{\phi_{\alpha}}\}$下的生成元，这里给出正式名称，再叫矩阵元就不礼貌了。这里突然想到，我们既然可以给内积中间插入一个$\mathbbm{1}$算符，我们能不能插入其他算符呢？比如:
 \[\bra{p}\hat{O}\ket{q}=\sum_{\alpha\alpha'}\bra{p}\ket{\phi_{\alpha}}w(\alpha)O_{\alpha\alpha'}w(\alpha')\bra{\phi_{\alpha'}}\ket{q}=\sum_{\alpha\alpha'}c_{p\alpha}^*w(\alpha)O_{\alpha\alpha'}w(\alpha')c_{q\alpha'}\]
 当$\ket{q}=\ket{p}$时，有：
@@ -495,7 +497,7 @@ $\hat{A}^{\dagger}$是定义在右矢空间$R=\{\ket{\cdot}\}$的对偶空间$L=
 
 由于能量简并，这几个轨道的线性组合得到的任意波函数都是哈密顿量的本征函数，如果轨道能量不简并的话，轨道线性组合的结果将并不会是哈密顿量的本征函数，其对算符作用后得到的也不是本征值而是期望值。
 
-\section{电子自旋}
+\section{电子自旋}\label{sec:spin}
 非相对论量子力学体系下，电子自旋被认为是电子的内禀性质，这里就不介绍历史了，总而言之，发现自旋与角动量具有相同的量纲，于是强行跟轨道角动量类比得到：
 \[\hat{S}^2\ket{s,m_s}=s(s+1)\hbar^2\ket{s,m_s}, \quad \hat{S}_z\ket{s,m_s}=m_s\hbar\ket{s,m_s}\]
 \[[\hat{S}^2,\hat{S}_i]=0, \quad [\hat{S}_i,\hat{S}_j]=i\hbar\epsilon_{ijk}\hat{S}_k, \quad (i,j,k=x,y,z)\]
