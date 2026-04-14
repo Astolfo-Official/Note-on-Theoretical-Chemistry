@@ -56,7 +56,7 @@ S=-k_{\rm B}\int_{\Gamma_{E}}\frac{1}{\Omega}\ln\frac{1}{\Omega}\dd{\bm{\Gamma}}
 即😄$\mathcal{S}$在微正则分布处取得极大值。此外如果系统的密度分布满足$\rho=\rho_1\rho_2$，则\textcolor{blue}{\textbf{体系的熵$S$满足可加性}}：
 \[S=-k_{\rm B}\int\rho\ln\rho\dd{\bm{\Gamma}}=-k_{\rm B}\left(\int\rho_1\ln\rho_1\dd{\bm{\Gamma}_1}\cdot\int\rho_2\dd{\bm{\Gamma}_2}+\int\rho_2\ln\rho_2\dd{\bm{\Gamma}_2}\cdot\int\rho_1\dd{\bm{\Gamma}_1}\right)=S_1+S_2\]
 
-对 Boltzmann 做全微分：
+对 Boltzmann 熵做全微分：
 \[\dd S=k_{\rm B}\left(\pdv{\ln\Omega}{N}\right)_{V,E}\dd N+k_{\rm B}\left(\pdv{\ln\Omega}{V}\right)_{N,E}\dd V+k_{\rm B}\left(\pdv{\ln\Omega}{E}\right)_{N,V}\dd E\]
 另一方面，由热力学基本关系：
 \[\dd U=T\dd S-P\dd V+\mu \dd N \quad \Rightarrow \quad \dd S=\frac{1}{T}\dd U+\frac{P}{T}\dd V-\frac{\mu}{T}\dd N\]
@@ -405,88 +405,77 @@ callback 一下 Pauli 矩阵的性质$\hat{\sigma}^2_i=\mathbf{I}$，$\Tr\hat{\s
 
 \newpage
 \subsection{量子平衡分布与三个量子系综}
-平衡态的一个基本特征是密度算符不再显式随时间变化。由 Liouville-von Neumann 方程
-\[
-i\hbar \pdv{\hat{\rho}}{t}=[\hat{H},\hat{\rho}]
-\]
-可知，在平衡态中应有
-\[
-\pdv{\hat{\rho}}{t}=0\qquad \Rightarrow \qquad [\hat{H},\hat{\rho}]=0.
-\]
-也就是说，平衡态密度算符与哈密顿量可以同时对角化，因此平衡分布最终都可以写成$\hat{H}$（以及$\hat{N}$）的函数。
+在经典统计中，相空间概率密度$\rho_{\rm cl}(\bm{q},\bm{p},t)$满足 Liouville 方程：
+\[\pdv{\rho_{\rm cl}}{t}+\{\rho_{\rm cl},H\}=0 \quad \Leftrightarrow \quad \pdv{\rho_{\rm cl}}{t}=\{H,\rho_{\rm cl}\}\]
+而在量子统计中，分布对象从相空间概率密度变成了希尔伯特空间上的密度算符$\hat{\rho}(t)$。因此我们首先要把经典 Liouville 方程量子化。若孤立体系处于纯态$\ket{\psi(t)}$，则它满足薛定谔方程：
+\[i\hbar \pdv{}{t}\ket{\psi(t)}=\hat{H}\ket{\psi(t)}\]
+定义纯态对应的密度算符$\hat{\rho}(t)=\ket{\psi(t)}\bra{\psi(t)}$：
+\[\boxed{i\hbar \pdv{\hat{\rho}}{t}=i\hbar \left(\pdv{}{t}\ket{\psi}\right)\bra{\psi}+i\hbar \ket{\psi}\left(\pdv{}{t}\bra{\psi}\right)=\hat{H}\ket{\psi}\bra{\psi}-\ket{\psi}\bra{\psi}\hat{H}=\hat{H}\hat{\rho}-\hat{\rho}\hat{H}=[\hat{H},\hat{\rho}]}\]
+这就是 \textbf{Liouville-von Neumann 方程}。若$\hat{H}$不显含时间，则其形式解为：
+\[\hat{\rho}(t)=e^{-i\hat{H}t/\hbar}\hat{\rho}(0)e^{i\hat{H}t/\hbar}\]
+可以看到\textcolor{blue}{\textbf{经典中的 Poisson 括号$\{A,B\}$在量子化后对应于交换子$[\hat{A},\hat{B}]/(i\hbar)$}}。在经典力学中，Liouville 定理告诉我们相空间流是不可压缩的，概率密度沿相轨线保持不变；在量子力学中，闭系统演化是幺正的，因此$\Tr\hat{\rho}=1$、$\hat{\rho}\ge 0$以及$\hat{\rho}$的本征值谱都保持不变，从而 von Neumann 熵$S=-k_{\rm B}\Tr(\hat{\rho}\ln\hat{\rho})$在精确闭系统演化下也是守恒的。
 
-微正则系综对应孤立量子体系。若体系能量被限制在区间$E<\hat{H}<E+\Delta E$内，则可定义到该能量壳层的投影算符$\hat{P}_{E,\Delta E}$，于是微正则密度算符为
-\[
-\boxed{\hat{\rho}_{E,\Delta E}=\frac{\hat{P}_{E,\Delta E}}{\Tr\hat{P}_{E,\Delta E}}}.
-\]
-若记
-\[
-\Omega(E,\Delta E)=\Tr \hat{P}_{E,\Delta E},
-\]
-则微正则熵就是
-\[
-\boxed{S(E,\Delta E)=k_B\ln \Omega(E,\Delta E)}.
-\]
-这与经典情形完全平行，只不过“能量壳层里的态数”现在由量子态数来给出。
+统计力学真正关心的不是任意时刻的非平衡幺正演化，而是在给定宏观约束下长期稳定的平衡分布。因此我们只研究\textbf{平衡态}（非平衡态太难了），即密度算符不再显式随时间变化的情形：
+\[\pdv{\hat{\rho}}{t}=0 \quad \Rightarrow \quad[\hat{H},\hat{\rho}_{\rm eq}]=0, \quad \hat{H}\ket{n}=E_n\ket{n}\]
+这说明平衡态密度算符与哈密顿量对易，即$\hat{\rho}=f(\hat{H})$。这正是经典平衡条件$\{H,\rho_{\rm cl}^{\rm eq}\}=0$的量子对应。于是经典三大系综在量子理论中的量子化，只不过是把经典相空间分布换成满足上述平衡条件的密度算符。
 
-正则系综对应与热浴接触、但粒子数固定的量子体系。它可以通过极大化 Gibbs 熵
-\[
-S=-k_B\Tr(\hat{\rho}\ln\hat{\rho})
-\]
-并施加约束$\Tr\hat{\rho}=1$以及$\Tr(\hat{\rho}\hat{H})=E$得到。用拉格朗日乘子法变分：
-\[
-\delta\left[S-\lambda\Tr\hat{\rho}-\lambda'\Tr(\hat{\rho}\hat{H})\right]=0,
-\]
-可得量子 Gibbs 分布
-\[
-\boxed{\hat{\rho}_{\rm can}=\frac{e^{-\beta \hat{H}}}{Z}},\qquad Z=\Tr\left(e^{-\beta \hat{H}}\right).
-\]
-其中$Z$是正则配分函数。它一旦已知，量子体系的热力学量便与经典情况一样都能由它导出：
-\[
-\boxed{F=-k_B T\ln Z},
-\]
-\[
-\boxed{E=\expval{\hat{H}}=-\pdv{\ln Z}{\beta}},
-\]
-\[
-\boxed{S=k_B\left(\ln Z+\beta E\right)}.
-\]
-等价地，也可以把密度算符写成
-\[
-\hat{\rho}_{\rm can}=e^{\beta(F-\hat{H})}.
-\]
-对哈密顿量本征态$\hat{H}\ket{n}=E_n\ket{n}$而言，上式退化成熟悉的 Boltzmann 权重
-\[
-p_n=\frac{e^{-\beta E_n}}{Z}.
-\]
+\begin{proposition}[量子化的微正则系综]
+首先看微正则系综，自然变量是$(N,V,E)$。若体系能量被限制在$E$上，则微正则分布函数可以表示为：
+\[\hat{\rho}_{\rm micro}(E)=\frac{\delta(E-\hat{H})}{\Omega}=\frac{1}{\Omega}\sum_n\delta(E-E_n)\ket{n}\bra{n}, \quad \Omega=\Tr\left[\delta(\hat{H}-E)\right]=\sum_n\delta(E-E_n)\]
+可以验证，在上述定义的微正则配分函数满足等概率原理：
+\[P_m=\bra{m}\hat{\rho}_{\rm micro}(E)\ket{m}=\frac{1}{\Omega}\sum_n\delta(E-E_n)\bra{m}\ket{n}\bra{n}\ket{m}=\frac{\delta(E-E_m)}{\Omega}\]
+由于$E$只能在$\{E_n\}$上取值，因此对每个态$\ket{m}$，系统处于其上的概率$P_m=1/\Omega$，即能量$E$对应的本征态上每个态的概率权重都相等，满足等概率原理。进而我们可以计算微正则系综的熵：
+\[S=-k_{\rm B}\Tr[\hat{\rho}_{\rm micro}\ln\hat{\rho}_{\rm micro}]=-k_{\rm B}\sum_n\frac{1}{\Omega}\ln\frac{1}{\Omega}=-k_{\rm B}\Omega\cdot\frac{1}{\Omega}\ln\frac{1}{\Omega}=k_{\rm B}\ln\Omega\]
+\end{proposition}
 
-巨正则系综对应既能交换热又能交换粒子的开放量子体系。此时要在熵极大化时同时固定$\Tr(\hat{\rho}\hat{H})=E$和$\Tr(\hat{\rho}\hat{N})=\bar N$，变分结果为
-\[
-\boxed{\hat{\rho}_{\rm gc}=\frac{e^{-\beta(\hat{H}-\mu \hat{N})}}{\Xi}},
-\qquad 
-\Xi=\Tr\left(e^{-\beta(\hat{H}-\mu \hat{N})}\right).
-\]
-这里$\Xi$是巨正则配分函数。对应的巨势为
-\[
-\boxed{\Phi_G=-k_B T\ln \Xi}.
-\]
-于是
-\[
-\boxed{\bar N=-\left(\pdv{\Phi_G}{\mu}\right)_{T,V}
-=k_B T\left(\pdv{\ln\Xi}{\mu}\right)_{T,V}},
-\]
-\[
-\boxed{E=-\pdv{\ln\Xi}{\beta}+\mu \bar N},
-\]
-\[
-\boxed{S=k_B\left(\ln\Xi+\beta E-\beta\mu \bar N\right)}.
-\]
-也可以写成
-\[
-\hat{\rho}_{\rm gc}=e^{\beta(\Phi_G-\hat{H}+\mu\hat{N})}.
-\]
-因此三个量子系综与经典系综在结构上是完全平行的：只是相空间积分变成了迹运算，而概率分布变成了密度算符。
+\begin{proposition}[量子化的正则系综]
+类似的对正则系综，自然变量是$(N,V,T)$，将经典正则系综分布函数和配分函数算符化可得：
+\[\hat{\rho}_{\rm can}=\frac{e^{-\beta\hat{H}}}{Z}=\frac{1}{Z}\sum_n e^{-\beta E_n}\ket{n}\bra{n}, \quad Z=\Tr\left[e^{-\beta\hat{H}}\right]=\sum_n e^{-\beta E_n}\]
+计算正则系综的内能$U$,熵$S$和 Helmholtz 自由能$F$：
+\[\begin{aligned}
+U&=\Tr(\hat{\rho}_{\rm can}\hat{H})=\frac{1}{Z}\Tr\left[e^{-\beta\hat{H}}\hat{H}\right]=-\pdv{\beta}\ln\left[\Tr e^{-\beta\hat{H}}\right]=-\pdv{\ln Z}{\beta}\\
+S&=-k_{\rm B}\Tr[\hat{\rho}_{\rm can}\ln\hat{\rho}_{\rm can}]=-k_{\rm B}\Tr\left[\hat{\rho}_{\rm can}\left(-\beta\hat{H}-\hat{I}\ln Z\right)\right]=\frac{U}{T}+k_{\rm B}\ln Z\\
+F&=U-TS=-k_{\rm B}T\ln Z
+\end{aligned}\]
+\end{proposition}
 
+\begin{proposition}[量子化的巨正则系综]
+最后考虑巨正则系综的自然变量是$(T,V,\mu)$，将经典巨正则系综分布函数和配分函数算符化可得：
+\[\hat{\rho}_{\rm gc}=\frac{e^{-\beta(\hat{H}-\mu\hat{N})}}{\Xi}, \quad \Xi=\Tr\left[e^{-\beta(\hat{H}-\mu\hat{N})}\right]=\sum_{n=0}^{\infty}Z(N)e^{\beta\mu N}\]
+计算巨正则系综的内能$U$，平均粒子数$\expval{N}$，熵$S$和巨势$\Phi_{\rm G}$：
+\[\begin{aligned}
+U&=\Tr(\hat{\rho}_{\rm gc}\hat{H})=\frac{1}{\Xi}\Tr\left[e^{-\beta(\hat{H}-\mu\hat{N})}\hat{H}\right]=-\pdv{\beta}\ln\left[\Tr e^{-\beta(\hat{H}-\mu\hat{N})}\right]+\mu \expval{N}=-\pdv{\ln\Xi}{\beta}+\mu \expval{N}\\
+\expval{N}&=\Tr(\hat{\rho}_{\rm gc}\hat{N})=\frac{1}{\Xi}\Tr\left[e^{-\beta(\hat{H}-\mu\hat{N})}\hat{N}\right]=\frac{1}{\beta}\pdv{\ln\Xi}{\mu}\\
+S&=-k_{\rm B}\Tr[\hat{\rho}_{\rm gc}\ln\hat{\rho}_{\rm gc}]=-k_{\rm B}\Tr\left[\hat{\rho}_{\rm gc}\left(-\beta(\hat{H}-\mu\hat{N})-\hat{I}\ln \Xi\right)\right]=\frac{U}{T}+k_{\rm B}\ln \Xi\\
+\Phi_{\rm G}&=U-TS-\mu\expval{N}=-k_{\rm B}T\ln\Xi
+\end{aligned}\]
+\end{proposition}
+上面我们只介绍了三个系综中最重要的统计物理量，其他统计物理量也可以从配分函数出发推导获得。下面我们来看一个具体的例子：考虑温度$T$下体积为$V$的三维空间中单个自由粒子，满足薛定谔方程：
+\[\hat{H}\ket{\mathbf{k}}=\frac{\hat{\mathbf{p}}^2}{2m}\ket{\mathbf{k}}=\frac{\hbar^2\mathbf{k}^2}{2m}\ket{\mathbf{k}}=\varepsilon_{\mathbf{k}}\ket{\mathbf{k}}\]
+对于体积为$V$的三维盒子，在周期性边界条件下每个$\mathbf{k}$态在$k$空间中占据体积$(2\pi)^3/V$，态$\ket{\mathbf{k}}$在位置表象下的表示为平面波$\bra{\mathbf{r}}\ket{\mathbf{k}}=e^{i\mathbf{k}\cdot\mathbf{r}}/\sqrt{V}$。
+在正则系综中，单粒子配分函数为：
+\[z_1=\Tr\left[e^{-\beta\hat{H}}\right]=\frac{V}{(2\pi)^3}\int\dd[3]{\mathbf{k}}\exp\left(-\frac{\beta\hbar^2 \mathbf{k}^2}{2m}\right)=\frac{V}{(2\pi)^3}\cdot 4\pi\int_0^{\infty}k^2\dd{k}\exp\left(-\frac{\beta\hbar^2k^2}{2m}\right)=\frac{V}{\Lambda^3}\]
+其中$\Lambda=h/\sqrt{2\pi m k_{\rm B} T}$是热波长。容易获得正则分布函数和其在动量表象下的矩阵元：
+\[\hat{\rho}_{\rm can}=\frac{e^{-\beta\hat{H}}}{z_1}=\frac{1}{z_1}\sum_{\mathbf{k}}e^{-\beta\varepsilon_{\mathbf{k}}}\ket{\mathbf{k}}\bra{\mathbf{k}} \quad \Rightarrow \quad \bra{\mathbf{k}}\hat{\rho}_{\rm can}\ket{\mathbf{k}'}=\frac{1}{z_1}\exp\left(-\frac{\beta\hbar^2\mathbf{k}^2}{2m}\right)\delta_{\mathbf{k}\mathbf{k}'}\]
+更进一步也可以获得正则分布函数在位置表象下的矩阵元，具体的推导见 [章节\ref{sec:gaussian}]：
+\[\begin{aligned}
+\bra{\mathbf{r}}\hat{\rho}_{\rm can}\ket{\mathbf{r}'}&=\frac{1}{z_1}\sum_{\mathbf{k}}e^{-\beta\varepsilon_{\mathbf{k}}}\bra{\mathbf{r}}\ket{\mathbf{k}}\bra{\mathbf{k}}\ket{\mathbf{r}'}=\frac{1}{z_1V}\sum_{\mathbf{k}}e^{-\beta\varepsilon_{\mathbf{k}}}e^{i\mathbf{k}\cdot(\mathbf{r}-\mathbf{r}')}=\frac{1}{z_1V}\int\frac{V}{(2\pi)^3}\dd[3]{\mathbf{k}} e^{-\beta\varepsilon_{\mathbf{k}}}e^{i\mathbf{k}\cdot(\mathbf{r}-\mathbf{r}')}\\
+&=\frac{1}{z_1}\left(\frac{m}{2\pi\beta\hbar^2}\right)^{3/2}\exp\left[-\frac{m|\mathbf{r}-\mathbf{r}'|^2}{2\beta\hbar^2}\right]=\frac{1}{V}\exp\left[-\frac{m|\mathbf{r}-\mathbf{r}'|^2}{2\beta\hbar^2}\right]
+\end{aligned}\]
+
+在此基础上我们可以计算内能$U$：
+\[\begin{aligned}
+U&=\Tr\left[\hat{\rho}_{\rm can}\hat{H}\right]=\sum_{\mathbf{k}}\bra{\mathbf{k}}\hat{\rho}_{\rm can}\hat{H}\ket{\mathbf{k}}=\sum_{\mathbf{k}}\sum_{\mathbf{k}'}\bra{\mathbf{k}}\hat{\rho}_{\rm can}\ket{\mathbf{k}'}\bra{\mathbf{k}'}\hat{H}\ket{\mathbf{k}}\\
+&=\sum_{\mathbf{k}}\sum_{\mathbf{k}'}\frac{1}{z_1}\exp\left(-\frac{\beta\hbar^2\mathbf{k}^2}{2m}\right)\delta_{\mathbf{k}\mathbf{k}'}\frac{\hbar^2\mathbf{k}^2}{2m}\delta_{\mathbf{k}\mathbf{k}'}=\sum_{\mathbf{k}}\frac{1}{z_1}\exp\left(-\frac{\beta\hbar^2\mathbf{k}^2}{2m}\right)\frac{\hbar^2\mathbf{k}^2}{2m}\\
+&=\frac{1}{z_1}\frac{V}{(2\pi)^3}\int\dd[3]{\mathbf{k}}\exp\left(-\frac{\beta\hbar^2\mathbf{k}^2}{2m}\right)\frac{\hbar^2\mathbf{k}^2}{2m}=\frac{\hbar^2\Lambda^3}{2m(2\pi)^3}\int\mathbf{k}^2\exp\left(-\frac{\beta\hbar^2\mathbf{k}^2}{2m}\right)\dd[3]{\mathbf{k}}\\
+&=\frac{\hbar^2\Lambda^3}{2m(2\pi)^3}\cdot 4\pi\int_0^{\infty} k^4\exp\left(-\frac{\beta\hbar^2k^2}{2m}\right)\dd{k}=\frac{\hbar^2\Lambda^3}{m(2\pi)^2}\cdot \left(\frac{2m}{\beta\hbar^2}\right)^{\frac{5}{2}}\int_0^{\infty} x^4e^{-x^2}\dd{x}\\
+&=\frac{\hbar^2\Lambda^3}{m(2\pi)^2}\cdot \left(\frac{2m}{\beta\hbar^2}\right)^{\frac{5}{2}}\cdot\frac{1}{2}\int_0^{\infty} t^{\frac{3}{2}}e^{-t}\dd{t}=\frac{\hbar^2\Lambda^3}{m(2\pi)^2}\cdot\frac{1}{2}\left(\frac{2m}{\beta\hbar^2}\right)^{\frac{5}{2}}\Gamma(\frac{5}{2})=\frac{3}{2}\cdot\frac{\Lambda^3}{\beta}\left(\frac{m}{2\pi\beta\hbar^2}\right)^{\frac{3}{2}}=\frac{3}{2}k_{\rm B}T
+\end{aligned}\]
+或者我们简单一点，从配分函数出发：
+\[U=-\pdv{\ln z_1}{\beta}=\frac{3}{2}k_{\rm B}T\]
+最后我们来看看热波长，当温度$T\to\infty$时，$\Lambda\to 0$，此时单粒子配分函数$z_1=V/\Lambda^3\to\infty$，系统的状态数变得非常大，量子效应变得微弱；当温度$T\to 0$时，$\Lambda\to\infty$，单粒子配分函数趋于零，系统的状态数变得非常有限，量子效应变得显著。
+
+\newpage
 \subsection{理想量子气体与 Bose-Einstein / Fermi-Dirac 分布}
 对无相互作用体系，哈密顿量与粒子数算符都可写成占据数之和
 \[
