@@ -419,16 +419,16 @@ callback 一下 Pauli 矩阵的性质$\hat{\sigma}^2_i=\mathbf{I}$，$\Tr\hat{\s
 \[\pdv{\hat{\rho}}{t}=0 \quad \Rightarrow \quad[\hat{H},\hat{\rho}_{\rm eq}]=0, \quad \hat{H}\ket{n}=E_n\ket{n}\]
 这说明平衡态密度算符与哈密顿量对易，即$\hat{\rho}=f(\hat{H})$。这正是经典平衡条件$\{H,\rho_{\rm cl}^{\rm eq}\}=0$的量子对应。于是经典三大系综在量子理论中的量子化，只不过是把经典相空间分布换成满足上述平衡条件的密度算符。
 
-\begin{proposition}[量子化的微正则系综]
+\begin{theorem}[量子化的微正则系综]
 首先看微正则系综，自然变量是$(N,V,E)$。若体系能量被限制在$E$上，则微正则分布函数可以表示为：
 \[\hat{\rho}_{\rm micro}(E)=\frac{\delta(E-\hat{H})}{\Omega}=\frac{1}{\Omega}\sum_n\delta(E-E_n)\ket{n}\bra{n}, \quad \Omega=\Tr\left[\delta(\hat{H}-E)\right]=\sum_n\delta(E-E_n)\]
 可以验证，在上述定义的微正则配分函数满足等概率原理：
 \[P_m=\bra{m}\hat{\rho}_{\rm micro}(E)\ket{m}=\frac{1}{\Omega}\sum_n\delta(E-E_n)\bra{m}\ket{n}\bra{n}\ket{m}=\frac{\delta(E-E_m)}{\Omega}\]
 由于$E$只能在$\{E_n\}$上取值，因此对每个态$\ket{m}$，系统处于其上的概率$P_m=1/\Omega$，即能量$E$对应的本征态上每个态的概率权重都相等，满足等概率原理。进而我们可以计算微正则系综的熵：
 \[S=-k_{\rm B}\Tr[\hat{\rho}_{\rm micro}\ln\hat{\rho}_{\rm micro}]=-k_{\rm B}\sum_n\frac{1}{\Omega}\ln\frac{1}{\Omega}=-k_{\rm B}\Omega\cdot\frac{1}{\Omega}\ln\frac{1}{\Omega}=k_{\rm B}\ln\Omega\]
-\end{proposition}
+\end{theorem}
 
-\begin{proposition}[量子化的正则系综]
+\begin{theorem}[量子化的正则系综]
 类似的对正则系综，自然变量是$(N,V,T)$，将经典正则系综分布函数和配分函数算符化可得：
 \[\hat{\rho}_{\rm can}=\frac{e^{-\beta\hat{H}}}{Z}=\frac{1}{Z}\sum_n e^{-\beta E_n}\ket{n}\bra{n}, \quad Z=\Tr\left[e^{-\beta\hat{H}}\right]=\sum_n e^{-\beta E_n}\]
 计算正则系综的内能$U$,熵$S$和 Helmholtz 自由能$F$：
@@ -437,9 +437,9 @@ U&=\Tr(\hat{\rho}_{\rm can}\hat{H})=\frac{1}{Z}\Tr\left[e^{-\beta\hat{H}}\hat{H}
 S&=-k_{\rm B}\Tr[\hat{\rho}_{\rm can}\ln\hat{\rho}_{\rm can}]=-k_{\rm B}\Tr\left[\hat{\rho}_{\rm can}\left(-\beta\hat{H}-\hat{I}\ln Z\right)\right]=\frac{U}{T}+k_{\rm B}\ln Z\\
 F&=U-TS=-k_{\rm B}T\ln Z
 \end{aligned}\]
-\end{proposition}
+\end{theorem}
 
-\begin{proposition}[量子化的巨正则系综]
+\begin{theorem}[量子化的巨正则系综]
 最后考虑巨正则系综的自然变量是$(T,V,\mu)$，将经典巨正则系综分布函数和配分函数算符化可得：
 \[\hat{\rho}_{\rm gc}=\frac{e^{-\beta(\hat{H}-\mu\hat{N})}}{\Xi}, \quad \Xi=\Tr\left[e^{-\beta(\hat{H}-\mu\hat{N})}\right]=\sum_{n=0}^{\infty}Z(N)e^{\beta\mu N}\]
 计算巨正则系综的内能$U$，平均粒子数$\expval{N}$，熵$S$和巨势$\Phi_{\rm G}$：
@@ -449,7 +449,7 @@ U&=\Tr(\hat{\rho}_{\rm gc}\hat{H})=\frac{1}{\Xi}\Tr\left[e^{-\beta(\hat{H}-\mu\h
 S&=-k_{\rm B}\Tr[\hat{\rho}_{\rm gc}\ln\hat{\rho}_{\rm gc}]=-k_{\rm B}\Tr\left[\hat{\rho}_{\rm gc}\left(-\beta(\hat{H}-\mu\hat{N})-\hat{I}\ln \Xi\right)\right]=\frac{U}{T}+k_{\rm B}\ln \Xi\\
 \Phi_{\rm G}&=U-TS-\mu\expval{N}=-k_{\rm B}T\ln\Xi
 \end{aligned}\]
-\end{proposition}
+\end{theorem}
 上面我们只介绍了三个系综中最重要的统计物理量，其他统计物理量也可以从配分函数出发推导获得。下面我们来看一个具体的例子：考虑温度$T$下体积为$V$的三维空间中单个自由粒子，满足薛定谔方程：
 \[\hat{H}\ket{\mathbf{k}}=\frac{\hat{\mathbf{p}}^2}{2m}\ket{\mathbf{k}}=\frac{\hbar^2\mathbf{k}^2}{2m}\ket{\mathbf{k}}=\varepsilon_{\mathbf{k}}\ket{\mathbf{k}}\]
 对于体积为$V$的三维盒子，在周期性边界条件下每个$\mathbf{k}$态在$k$空间中占据体积$(2\pi)^3/V$，态$\ket{\mathbf{k}}$在位置表象下的表示为平面波$\bra{\mathbf{r}}\ket{\mathbf{k}}=e^{i\mathbf{k}\cdot\mathbf{r}}/\sqrt{V}$。
@@ -476,7 +476,82 @@ U&=\Tr\left[\hat{\rho}_{\rm can}\hat{H}\right]=\sum_{\mathbf{k}}\bra{\mathbf{k}}
 最后我们来看看热波长，当温度$T\to\infty$时，$\Lambda\to 0$，此时单粒子配分函数$z_1=V/\Lambda^3\to\infty$，系统的状态数变得非常大，量子效应变得微弱；当温度$T\to 0$时，$\Lambda\to\infty$，单粒子配分函数趋于零，系统的状态数变得非常有限，量子效应变得显著。
 
 \newpage
-\subsection{理想量子气体与 Bose-Einstein / Fermi-Dirac 分布}
+\subsection{插曲：开放量子系统的演化}
+量子力学中讨论的系统都说封闭系统。但在真实实验中，体系几乎总会和外界交换能量、粒子或者相位信息，这时更自然的描述对象便是\textbf{开放量子系统}。设系统$S$与环境$E$共同组成总体系，则总哈密顿量一般写成：
+\[\hat{H}_{\rm tot}=\hat{H}_S\otimes \hat{I}_E+\hat{I}_S\otimes \hat{H}_E+\hat{H}_{\rm int}\]
+其中$\hat{H}_S,\hat{H}_E$分别对应系统与环境，$\hat{H}_{\rm int}$描述二者耦合。总体系依然满足封闭系统的 von Neumann 方程和初态：
+\[i\hbar\pdv{\hat{\rho}_{\rm tot}}{t}=[\hat{H}_{\rm tot},\hat{\rho}_{\rm tot}], \quad \hat{\rho}_{\rm tot}(0)=\hat{\rho}_S(0)\otimes \hat{\rho}_E(0)\]
+我们真正关心的不是$\hat{\rho}_{\rm tot}(t)$本身，而是子系统的\textbf{约化密度算符}$\hat{\rho}_S(t)=\Tr_E \hat{\rho}_{\rm tot}(t)$，它形式上定义了一个从初态到末态的动力学映射$\hat{\rho}_S(t)=\mathcal{D}_t[\hat{\rho}_S(0)]$。由于环境自由度通常极大，甚至在热浴极限下可以看作无限维，因此从$\hat{H}_{\rm tot}$严格求出$\mathcal{D}_t$往往非常困难。于是实际处理中常常反过来：\textcolor{blue}{\textbf{先要求动力学映射满足最基本的物理条件，再据此构造允许的主方程形式}}。
+
+首先，$\mathcal{D}_t$至少应该保持归一化与概率非负，因此必须是保迹且正的。但仅仅正性还不够。因为系统$S$可能与另一个旁观辅助系统$A$纠缠，如果只要求$\mathcal{D}_t$对$S$本身保持正性，那么$\mathcal{D}_t\otimes \mathcal{I}_A$作用在纠缠态上时仍可能产生负本征值。故真正的物理要求是\textbf{完全正}（Completely Positive）：对任意辅助系统$A$，$\mathcal{D}_t\otimes \mathcal{I}_A$都保持正性。因此开放体系的物理演化应当由一个 \textbf{CPTP 映射}（completely positive trace-preserving map）描述。若再进一步假设体系满足 \textbf{Markov 近似}，也即环境关联时间远短于系统弛豫时间，系统在任意时刻的后续演化只由当前状态决定而不显式记忆更早历史，则动力学映射还满足半群性质：对$\forall t,s>0$都有$\mathcal{D}_{t+s}=\mathcal{D}_t\circ \mathcal{D}_s$且$\mathcal{D}_0=\mathcal{I}$，其中$\mathcal{I}$是恒等映射。于是存在一个生成元$\mathcal{L}$使得：
+\[\mathcal{D}_t=e^{t\mathcal{L}},\quad \pdv{\hat{\rho}_S}{t}=\mathcal{L}\hat{\rho}_S\]
+这个$\mathcal{L}$就是开放量子系统主方程的生成元，也常被称为 Liouvillian。
+
+另一方面，任意有限维 CPTP 映射都可以写成 Kraus 形式：
+\[\mathcal{D}_t[\hat{\rho}_S]=\sum_{i=0}^{M}\hat{V}_i(t)\hat{\rho}_S\hat{V}_i^\dagger(t),\quad \sum_{i=0}^{M}\hat{V}_i^\dagger(t)\hat{V}_i(t)=\hat{I}\]
+其中$\hat{V}_i(t)$称为 Kraus 算符。对无穷小时间步$\dd t$，为了保持半群结构并保留到$\mathcal{O}(\dd t)$，可取：
+\[\hat{V}_0=\hat{I}-\left(\frac{i}{\hbar}\hat{H}+\frac{1}{2}\sum_{\mu=1}^{M}\hat{L}_\mu^\dagger \hat{L}_\mu\right)\dd t,\quad \hat{V}_\mu=\sqrt{\dd t}\,\hat{L}_\mu\]
+代回 Kraus 展开并保留到一阶，便得到：
+\[
+\hat{\rho}_S(t+\dd t)=\hat{\rho}_S(t)+\dd t\left[-\frac{i}{\hbar}[\hat{H},\hat{\rho}_S]+\sum_{\mu=1}^{M}\left(\hat{L}_\mu \hat{\rho}_S \hat{L}_\mu^\dagger-\frac{1}{2}\left\{\hat{L}_\mu^\dagger \hat{L}_\mu,\hat{\rho}_S\right\}\right)\right]+\mathcal{O}(\dd t^2)
+\]
+这里$\{A,B\}=AB+BA$表示反对易算符。于是获得开放量子系统中最重要的主方程形式。
+\begin{theorem}[Gorini-Kossakowski-Sudarshan-Lindblad 主方程]
+有限维 Markov 开放量子系统的 CPTP 半群生成元必可写成：
+\begin{equation}\label{eq:lindblad_qme}
+\boxed{\pdv{\hat{\rho}_S}{t}=-\frac{i}{\hbar}[\hat{H},\hat{\rho}_S]+\sum_{\mu=1}^{M}\left(\hat{L}_\mu \hat{\rho}_S \hat{L}_\mu^\dagger-\frac{1}{2}\left\{\hat{L}_\mu^\dagger \hat{L}_\mu,\hat{\rho}_S\right\}\right)}
+\end{equation}
+其中$\hat{H}$是有效哈密顿量，$\hat{L}_\mu$称为 Lindblad 算符或 jump operators。
+\end{theorem}
+
+上式第一项代表\textbf{相干且可逆}的幺正演化；第二项则来自环境耦合，描述\textbf{退相干、耗散与不可逆}过程。如果所有$\hat{L}_\mu$都为零，那么 [Eq.\eqref{eq:lindblad_qme}] 立刻退化回封闭体系的 von Neumann 方程。反过来，一旦某些$\hat{L}_\mu$非零，系统便可能流向某个稳态$\hat{\rho}_{\rm ss}$，满足$\mathcal{L}\hat{\rho}_{\rm ss}=0$。弱耦合热浴情形下，这个稳态通常与 Gibbs 态非常接近；但当体系-环境耦合增强、环境记忆效应明显时，\textcolor{blue}{\textbf{Lindblad 形式不再一定适用}}，此时就需要更一般的非 Markov 主方程来描述。因此开放量子系统可以看作是在“平衡系综”之外，进一步研究\textbf{量子统计如何通向真实非平衡动力学}的自然延伸。
+
+\newpage
+\subsection{无相互作用量子体系与Fermi-Dirac / Bose-Einstein 分布}
+在章节\ref{sec:particle_identity}中我们已经介绍了微观粒子的对称性要求，我们考虑正则系综下温度$T$和体积$V$固定的双无相互作用量子体系，如果这是两个费米子，那么总态必须是反对称的；如果是两个玻色子，则总态必须是对称的。我们在动量表象下分别以$\ket{\mathbf{k}_1}$和$\ket{\mathbf{k}_2}$表示两个单粒子态，$-$表示费米子系统，$+$表示玻色子系统：
+\[\ket{\mathbf{k}_1,\mathbf{k}_2}_-=\frac{1}{\sqrt{2}}\left(\ket{\mathbf{k}_1}\otimes\ket{\mathbf{k}_2}-\ket{\mathbf{k}_2}\otimes\ket{\mathbf{k}_1}\right), \quad \ket{\mathbf{k}_1,\mathbf{k}_2}_+=\left\{
+\begin{array}{ll}
+\left(\ket{\mathbf{k}_1}\otimes\ket{\mathbf{k}_2}+\ket{\mathbf{k}_2}\otimes\ket{\mathbf{k}_1}\right)/\sqrt{2}, & \mathbf{k}_1\neq \mathbf{k}_2\\
+\ket{\mathbf{k}}\otimes\ket{\mathbf{k}}, & \mathbf{k}_1=\mathbf{k}_2
+\end{array}\right.\]
+若记单粒子能谱满足$\hat{h}\ket{\mathbf{k}}=\varepsilon_{\mathbf{k}}\ket{\mathbf{k}}$，且对自由粒子有$\varepsilon_{\mathbf{k}}=\hbar^2k^2/(2m)$，则单粒子正则配分函数为
+\[
+\begin{aligned}
+z_1(\beta)
+&=\sum_{\mathbf{k}}e^{-\beta\varepsilon_{\mathbf{k}}}
+=\frac{V}{(2\pi)^3}\int \dd[3]{\mathbf{k}}\exp\left(-\frac{\beta\hbar^2k^2}{2m}\right)\\
+&=\frac{V}{(2\pi)^3}\cdot 4\pi\int_0^\infty k^2\exp\left(-\frac{\beta\hbar^2k^2}{2m}\right)\dd k
+=V\left(\frac{m}{2\pi\beta\hbar^2}\right)^{3/2}
+=\frac{V}{\Lambda^3}
+\end{aligned}
+\]
+其中$\Lambda=h/\sqrt{2\pi mk_{\rm B}T}$是热波长。类似地，
+\[
+z_1(2\beta)=\frac{V}{(2^{3/2}\Lambda^3)}
+\]
+则两个无相互作用全同粒子的总能量就是$\varepsilon_{\mathbf{k}_1}+\varepsilon_{\mathbf{k}_2}$。对玻色子，允许两个粒子占据同一个单粒子态，因此二粒子正则配分函数为：
+\[
+\begin{aligned}
+Z_2^{(+)}(\beta)
+&=\sum_{\mathbf{k}_1\le \mathbf{k}_2}e^{-\beta(\varepsilon_{\mathbf{k}_1}+\varepsilon_{\mathbf{k}_2})}\\
+&=\frac{1}{2}\left[\sum_{\mathbf{k}_1,\mathbf{k}_2}e^{-\beta(\varepsilon_{\mathbf{k}_1}+\varepsilon_{\mathbf{k}_2})}+\sum_{\mathbf{k}}e^{-2\beta\varepsilon_{\mathbf{k}}}\right]\\
+&=\frac{1}{2}\left[z_1(\beta)^2+z_1(2\beta)\right]
+=\frac{1}{2}\left[\left(\frac{V}{\Lambda^3}\right)^2+\frac{V}{2^{3/2}\Lambda^3}\right]
+\end{aligned}
+\]
+对费米子，由于 Pauli 不相容原理，$\mathbf{k}_1=\mathbf{k}_2$的状态被排除，因此：
+\[
+\begin{aligned}
+Z_2^{(-)}(\beta)
+&=\sum_{\mathbf{k}_1< \mathbf{k}_2}e^{-\beta(\varepsilon_{\mathbf{k}_1}+\varepsilon_{\mathbf{k}_2})}\\
+&=\frac{1}{2}\left[\sum_{\mathbf{k}_1,\mathbf{k}_2}e^{-\beta(\varepsilon_{\mathbf{k}_1}+\varepsilon_{\mathbf{k}_2})}-\sum_{\mathbf{k}}e^{-2\beta\varepsilon_{\mathbf{k}}}\right]\\
+&=\frac{1}{2}\left[z_1(\beta)^2-z_1(2\beta)\right]
+=\frac{1}{2}\left[\left(\frac{V}{\Lambda^3}\right)^2-\frac{V}{2^{3/2}\Lambda^3}\right]
+\end{aligned}
+\]
+可以看到，\textcolor{blue}{\textbf{玻色子和费米子的区别完全体现在交换项$\pm z_1(2\beta)$上}}：正号意味着玻色子“偏好”占据相同态，负号则体现了费米子的占据排斥。对更多粒子数的情形，直接在对称化/反对称化基底上求和会迅速变得麻烦，因此更自然的做法就是改用占据数表象。
+
+
 对无相互作用体系，哈密顿量与粒子数算符都可写成占据数之和
 \[
 \hat{H}=\sum_l \varepsilon_l \hat{n}_l,\qquad \hat{N}=\sum_l \hat{n}_l.

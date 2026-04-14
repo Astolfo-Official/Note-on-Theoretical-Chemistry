@@ -606,7 +606,8 @@ X\in\text{SU(2)} \arrow[r, "UXU^\dagger"]
 这里电子波函数也被近似成各个单电子波函数的乘积$\Psi(\mathbf{r}_1,\cdots,\mathbf{r}_N)\approx\prod_{i=1}^{N}\psi_i(\mathbf{r}_i)$（这里先对波函数这样的拆分方法正确性按下不表），此时系统的总薛定谔方程可以被拆分成一系列的单体薛定谔方程：
 \[\hat{h}_i\psi_i(\mathbf{r}_i)=\left[-\frac{1}{2}\nabla^2_{\mathbf{r},i}-\sum_{I=1}^{M}\frac{Z_I}{|\mathbf{r}_{i}-\mathbf{R}_{I}|}+\hat{V}^{\rm MF}_i\right]\psi_i(\mathbf{r}_i)=\varepsilon_i(\mathbf{R}_1,\cdots,\mathbf{R}_M)\psi_i(\mathbf{r}_i)\]
 但此时哈密顿包含了波函数，因为你需要用波函数来计算电子密度从而构建平均场，即你要解的方程是一个$\hat{H}_{\rm el}[\{\psi_i\}]\Psi=E_{\rm el}\Psi$形式的本征值问题，你当然不能直接对角化哈密顿，此时需要迭代来收敛最终得到波函数，这种方法称为自洽场(Self-Consistent Field, SCF)。
-\subsection{粒子全同性与泡利不相容原理}
+
+\subsection{粒子全同性与泡利不相容原理}\label{sec:particle_identity}
 全同性应该是微观粒子与宏观物体最不同的地方之一。
 
 简单来说，对两个宏观物体A、B，除了速度、位置外，我们还有大小、颜色之类的特征作为区分物体A、B，这也即表面在经典物理框架下，并没有全同性这一说法。但对于微观粒子A、B，我们似乎只有速度和位置这类无法区分粒子的可观测量。
