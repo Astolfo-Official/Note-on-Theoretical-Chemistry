@@ -507,107 +507,140 @@ U&=\Tr\left[\hat{\rho}_{\rm can}\hat{H}\right]=\sum_{\mathbf{k}}\bra{\mathbf{k}}
 上式第一项代表\textbf{相干且可逆}的幺正演化；第二项则来自环境耦合，描述\textbf{退相干、耗散与不可逆}过程。如果所有$\hat{L}_\mu$都为零，那么 [Eq.\eqref{eq:lindblad_qme}] 立刻退化回封闭体系的 von Neumann 方程。反过来，一旦某些$\hat{L}_\mu$非零，系统便可能流向某个稳态$\hat{\rho}_{\rm ss}$，满足$\mathcal{L}\hat{\rho}_{\rm ss}=0$。弱耦合热浴情形下，这个稳态通常与 Gibbs 态非常接近；但当体系-环境耦合增强、环境记忆效应明显时，\textcolor{blue}{\textbf{Lindblad 形式不再一定适用}}，此时就需要更一般的非 Markov 主方程来描述。因此开放量子系统可以看作是在“平衡系综”之外，进一步研究\textbf{量子统计如何通向真实非平衡动力学}的自然延伸。
 
 \newpage
-\subsection{无相互作用量子体系与Fermi-Dirac / Bose-Einstein 分布}
-在章节\ref{sec:particle_identity}中我们已经介绍了微观粒子的对称性要求，我们考虑正则系综下温度$T$和体积$V$固定的双无相互作用量子体系，如果这是两个费米子，那么总态必须是反对称的；如果是两个玻色子，则总态必须是对称的。我们在动量表象下分别以$\ket{\mathbf{k}_1}$和$\ket{\mathbf{k}_2}$表示两个单粒子态，$-$表示费米子系统，$+$表示玻色子系统：
-\[\ket{\mathbf{k}_1,\mathbf{k}_2}_-=\frac{1}{\sqrt{2}}\left(\ket{\mathbf{k}_1}\otimes\ket{\mathbf{k}_2}-\ket{\mathbf{k}_2}\otimes\ket{\mathbf{k}_1}\right), \quad \ket{\mathbf{k}_1,\mathbf{k}_2}_+=\left\{
-\begin{array}{ll}
-\left(\ket{\mathbf{k}_1}\otimes\ket{\mathbf{k}_2}+\ket{\mathbf{k}_2}\otimes\ket{\mathbf{k}_1}\right)/\sqrt{2}, & \mathbf{k}_1\neq \mathbf{k}_2\\
+\subsection{无相互作用量子体系与Fermi-Dirac / Bose-Einstein 分布}\label{sec:f_and_b}
+在章节\ref{sec:particle_identity}中我们已经介绍了微观粒子的对称性要求。现在先考虑正则系综下温度$T$和体积$V$固定的\textbf{双无相互作用费米子体系}。在动量表象下以$\ket{\mathbf{k}_1}$和$\ket{\mathbf{k}_2}$表示两个单粒子态，则总态必须是反对称的：
+\[\ket{\mathbf{k}_1,\mathbf{k}_2}_-=\frac{1}{\sqrt{2}}\left(\ket{\mathbf{k}_1}\otimes\ket{\mathbf{k}_2}-\ket{\mathbf{k}_2}\otimes\ket{\mathbf{k}_1}\right),\quad \mathbf{k}_1\neq \mathbf{k}_2\]
+对无相互作用粒子，总哈密顿量就是$\hat{H}=\hat{h}_1+\hat{h}_2$，若单粒子能谱满足$\hat{h}\ket{\mathbf{k}}=\varepsilon_{\mathbf{k}}\ket{\mathbf{k}}$，则：
+\[
+\hat{H}\ket{\mathbf{k}_1,\mathbf{k}_2}_-=\left(\hat{h}_1+\hat{h}_2\right)\ket{\mathbf{k}_1,\mathbf{k}_2}_-
+=\frac{\hbar^2(\mathbf{k}_1^2+\mathbf{k}_2^2)}{2m}\ket{\mathbf{k}_1,\mathbf{k}_2}_-
+\]
+因此双费米子系统的正则配分函数可以写成：
+\[\begin{aligned}
+Z_2^-&=\Tr\left[e^{-\beta\hat{H}}\right]=\frac{1}{2}\sum_{\mathbf{k}_1\neq \mathbf{k}_2}\bra{\mathbf{k}_1,\mathbf{k}_2} e^{-\beta\hat{H}}\ket{\mathbf{k}_1,\mathbf{k}_2}_-\\
+&=\frac{1}{2}\sum_{\mathbf{k}_1,\mathbf{k}_2}\bra{\mathbf{k}_1,\mathbf{k}_2}_- e^{-\beta\hat{H}}\ket{\mathbf{k}_1,\mathbf{k}_2}-\frac{1}{2}\sum_{\mathbf{k}}\bra{\mathbf{k}}\otimes\bra{\mathbf{k}}e^{-\beta\hat{H}}\ket{\mathbf{k}}\otimes\ket{\mathbf{k}}\\
+&=\frac{1}{2}\frac{V^2}{(2\pi)^6}\iint \dd[3]{\mathbf{k}_1}\dd[3]{\mathbf{k}_2}\exp\left[-\frac{\beta\hbar^2(\mathbf{k}_1^2+\mathbf{k}_2^2)}{2m}\right]-\frac{1}{2}\frac{V}{(2\pi)^3}\int \dd[3]{\mathbf{k}}\exp\left(-\frac{\beta\hbar^2\mathbf{k}^2}{m}\right)\\
+&=\frac{1}{2}\frac{V^2}{(2\pi)^6}\left(\sqrt{\frac{2\pi m}{\beta\hbar^2}}\right)^6-\frac{1}{2}\frac{V}{(2\pi)^3}\left(\sqrt{\frac{\pi m}{\beta\hbar^2}}\right)^3=\frac{V^2}{2\Lambda^6}-\frac{V}{2^{5/2}\Lambda^3}=\frac{1}{2}\frac{V^2}{\Lambda^6}\left(1-\frac{\Lambda^3}{2^{3/2}V}\right)
+\end{aligned}\]
+这里第二项正是由反对称化带来的交换修正，它体现了 Pauli 不相容原理对统计权重的抑制作用。
+
+现在再考虑\textbf{双无相互作用玻色子体系}。其总态必须是对称的：
+\[\ket{\mathbf{k}_1,\mathbf{k}_2}_+=
+\begin{cases}
+\dfrac{1}{\sqrt{2}}\left(\ket{\mathbf{k}_1}\otimes\ket{\mathbf{k}_2}+\ket{\mathbf{k}_2}\otimes\ket{\mathbf{k}_1}\right), & \mathbf{k}_1\neq \mathbf{k}_2\\
 \ket{\mathbf{k}}\otimes\ket{\mathbf{k}}, & \mathbf{k}_1=\mathbf{k}_2
-\end{array}\right.\]
-若记单粒子能谱满足$\hat{h}\ket{\mathbf{k}}=\varepsilon_{\mathbf{k}}\ket{\mathbf{k}}$，且对自由粒子有$\varepsilon_{\mathbf{k}}=\hbar^2k^2/(2m)$，则单粒子正则配分函数为
-\[
-\begin{aligned}
-z_1(\beta)
-&=\sum_{\mathbf{k}}e^{-\beta\varepsilon_{\mathbf{k}}}
-=\frac{V}{(2\pi)^3}\int \dd[3]{\mathbf{k}}\exp\left(-\frac{\beta\hbar^2k^2}{2m}\right)\\
-&=\frac{V}{(2\pi)^3}\cdot 4\pi\int_0^\infty k^2\exp\left(-\frac{\beta\hbar^2k^2}{2m}\right)\dd k
-=V\left(\frac{m}{2\pi\beta\hbar^2}\right)^{3/2}
-=\frac{V}{\Lambda^3}
-\end{aligned}
-\]
-其中$\Lambda=h/\sqrt{2\pi mk_{\rm B}T}$是热波长。类似地，
-\[
-z_1(2\beta)=\frac{V}{(2^{3/2}\Lambda^3)}
-\]
-则两个无相互作用全同粒子的总能量就是$\varepsilon_{\mathbf{k}_1}+\varepsilon_{\mathbf{k}_2}$。对玻色子，允许两个粒子占据同一个单粒子态，因此二粒子正则配分函数为：
-\[
-\begin{aligned}
-Z_2^{(+)}(\beta)
-&=\sum_{\mathbf{k}_1\le \mathbf{k}_2}e^{-\beta(\varepsilon_{\mathbf{k}_1}+\varepsilon_{\mathbf{k}_2})}\\
-&=\frac{1}{2}\left[\sum_{\mathbf{k}_1,\mathbf{k}_2}e^{-\beta(\varepsilon_{\mathbf{k}_1}+\varepsilon_{\mathbf{k}_2})}+\sum_{\mathbf{k}}e^{-2\beta\varepsilon_{\mathbf{k}}}\right]\\
-&=\frac{1}{2}\left[z_1(\beta)^2+z_1(2\beta)\right]
-=\frac{1}{2}\left[\left(\frac{V}{\Lambda^3}\right)^2+\frac{V}{2^{3/2}\Lambda^3}\right]
-\end{aligned}
-\]
-对费米子，由于 Pauli 不相容原理，$\mathbf{k}_1=\mathbf{k}_2$的状态被排除，因此：
-\[
-\begin{aligned}
-Z_2^{(-)}(\beta)
-&=\sum_{\mathbf{k}_1< \mathbf{k}_2}e^{-\beta(\varepsilon_{\mathbf{k}_1}+\varepsilon_{\mathbf{k}_2})}\\
-&=\frac{1}{2}\left[\sum_{\mathbf{k}_1,\mathbf{k}_2}e^{-\beta(\varepsilon_{\mathbf{k}_1}+\varepsilon_{\mathbf{k}_2})}-\sum_{\mathbf{k}}e^{-2\beta\varepsilon_{\mathbf{k}}}\right]\\
-&=\frac{1}{2}\left[z_1(\beta)^2-z_1(2\beta)\right]
-=\frac{1}{2}\left[\left(\frac{V}{\Lambda^3}\right)^2-\frac{V}{2^{3/2}\Lambda^3}\right]
-\end{aligned}
-\]
-可以看到，\textcolor{blue}{\textbf{玻色子和费米子的区别完全体现在交换项$\pm z_1(2\beta)$上}}：正号意味着玻色子“偏好”占据相同态，负号则体现了费米子的占据排斥。对更多粒子数的情形，直接在对称化/反对称化基底上求和会迅速变得麻烦，因此更自然的做法就是改用占据数表象。
+\end{cases}\]
+类似地可以得到玻色子二粒子正则配分函数：
+\[\begin{aligned}
+Z_2^+&=\Tr\left[e^{-\beta\hat{H}}\right]=\frac{1}{2}\sum_{\mathbf{k}_1\neq \mathbf{k}_2}\bra{\mathbf{k}_1,\mathbf{k}_2} e^{-\beta\hat{H}}\ket{\mathbf{k}_1,\mathbf{k}_2}_++\sum_{\mathbf{k}_1=\mathbf{k}_2}\bra{\mathbf{k}_1,\mathbf{k}_2} e^{-\beta\hat{H}}\ket{\mathbf{k}_1,\mathbf{k}_2}_+\\
+&=\frac{1}{2}\sum_{\mathbf{k}_1,\mathbf{k}_2}\bra{\mathbf{k}_1,\mathbf{k}_2}_+ e^{-\beta\hat{H}}\ket{\mathbf{k}_1,\mathbf{k}_2}-\frac{1}{2}\sum_{\mathbf{k}}\bra{\mathbf{k}}\otimes\bra{\mathbf{k}}e^{-\beta\hat{H}}\ket{\mathbf{k}}\otimes\ket{\mathbf{k}}+\sum_{\mathbf{k}}\bra{\mathbf{k}}\otimes\bra{\mathbf{k}}e^{-\beta\hat{H}}\ket{\mathbf{k}}\otimes\ket{\mathbf{k}}\\
+&=\frac{1}{2}\frac{V^2}{(2\pi)^6}\iint \dd[3]{\mathbf{k}_1}\dd[3]{\mathbf{k}_2}\exp\left[-\frac{\beta\hbar^2(\mathbf{k}_1^2+\mathbf{k}_2^2)}{2m}\right]+\frac{1}{2}\frac{V}{(2\pi)^3}\int \dd[3]{\mathbf{k}}\exp\left(-\frac{\beta\hbar^2\mathbf{k}^2}{m}\right)\\
+&=\frac{1}{2}\frac{V^2}{(2\pi)^6}\left(\sqrt{\frac{2\pi m}{\beta\hbar^2}}\right)^6+\frac{1}{2}\frac{V}{(2\pi)^3}\left(\sqrt{\frac{\pi m}{\beta\hbar^2}}\right)^3=\frac{V^2}{2\Lambda^6}+\frac{V}{2^{5/2}\Lambda^3}=\frac{1}{2}\frac{V^2}{\Lambda^6}\left(1+\frac{\Lambda^3}{2^{3/2}V}\right)
+\end{aligned}\]
+与费米子相比，玻色子交换项前面的符号变成正号，这反映了玻色子“偏好”占据同一个单粒子态。对比经典理想气体的二粒子配分函数$Z_2^{\rm (cl)}=V^2/2\Lambda^6$，量子效应在二粒子配分函数中引入了$\mathcal{O}(\Lambda^3/V)$的修正项。
 
+更有意思的是，记交换算符为$\hat{P}_{12}$，全同粒子投影算符$\hat{\Pi}_{\pm}=(1\pm \hat{P}_{12})/2$，可以将正则分布算符统一写成$\hat{\rho}_{\rm can}^{(\pm)}=\hat{\Pi}_{\pm}e^{-\beta \hat{H}}/Z_2^{(\pm)}$，我们看密度算符在坐标表象下的矩阵元$\bra{\mathbf{r}_1,\mathbf{r}_2}\hat{\rho}_{\rm can}^{(\pm)}\ket{\mathbf{r}_1',\mathbf{r}_2'}$：
+\[\bra{\mathbf{r}_1,\mathbf{r}_2}\hat{\rho}_{\rm can}^{(\pm)}\ket{\mathbf{r}_1',\mathbf{r}_2'}
+=\frac{1}{2Z_2^{(\pm)}}\left[\matrixel{\mathbf{r}_1}{e^{-\beta\hat{h}}}{\mathbf{r}_1'}\matrixel{\mathbf{r}_2}{e^{-\beta\hat{h}}}{\mathbf{r}_2'}\pm \matrixel{\mathbf{r}_1}{e^{-\beta\hat{h}}}{\mathbf{r}_2'}\matrixel{\mathbf{r}_2}{e^{-\beta\hat{h}}}{\mathbf{r}_1'}\right]\]
+把单粒子热核写成动量积分后，就得到你想要的单粒子积分展开式：
+\[\begin{aligned}
+\bra{\mathbf{r}_1,\mathbf{r}_2}\hat{\rho}_{\rm can}^{(\pm)}\ket{\mathbf{r}_1',\mathbf{r}_2'}
+&=\frac{1}{2Z_2^{(\pm)}(2\pi)^6}\Bigg[
+\left(\int \dd[3]{\mathbf{k}_1}e^{-\frac{\beta\hbar^2\mathbf{k}_1^2}{2m}}e^{i\mathbf{k}_1\cdot(\mathbf{r}_1-\mathbf{r}_1')}\right)
+\left(\int \dd[3]{\mathbf{k}_2}e^{-\frac{\beta\hbar^2\mathbf{k}_2^2}{2m}}e^{i\mathbf{k}_2\cdot(\mathbf{r}_2-\mathbf{r}_2')}\right)\\
+&\qquad\qquad\qquad\pm
+\left(\int \dd[3]{\mathbf{k}_1}e^{-\frac{\beta\hbar^2\mathbf{k}_1^2}{2m}}e^{i\mathbf{k}_1\cdot(\mathbf{r}_1-\mathbf{r}_2')}\right)
+\left(\int \dd[3]{\mathbf{k}_2}e^{-\frac{\beta\hbar^2\mathbf{k}_2^2}{2m}}e^{i\mathbf{k}_2\cdot(\mathbf{r}_2-\mathbf{r}_1')}\right)
+\Bigg]
+\end{aligned}\]
+根据[章节\ref{sec:gaussian}] 已经证明过 Gaussian 积分的复平移结论，最终获得：
+\[\bra{\mathbf{r}_1,\mathbf{r}_2}\hat{\rho}_{\rm can}^{(\pm)}\ket{\mathbf{r}_1',\mathbf{r}_2'}=\frac{1}{2Z_2^{(\pm)}\Lambda^6}\Bigg[\exp\left(-\frac{\pi}{\Lambda^2}\left(|\mathbf{r}_1-\mathbf{r}_1'|^2+|\mathbf{r}_2-\mathbf{r}_2'|^2\right)\right)\pm\exp\left(-\frac{\pi}{\Lambda^2}\left(|\mathbf{r}_1-\mathbf{r}_2'|^2+|\mathbf{r}_2-\mathbf{r}_1'|^2\right)\right)\Bigg]\]
 
-对无相互作用体系，哈密顿量与粒子数算符都可写成占据数之和
-\[
-\hat{H}=\sum_l \varepsilon_l \hat{n}_l,\qquad \hat{N}=\sum_l \hat{n}_l.
-\]
-这时巨正则配分函数可以在每个单粒子能级上完全因子化，因此量子理想气体最自然的处理方式就是巨正则系综。
+考虑两粒子的分布密度，也即对角元$\bra{\mathbf{r}_1,\mathbf{r}_2}\hat{\rho}_{\rm can}^{(\pm)}\ket{\mathbf{r}_1,\mathbf{r}_2}$：
+\[\bra{\mathbf{r}_1,\mathbf{r}_2}\hat{\rho}_{\rm can}^{(\pm)}\ket{\mathbf{r}_1,\mathbf{r}_2}=\frac{1}{2Z_2^{(\pm)}\Lambda^6}\Bigg[1\pm\exp\left(-\frac{2\pi|\mathbf{r}_1-\mathbf{r}_2|^2}{\Lambda^2}\right)\Bigg]\]
+可以看到，费米子与玻色子的差别完全浓缩在交换项前面的符号上：费米子在交换$\mathbf{r}_1\leftrightarrow \mathbf{r}_2$时会出现负号，而玻色子则保持不变。当$\mathbf{r}_1=\mathbf{r}_2$时，费米子分布为0，这也称为\textbf{Fermi hole}，反映了 Pauli 不相容原理的空间表现；而玻色子分布在$\mathbf{r}_1=\mathbf{r}_2$时达到最大值，体现了它们的聚束倾向，可以参考图\ref{fig:fermi_hole}。
 
-对玻色子，$n_l=0,1,2,\cdots$，于是
-\[
-\Xi_{\rm BE}
-=\prod_l\sum_{n_l=0}^{\infty}e^{-\beta n_l(\varepsilon_l-\mu)}
-=\prod_l\frac{1}{1-e^{-\beta(\varepsilon_l-\mu)}}.
-\]
-对应的巨势为
-\[
-\Omega_{\rm BE}=k_B T\sum_l\ln\left(1-e^{-\beta(\varepsilon_l-\mu)}\right),
-\]
-平均占据数则是
-\[
-\boxed{\bar n_l^{\rm (BE)}=\frac{1}{e^{\beta(\varepsilon_l-\mu)}-1}}.
-\]
+我们考虑更多粒子的无相互作用体系，记$\hat{n}_{\mathbf{k}}$为态$\ket{\mathbf{k}}$的产生算符，则哈密顿算符$\hat{H}$与粒子数算符$\hat{N}$：
+\[\hat{H}=\sum_{\mathbf{k}} \varepsilon_{\mathbf{k}} \hat{n}_{\mathbf{k}},\quad \hat{N}=\sum_{\mathbf{k}} \hat{n}_{\mathbf{k}}\]
+记产生算符$\hat{n}_{\mathbf{k}}$的本征值占据数为$n_{\mathbf{k}}$，此时正则配分函数$Z_N$和为：
+\[Z_N=\delta\left(\sum_{\mathbf{k}} n_{\mathbf{k}}-N\right)\sum_{\{n_{\mathbf{k}}\}}\exp\left(-\beta\sum_{\mathbf{k}} n_{\mathbf{k}}\varepsilon_{\mathbf{k}}\right)\]
+其中$\{n_{\mathbf{k}}\}$表示所有单粒子态的占据数集合。带入巨正则配分函数$\Xi$：
+\[\Xi=\sum_{N=0}^{\infty}Z_Ne^{-\beta N \mu}=\sum_{N=0}^{\infty} e^{-\beta N \mu}\sum_{\{n_{\mathbf{k}}\}}\exp\left(-\beta\sum_{\mathbf{k}} n_{\mathbf{k}}\varepsilon_{\mathbf{k}}\right)=\prod_{\mathbf{k}}\sum_{\{n_{\mathbf{k}}\}}e^{-\beta(\varepsilon_{\mathbf{k}}-\mu)n_{\mathbf{k}}}\]
+对费米子，每个态$\ket{\mathbf{k}}$只能被占据0次或1次，即$n_{\mathbf{k}}=0,1$，因此巨正则配分函数为：
+\[\Xi_{\rm FD}=\prod_{\mathbf{k}}\sum_{n_{\mathbf{k}}=0}^{1}e^{-\beta n_{\mathbf{k}}(\varepsilon_{\mathbf{k}}-\mu)}=\prod_{\mathbf{k}}\left(1+e^{-\beta(\varepsilon_{\mathbf{k}}-\mu)}\right)\]
+此时考虑每个态$\ket{\mathbf{k}}$的平均占据数$\expval{n_{\mathbf{k}}}$：
+\[\expval{n_{\mathbf{k}}}=\left(\sum_{n_{\mathbf{k}}=0}^{1}n_{\mathbf{k}}e^{-\beta n_{\mathbf{k}}(\varepsilon_{\mathbf{k}}-\mu)}\right)\Bigg{/}\left(\sum_{n_{\mathbf{k}}=0}^{1}e^{-\beta n_{\mathbf{k}}(\varepsilon_{\mathbf{k}}-\mu)}\right)=\frac{e^{-\beta(\varepsilon_{\mathbf{k}}-\mu)}}{1+e^{-\beta(\varepsilon_{\mathbf{k}}-\mu)}}=\frac{1}{e^{\beta(\varepsilon_{\mathbf{k}}-\mu)}+1}\equiv f(\varepsilon_{\mathbf{k}})\]
+上面定义的函数$f(\varepsilon)$就是著名的 Fermi-Dirac 分布函数。
 
-对费米子，$n_l=0,1$，因此
-\[
-\Xi_{\rm FD}
-=\prod_l\sum_{n_l=0}^{1}e^{-\beta n_l(\varepsilon_l-\mu)}
-=\prod_l\left(1+e^{-\beta(\varepsilon_l-\mu)}\right),
-\]
-对应巨势
-\[
-\Omega_{\rm FD}=-k_B T\sum_l\ln\left(1+e^{-\beta(\varepsilon_l-\mu)}\right),
-\]
-以及平均占据数
-\[
-\boxed{\bar n_l^{\rm (FD)}=\frac{1}{e^{\beta(\varepsilon_l-\mu)}+1}}.
-\]
-这两个分布在形式上极其相似，但分母中的符号差异反映了截然不同的量子统计：玻色子倾向于“扎堆”占据同一个态，而费米子则受到 Pauli 不相容原理约束，每个单粒子态最多只能放一个粒子。
+而对玻色子，每个态$\ket{\mathbf{k}}$可以被占据任意多次，即$n_{\mathbf{k}}=0,1,2,\cdots$，因此巨正则配分函数为：
+\[\Xi_{\rm BE}=\prod_{\mathbf{k}}\sum_{n_{\mathbf{k}}=0}^{\infty}e^{-\beta n_{\mathbf{k}}(\varepsilon_{\mathbf{k}}-\mu)}=\prod_{\mathbf{k}}\frac{1}{1-e^{-\beta(\varepsilon_{\mathbf{k}}-\mu)}}\]
+每个态$\ket{\mathbf{k}}$对应的平均占据数$\expval{n_{\mathbf{k}}}$为：
+\[\expval{n_{\mathbf{k}}}=\left(\sum_{n_{\mathbf{k}}=0}^{\infty}n_{\mathbf{k}}e^{-\beta n_{\mathbf{k}}(\varepsilon_{\mathbf{k}}-\mu)}\right)\Bigg{/}\left(\sum_{n_{\mathbf{k}}=0}^{\infty}e^{-\beta n_{\mathbf{k}}(\varepsilon_{\mathbf{k}}-\mu)}\right)=\frac{e^{-\beta(\varepsilon_{\mathbf{k}}-\mu)}}{1-e^{-\beta(\varepsilon_{\mathbf{k}}-\mu)}}=\frac{1}{e^{\beta(\varepsilon_{\mathbf{k}}-\mu)}-1}\equiv g(\varepsilon_{\mathbf{k}})\]
+上面定义的函数$g(\varepsilon)$就是 Bose-Einstein 分布函数。
 
-从占据数分布出发，粒子总数和内能都可以写成单粒子态求和：
-\[
-\boxed{\bar N=\sum_l \bar n_l},\qquad 
-\boxed{U=\sum_l \varepsilon_l \bar n_l}.
-\]
-单个能级上的涨落也可直接算出：
-\[
-\expval{(\Delta n_l)^2}_{\rm BE}=\bar n_l(1+\bar n_l),\qquad
-\expval{(\Delta n_l)^2}_{\rm FD}=\bar n_l(1-\bar n_l).
-\]
-玻色子的正号表明占据存在 bunching 倾向，而费米子的负号则对应反聚束与占据抑制。
+在高温极限$\beta(\varepsilon_{\mathbf{k}}-\mu)\gg 1$时，两者都趋于经典 Boltzmann 分布：
+\[\expval{n_{\mathbf{k}}} \approx e^{-\beta(\varepsilon_{\mathbf{k}}-\mu)}\]
+三者的对比如下：
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{fig/statistical_mechanics/Quantum_and_classical_statistics.png}
+\end{figure}
 
-在高温低密度极限下，若所有能级都满足$\bar n_l\ll 1$，则两种量子分布统一退化为
+\newpage
+除了分布，我们也可以看看一些宏观物理量，如理想气体状态方程：
 \[
-\bar n_l \approx e^{-\beta(\varepsilon_l-\mu)},
+PV=Nk_{\rm B}T
 \]
-这就是 Maxwell-Boltzmann 分布。因此经典统计力学并不是量子统计力学之外的另一套理论，而是量子统计在稀薄极限下的近似。
-
-对自由粒子，若单粒子能量为$\varepsilon_{\mathbf{p}}=p^2/2m$，并把求和改为动量积分，则可以进一步得到量子理想气体的状态方程。对玻色子必须满足$\mu<\varepsilon_0$，在低温高密度下会出现基态宏观占据，这就是 Bose-Einstein 凝聚；而对费米子，在$T\to 0$时所有$\varepsilon_l<\mu$的能级被逐个填满，形成费米面。这两种现象都是纯粹由量子统计导致的，在经典极限中都不会出现。
+对三维理想量子气体，更方便的做法是引入逸度$z=e^{\beta\mu}$以及特殊函数
+\[
+f_m^\pm(z)=\frac{1}{\Gamma(m)}\int_0^\infty \frac{x^{m-1}}{z^{-1}e^x\pm 1}\dd x
+=\sum_{l=1}^{\infty}\frac{(\mp 1)^{l-1}z^l}{l^m}
+\]
+其中$f_m^+(z)$对应费米气体，$f_m^-(z)$对应玻色气体。把单粒子态求和替换为动量积分后，可以把巨正则配分函数写成
+\[
+\ln\Xi_{\pm}=\frac{V}{\Lambda^3}f_{5/2}^{\pm}(z),\qquad
+n=\frac{N}{V}=\frac{1}{\Lambda^3}f_{3/2}^{\pm}(z)
+\]
+于是压强立刻得到
+\[
+\boxed{P_F=\frac{k_{\rm B}T}{\Lambda^3}f_{5/2}^{+}(z)},\qquad
+\boxed{P_B=\frac{k_{\rm B}T}{\Lambda^3}f_{5/2}^{-}(z)}
+\]
+或者写成更接近经典状态方程的形式：
+\[
+\boxed{\frac{P_{\pm}V}{Nk_{\rm B}T}=\frac{f_{5/2}^{\pm}(z)}{f_{3/2}^{\pm}(z)}}
+\]
+在高温低密度极限$z\ll 1$下有$f_m^\pm(z)\approx z$，因此立刻退化回经典结果$PV=Nk_{\rm B}T$。若固定粒子数密度$n=N/V$，再引入温度尺度
+\[
+T_Q=\frac{2\pi\hbar^2}{mk_{\rm B}}n^{2/3}
+\]
+则有$n\Lambda^3=(T_Q/T)^{3/2}$，从而可把费米气体、玻色气体与经典理想气体的压强放在同一张图中比较：
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+width=0.6\textwidth,
+height=0.5\textwidth,
+xlabel={$T/T_Q$},
+ylabel={$P/(n k_{\rm B}T_Q)$},
+xmin=0.0, xmax=2.0,
+ymin=0.0, ymax=2.0,
+xtick distance=0.5,
+legend style={at={(0.03,0.97)},anchor=north west,draw=none,fill=none},
+tick align=outside
+]
+\addplot[very thick,black,dashed] table[x=tau,y=classical,col sep=space] {fig/statistical_mechanics/quantum_gas_pressure_vs_temperature.dat};
+\addlegendentry{$PV=Nk_{\rm B}T$}
+\addplot[very thick,blue!70!black] table[x=tau,y=fermi,col sep=space] {fig/statistical_mechanics/quantum_gas_pressure_vs_temperature.dat};
+\addlegendentry{Fermi gas}
+\addplot[very thick,red!75!black] table[x=tau,y=bose,col sep=space] {fig/statistical_mechanics/quantum_gas_pressure_vs_temperature.dat};
+\addlegendentry{Bose gas}
+\addplot[gray,densely dotted] coordinates {(0.527,0) (0.527,3.35)};
+\node[gray,anchor=south west] at (axis cs:0.54,0.12) {$T_c$};
+\end{axis}
+\end{tikzpicture}
+\caption{固定数密度$n$下三维理想费米气体、玻色气体与经典理想气体的压强-温度关系。这里横轴取$T/T_Q$，纵轴取$P/(n k_{\rm B}T_Q)$。玻色气体在$T_c/T_Q=\zeta(3/2)^{-2/3}\approx 0.527$处发生 Bose-Einstein 凝聚。}
+\end{figure}
 
 \subsection{两个典型例子：自由自旋与量子谐振子}
 作为例子，先看处在外磁场$B$中的$N$个彼此独立的自旋$\frac{1}{2}$粒子。设单个自旋的磁矩大小为$\mu$，则其两能级为

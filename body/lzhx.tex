@@ -746,9 +746,11 @@ X\in\text{SU(2)} \arrow[r, "UXU^\dagger"]
 可见同电子空间轨道排布下，三重态能量一般是要比单重态低，验证洪特规则。
 
 观察三重态和单重态波函数分布概率对$r_{12}$变化的行为：
-\begin{center}
-    \includegraphics[scale=0.7]{fig/lzhx/fermi_hole.png}
-\end{center}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.6]{fig/lzhx/fermi_hole.png}
+    \caption{\label{fig:fermi_hole}自旋平行（费米子系统）或者反平行（玻色子系统）的两个电子的空间分布，括号内对讨论见后续章节\ref{sec:f_and_b}。}
+\end{figure}
 
 三重态电子在$r_{12}=0$时分布概率为0，且从图像上来看，自旋平行的电子在空间上倾向于相互远离。而单重态电子在$r_{12}=0$时仍有分布，最大分布概率对应的$r_{12}$存在，也即我们一般认识的轨道半径。三重态在$r_{12}=0$的情况被称作Fermi hole。
 
@@ -762,13 +764,11 @@ X\in\text{SU(2)} \arrow[r, "UXU^\dagger"]
 这里简单点一下原子光谱项的表示方法(光谱项$^{2s+1}L$，光谱支项$^{2s+1}L_J$)。这里涉及的量子数有轨道的角量子数$l$和电子的自旋量子数$s$，以及两者耦合后的总量子数$J=l+s,l+s-1,\cdots,|l-s|$。其中符号上$L$的部分并不简单为角量子数$l$，而是对应角动量的原子轨道符号的大写，比如$L=S \ (l=1), \ P \ (l=2), \ D \ (l=3)\cdots$。定义一些名词：光谱项的电子多重度$2s+1$，光谱项的总多重度显然是$(2s+1)(2l+1)$，因为是原子体系所有对应于$s$和$l$的$m_s$和$m_l$态简并。每个光谱支项的简并度$m_j=2J+1$。
 
 \subsection{Hund规则}
-1、同电子组态，S越大越稳定；
-
-2、S相同，L越大越稳定；
-
-3、L、S相同，若电子数小于半满，J越小越稳定；若电子数大于半满，J越大越稳定。
-
-既然叫了规则，那这玩意儿估计就有不少反例了（笑
+\begin{itemize}
+    \item 1. 同电子组态，S越大越稳定；
+    \item 2. S相同，L越大越稳定；
+    \item 3. L、S相同，若电子数小于半满，J越小越稳定；若电子数大于半满，J越大越稳定。
+\end{itemize}
 
 \newpage
 \section{多核粒子体系——线性变分法}
