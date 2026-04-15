@@ -562,7 +562,7 @@ Z_2^+&=\Tr\left[e^{-\beta\hat{H}}\right]=\frac{1}{2}\sum_{\mathbf{k}_1\neq \math
 
 我们考虑更多粒子的无相互作用体系，记$\hat{n}_{\mathbf{k}}$为态$\ket{\mathbf{k}}$的产生算符，则哈密顿算符$\hat{H}$与粒子数算符$\hat{N}$：
 \[\hat{H}=\sum_{\mathbf{k}} \varepsilon_{\mathbf{k}} \hat{n}_{\mathbf{k}},\quad \hat{N}=\sum_{\mathbf{k}} \hat{n}_{\mathbf{k}}\]
-记产生算符$\hat{n}_{\mathbf{k}}$的本征值占据数为$n_{\mathbf{k}}$，此时正则配分函数$Z_N$和为：
+记产生算符$\hat{n}_{\mathbf{k}}$的本征值占据数为$n_{\mathbf{k}}$，此时正则配分函数$Z_N$为：
 \[Z_N=\delta\left(\sum_{\mathbf{k}} n_{\mathbf{k}}-N\right)\sum_{\{n_{\mathbf{k}}\}}\exp\left(-\beta\sum_{\mathbf{k}} n_{\mathbf{k}}\varepsilon_{\mathbf{k}}\right)\]
 其中$\{n_{\mathbf{k}}\}$表示所有单粒子态的占据数集合。带入巨正则配分函数$\Xi$：
 \[\Xi=\sum_{N=0}^{\infty}Z_Ne^{-\beta N \mu}=\sum_{N=0}^{\infty} e^{-\beta N \mu}\sum_{\{n_{\mathbf{k}}\}}\exp\left(-\beta\sum_{\mathbf{k}} n_{\mathbf{k}}\varepsilon_{\mathbf{k}}\right)=\prod_{\mathbf{k}}\sum_{\{n_{\mathbf{k}}\}}e^{-\beta(\varepsilon_{\mathbf{k}}-\mu)n_{\mathbf{k}}}\]
@@ -624,61 +624,92 @@ $\delta^{(2n-1)}(x)$与任意光滑函数$H(\varepsilon)$作用后给出：
 \[\int_{-\infty}^\infty H(\varepsilon)\delta^{(2n-1)}(\mu-\varepsilon)d\varepsilon=\int_{-\infty}^\infty (-1)^{2n-1}H(\varepsilon)\delta^{(2n-1)}(\varepsilon-\mu)d\varepsilon=(-1)^{2n-1}H^{(2n-1)}(\mu)\]
 注意$\delta$函数的自变量是减数，减号前面的，上述我们交换了$\delta$函数的自变量所以引入了因子$(-1)^{2n-1}$。$B_{2n}$是 Bernoulli 数，这里给出前六个$B_n$的值$B_1=-1/2, B_2=1/6, B_3=0, B_4=-1/30, B_5=0, B_6=1/42$。为了方便计算，我们只考虑 Sommerfeld 展开的前两项，即：
 \[\int_{-\infty}^{\infty} H(\varepsilon)f(\varepsilon)\dd{\varepsilon}=\int_{-\infty}^{\infty} \frac{H(\varepsilon)}{e^{\beta(\varepsilon-\mu)}+1}\dd{\varepsilon}=\int_{-\infty}^{\mu} H(\varepsilon)\dd{\varepsilon}+\frac{\pi^2}{6}(k_{\rm B}T)^2 H'(\mu)+\cdots\]
-进而我们可以利用上述展开式重新计算有限温度$T$下理想费米气体的粒子数$N$，能量$E$，压强$P$和热容$C_V$：
+进而我们可以利用上述展开式重新计算有限温度$T$下理想费米气体的粒子数$N$：
 \[\begin{aligned}
 N&=\int_{-\infty}^{\infty} f(\varepsilon)D(\varepsilon)\dd\varepsilon
 =\frac{2gV}{\pi^2}\left(\frac{m}{2\hbar^2}\right)^{3/2}\left[\int_0^{\mu}\sqrt{\varepsilon}\dd{\varepsilon}+\frac{\pi^2}{12}(k_{\rm B}T)^2\mu^{-\frac{1}{2}}+\cdots\right]\\
 &=\frac{2gV}{\pi^2}\left(\frac{m}{2\hbar^2}\right)^{3/2}\left[\frac{2}{3}\mu^{\frac{3}{2}}+\frac{\pi^2}{12}(k_{\rm B}T)^2\mu^{-\frac{1}{2}}+\cdots\right]\\
-E&=\int_{-\infty}^{\infty} \varepsilon f(\varepsilon)D(\varepsilon)\dd\varepsilon=\frac{2gV}{\pi^2}\left(\frac{m}{2\hbar^2}\right)^{3/2}\left[\int_0^{\mu}\varepsilon^{\frac{3}{2}}\dd{\varepsilon}+\frac{\pi^2}{4}(k_{\rm B}T)^2\mu^{\frac{1}{2}}+\cdots\right]\\
-&=\frac{2gV}{\pi^2}\left(\frac{m}{2\hbar^2}\right)^{3/2}\left[\frac{2}{5}\mu^{\frac{5}{2}}+\frac{\pi^2}{4}(k_{\rm B}T)^2\mu^{\frac{1}{2}}+\cdots\right]\\
-C_V&=\left(\pdv{E}{T}\right)_{V,N}=gV\left(\frac{m}{2\hbar^2}\right)^{3/2}k_{\rm B}^2T\mu^{\frac{1}{2}}+\cdots\\
-P&=\frac{2E}{3V}
-=\frac{4g}{3\pi^2}\left(\frac{m}{2\hbar^2}\right)^{3/2}\left[\frac{2}{5}\mu^{\frac{5}{2}}+\frac{\pi^2}{4}(k_{\rm B}T)^2\mu^{\frac{1}{2}}+\cdots\right]\\
 \end{aligned}\]
-考虑粒子数守恒：
+考虑变温前后粒子数守恒：
 \[N=\frac{2gV}{\pi^2}\left(\frac{m}{2\hbar^2}\right)^{3/2}\cdot\frac{2}{3}\varepsilon_F^{\frac{3}{2}}=\frac{2gV}{\pi^2}\left(\frac{m}{2\hbar^2}\right)^{3/2}\left[\frac{2}{3}\mu^{\frac{3}{2}}+\frac{\pi^2}{12}(k_{\rm B}T)^2\mu^{-\frac{1}{2}}+\cdots\right] \quad \Leftrightarrow \quad \varepsilon_F^{\frac{3}{2}}=\mu^{\frac{3}{2}}+\frac{\pi^2}{8}(k_{\rm B}T)^2\mu^{-\frac{1}{2}}+\cdots\]
 另$\mu=\varepsilon_F(1+\delta)$，其中$|\delta|\ll 1$，因此可以把等式右边近似为线性微扰：
 \[\varepsilon_F^{\frac{3}{2}}\approx\varepsilon_F^{\frac{3}{2}}\left(1+\frac{3}{2}\delta\right)+\frac{\pi^2}{8}(k_{\rm B}T)^2\varepsilon_F^{-\frac{1}{2}}\left(1-\frac{1}{2}\delta\right) \quad \Rightarrow \quad \delta=\frac{(\pi k_{\rm B}T)^2}{8}\Bigg{/}\left(\frac{(\pi k_{\rm B}T)^2}{16}-\frac{3}{2}\varepsilon_F^2\right)\]
-考虑相对低温度时$k_{\rm B}T\ll \varepsilon_F$，因此可以近似为：
+考虑相对低温度时$k_{\rm B}T\ll \varepsilon_F$也即$T \ll T_F$时，因此可以近似为：
 \[\delta\approx -\frac{\pi^2}{12}\left(\frac{k_{\rm B}T}{\varepsilon_F}\right)^2 \quad \Rightarrow \quad \mu(T)\approx \boxed{\varepsilon_F\left[1-\frac{\pi^2}{12}\left(\frac{k_{\rm B}T}{\varepsilon_F}\right)^2\right]}\]
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.3\textwidth]{fig/statistical_mechanics/mu_T_FD.png}
+\caption{费米系统化学势$\mu$随温度的关系，红线为 Sommerfeld 展开式的近似结果，蓝线为精确数值计算结果。}
+\end{figure}
 
-\newpage
-除了分布，我们也可以看看一些宏观物理量，如体系内能：
+进而我们可以计算能量$E$：
+\[E=\int_{-\infty}^{\infty} \varepsilon f(\varepsilon)D(\varepsilon)\dd\varepsilon\approx\frac{2gV}{\pi^2}\left(\frac{m}{2\hbar^2}\right)^{3/2}\left[\int_0^{\mu}\varepsilon^{\frac{3}{2}}\dd{\varepsilon}+\frac{\pi^2}{4}(k_{\rm B}T)^2\mu^{\frac{1}{2}}\right]=\frac{3}{5}N\varepsilon_F+\frac{\pi^2}{4}N\varepsilon_F\left(\frac{k_{\rm B}T}{\varepsilon_F}\right)^2\]
+以及热容$C_V$和压强$P$，这里引入粒子数密度$n= N/V$简化压强的表达式：
+\begin{subequations}
+\begin{align}
+C_V&=\left(\pdv{E}{T}\right)_{V,N}\approx\frac{\pi^2}{2}k_{\rm B}N\frac{T}{T_F}\\
+P&=\frac{2E}{3V}\approx\frac{2}{5}n\varepsilon_F+\frac{\pi^2}{6}n\varepsilon_F\left(\frac{k_{\rm B}T}{\varepsilon_F}\right)^2\label{eq:fd_pt}
+\end{align}
+\end{subequations}
+与零温下的结果相比，热容在有限温度下呈现出线性依赖于温度的行为，而压强则在零温下的基础上增加了一个二次项。同时在图\ref{fig:pressure_fd_mb_be}中可以发现理想费米气体在零温下压强并不为零，这就是所谓的\textbf{Fermi pressure}，体现为压强公式中的与温度无关项$2n\varepsilon_F/5$，它是由 Pauli 不相容原理引起的，即使在没有热运动的情况下，费米子系统也会表现出一定的压强。
+
+上面我们介绍了理想费米子的零温和有限温度下的性质，下面我们来看看玻色子。对玻色气体而言，最重要的新现象是 Bose-Einstein 凝聚。由于平均占据数$\expval{n_{\mathbf{k}}}$也即 Bose-Einstein 分布函数$g(\varepsilon_{\mathbf{k}})$非负：
+\[(\varepsilon_{\mathbf{k}})=\expval{n_{\mathbf{k}}}=\frac{1}{e^{\beta(\varepsilon_{\mathbf{k}}-\mu)}-1}\]
+因此化学势不能超过基态能量$\mu\le \varepsilon_0=0$。当固定粒子数密度$n$并降低温度时，$\mu$会从负侧逼近$0$；一旦$\mu$到达$0$，激发态已经无法继续容纳全部粒子，剩余粒子就只能宏观地占据基态，从而发生 Bose-Einstein 凝聚。因此我们需要把基态单独分离出来：
+\[N=N_0+N_{\rm ex},\quad N_0=\frac{1}{e^{-\beta\mu}-1}\]
+当$\mu\to 0$时，激发态所能容纳的最大粒子数为 [公式\eqref{eq:special_function}]：
+\[N_{\rm ex}^{\max}=\int_0^{\infty}\frac{D(\varepsilon)\dd{\varepsilon}}{e^{\beta(\varepsilon-\mu)}-1}\approx\frac{2V}{\pi^2}\left(\frac{m}{2\hbar^2}\right)^{3/2}\int_0^{\infty}\frac{\sqrt{\varepsilon}\dd{\varepsilon}}{e^{\beta\varepsilon}-1}=\frac{2V}{\pi^2}\left(\frac{m}{2\beta\hbar^2}\right)^{3/2}\Gamma\left(\frac{3}{2}\right)\zeta\left(\frac{3}{2}\right)=\frac{V}{\Lambda^3}\zeta\left(\frac{3}{2}\right)\]
+当$N \ge N_{\rm ex}^{\max}$时发生Bose-Einstein凝聚，因此临界温度$T_c$由$N=N_{\rm ex}^{\max}$决定：
+\[\boxed{n=\frac{N}{V}=\frac{\zeta(3/2)}{\Lambda_c^3} \quad\Rightarrow\quad T_c=\frac{2\pi\hbar^2}{mk_{\rm B}}\left(\frac{n}{\zeta(3/2)}\right)^{2/3}\approx 3.31\,\frac{\hbar^2}{mk_{\rm B}}n^{2/3}}\]
+其中$\zeta(3/2)\approx 2.612$。在$T<T_c$时，激发态粒子数满足$N_{\rm ex}=N(T/T_c)^{3/2}$，于是凝聚分数为：
+\[\boxed{\frac{N_0}{N}=1-\left(\frac{T}{T_c}\right)^{3/2}}\]
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.4\textwidth]{fig/statistical_mechanics/Quantum_ideal_gas_chemical_potential_3d.svg.png}
+\end{figure}
+
+当$T<T_c$时，由于基态能量为0，此体系内能完全由激发态贡献：
 \[\begin{aligned}
-U_{\pm}&=-\left(\pdv{\ln\Xi_\pm}{\beta}\right)_{V,\mu}+\mu \expval{N}=-\left[\pdv{}{\beta}\left(\frac{V}{\Lambda^3}f_{5/2}^{\pm}(z)\right)\right]_{V,\mu}+\mu \expval{N}\\
-&=-V\left[\pdv{\beta}\left(\Lambda^{-3}\right)f_{5/2}^{\pm}(z)+\Lambda^{-3}\left(\pdv{f_{5/2}^{\pm}(z)}{z}\right)\pdv{z}{\beta}\right]+\mu \expval{N}\\
-&=-V\left[-\frac{3}{2\beta\Lambda^3}f_{5/2}^{\pm}(z)+\frac{\mu}{\Lambda^3}f_{3/2}^{\pm}(z)\right]+\mu \expval{N}=\frac{3}{2}\frac{V}{\beta\Lambda^3}f_{5/2}^{\pm}(z)=\frac{3}{2}k_{\rm B}T\frac{V}{\Lambda^3}f_{5/2}^{\pm}(z)=\frac{3}{2}P_\pm V
+U&=\int_0^{\infty}\frac{\varepsilon D(\varepsilon)}{e^{\beta\varepsilon}-1}\dd{\varepsilon}
+=\frac{2V}{\pi^2}\left(\frac{m}{2\hbar^2}\right)^{3/2}\int_0^{\infty}\frac{\varepsilon^{3/2}}{e^{\beta\varepsilon}-1}\dd{\varepsilon}=\frac{2V}{\beta\pi^2}\left(\frac{m}{2\beta\hbar^2}\right)^{3/2}\int_0^{\infty}\frac{x^{3/2}}{e^x-1}\dd{x}\\
+&=\frac{2V}{\beta\pi^2}\left(\frac{m}{2\beta\hbar^2}\right)^{3/2}\Gamma\left(\frac{5}{2}\right)\zeta\left(\frac{5}{2}\right)=\frac{3}{2}\frac{Vk_{\rm B}T}{\Lambda^3}\zeta\left(\frac{5}{2}\right)\propto T^{5/2}
 \end{aligned}\]
+有了内能后，就可以由热容的定义式直接得到：
+\[C_V=\left(\pdv{U}{T}\right)_{V,N}=\left[\pdv{}{T}\left(\frac{3}{2}\frac{Vk_{\rm B}T}{\Lambda^3}\zeta\left(\frac{5}{2}\right)\right)\right]_{V,N}=\frac{15}{4}Nk_{\rm B}\frac{\zeta(5/2)}{\zeta(3/2)}\left(\frac{T}{T_c}\right)^{3/2}\]
+再利用理想非相对论气体的关系，在之前理想费米气体中已经证明了，这里不再赘述，得到压强为：
+\[P=\frac{2U}{3V}=\frac{k_{\rm B}T}{\Lambda^3}\zeta\left(\frac{5}{2}\right)\propto T^{5/2}\]
+这说明$T<T_c$时的压强同样只来自激发态，因此它与总粒子数密度$n$无关。
 
+当$T>T_c$时，此时常规的微积分已经降服不了 Bose-Einstein 分布函数了，我们需要引入特殊函数来处理。之前我们都是在正则系综的框架下分析理想量子气体的性质，但是实际上在巨正则系综中推导 Fermi-Dirac 分布函数和 Bose-Einstein 分布函数更为直接，因此我们也可以在巨正则系综的框架下分析理想量子气体的性质。
 
-
-理想气体状态方程$PV=Nk_{\rm B}T$。对三维理想量子气体，更方便的做法是引入逸度$z=e^{\beta\mu}$以及特殊函数：
-\[\boxed{f_m^\pm(z)=\frac{1}{\Gamma(m)}\int_0^\infty \frac{x^{m-1}}{z^{-1}e^x\mp 1}\dd x=\sum_{l=1}^{\infty}\frac{(\pm 1)^{l-1}z^l}{l^m}, \quad z\pdv{f_m^{\pm}(z)}{z}=f_{m-1}^{\pm}(z)}\]
-这里记号约定为：$-$一律对应费米气体，$+$一律对应玻色气体。于是巨正则配分函数可统一写成：
+对三维理想量子气体，处理时一个方便的做法是引入逸度$z=e^{\beta\mu}$以及特殊函数：
+\begin{equation}\label{eq:special_function}
+\boxed{f_m^\pm(z)=\frac{1}{\Gamma(m)}\int_0^\infty \frac{x^{m-1}}{z^{-1}e^x\mp 1}\dd x=\sum_{l=1}^{\infty}\frac{(\pm 1)^{l-1}z^l}{l^m}, \quad z\pdv{f_m^{\pm}(z)}{z}=f_{m-1}^{\pm}(z)}
+\end{equation}
+当上述函数的参数$z=1$时，其结果为 \href{https://en.wikipedia.org/wiki/Riemann_zeta_function}{Riemann $\zeta$ 函数}，即$f_m^+(1)=\zeta(m)$，而$f_m^-(1)=(1-2^{1-m})\zeta(m)$。这里我们记号约定为：$-$对应费米气体，$+$对应玻色气体。于是巨正则配分函数可统一写成：
 \[\Xi_{\pm}=\prod_{\mathbf{k}}\left(1\mp ze^{-\beta\varepsilon_{\mathbf{k}}}\right)^{\mp1}\]
 计算$\ln\Xi_{\pm}$：
 \[\begin{aligned}
 \ln\Xi_{\pm}&=\mp\sum_{\mathbf{k}}\ln\left(1\mp ze^{-\beta\varepsilon_{\mathbf{k}}}\right)=\sum_{l=1}^{\infty}\frac{(\pm1)^{l-1}z^l}{l}\sum_{\mathbf{k}}e^{-l\beta\varepsilon_{\mathbf{k}}}=\sum_{l=1}^{\infty}\frac{(\pm1)^{l-1}z^l}{l}\frac{V}{(2\pi)^3}\int \dd[3]{\mathbf{k}}\exp\left(-\frac{l\beta\hbar^2\mathbf{k}^2}{2m}\right)\\
 &=\sum_{l=1}^{\infty}\frac{(\pm1)^{l-1}z^l}{l}\frac{V}{(2\pi)^3}\int_0^{\infty}4\pi k^2\dd{k}\exp\left(-\frac{l\beta\hbar^2k^2}{2m}\right)=\frac{V}{\Lambda^3}\sum_{l=1}^{\infty}\frac{(\pm1)^{l-1}z^l}{l^{5/2}}=\frac{V}{\Lambda^3}f_{5/2}^{\pm}(z)
 \end{aligned}\]
-由巨正则系综中压强$P$和平均粒子数$\expval{N}$与配分函数的关系：
-\[P_\pm=k_{\rm B}T\left(\pdv{\ln\Xi_\pm}{V}\right)_{T,\mu}=k_{\rm B}T\left[\pdv{}{V}\left(\frac{V}{\Lambda^3}f_{5/2}^{\pm}(z)\right)\right]_{T,\mu}=\frac{k_{\rm B}T}{\Lambda^3}f_{5/2}^{\pm}(z)\]
-\[\expval{N}=k_{\rm B}T\left(\pdv{\ln\Xi_\pm}{\mu}\right)_{T,V}=\frac{k_{\rm B}TV}{\Lambda^3}\left(\pdv{f_{5/2}^{\pm}(z)}{z}\right)_{T,V}\pdv{e^{\beta\mu}}{\mu}=\frac{V}{\Lambda^3}f_{3/2}^{\pm}(z)\]
+此时体系平均粒子数$\expval{N}$，内能$U$和压强$P$如下所示：
+\[\begin{aligned}
+\expval{N}&=k_{\rm B}T\left(\pdv{\ln\Xi_\pm}{\mu}\right)_{T,V}=\frac{k_{\rm B}TV}{\Lambda^3}\left(\pdv{f_{5/2}^{\pm}(z)}{z}\right)_{T,V}\pdv{e^{\beta\mu}}{\mu}=\frac{V}{\Lambda^3}f_{3/2}^{\pm}(z)\\
+U_{\pm}&=-\left(\pdv{\ln\Xi_\pm}{\beta}\right)_{V,\mu}+\mu \expval{N}=-V\left[\pdv{\beta}\left(\Lambda^{-3}\right)f_{5/2}^{\pm}(z)+\Lambda^{-3}\left(\pdv{f_{5/2}^{\pm}(z)}{z}\right)\pdv{z}{\beta}\right]+\mu \expval{N}\\
+&=-V\left[-\frac{3}{2\beta\Lambda^3}f_{5/2}^{\pm}(z)+\frac{\mu}{\Lambda^3}f_{3/2}^{\pm}(z)\right]+\mu \expval{N}=\frac{3}{2}\frac{V}{\beta\Lambda^3}f_{5/2}^{\pm}(z)=\frac{3}{2}k_{\rm B}T\frac{V}{\Lambda^3}f_{5/2}^{\pm}(z)\\
+P_\pm&=k_{\rm B}T\left(\pdv{\ln\Xi_\pm}{V}\right)_{T,\mu}=k_{\rm B}T\left[\pdv{}{V}\left(\frac{V}{\Lambda^3}f_{5/2}^{\pm}(z)\right)\right]_{T,\mu}=\frac{k_{\rm B}T}{\Lambda^3}f_{5/2}^{\pm}(z)\\
+\end{aligned}\]
 写成更接近经典状态方程的形式：
 \[\boxed{\frac{P_{\pm}V}{\expval{N}k_{\rm B}T}=\frac{f_{5/2}^{\pm}(z)}{f_{3/2}^{\pm}(z)}=1\mp\frac{z}{2^{5/2}}+\left(\frac{1}{16}-\frac{2}{3^{5/2}}\right)z^2+\mathcal{O}(z^3)}\]
-在高温低密度极限$z\ll 1$下，因此立刻退化回经典结果$PV=Nk_{\rm B}T$。
-
-若固定粒子数密度$n=N/V$，再引入温度尺度
-\[
-T_Q=\frac{2\pi\hbar^2}{mk_{\rm B}}n^{2/3}
-\]
-则有$n\Lambda^3=(T_Q/T)^{3/2}$，从而可把费米气体、玻色气体与经典理想气体的压强放在同一张图中比较：
+在高温低密度极限$z\ll 1$下，因此立刻退化回经典结果$PV=Nk_{\rm B}T$。若固定粒子数密度$n=N/V$，再引入温度尺度$T_Q=2\pi\hbar^2n^{2/3}/mk_{\rm B}$，则有$n\Lambda^3=(T_Q/T)^{3/2}$，从而可把费米气体、玻色气体与经典理想气体的压强放在同一张图中比较：
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}
 \begin{axis}[
-width=0.6\textwidth,
-height=0.5\textwidth,
+width=0.5\textwidth,
+height=0.4\textwidth,
 xlabel={$T/T_Q$},
 ylabel={$P/(n k_{\rm B}T_Q)$},
 xmin=0.0, xmax=2.0,
@@ -697,8 +728,80 @@ tick align=outside
 \node[gray,anchor=south west] at (axis cs:0.54,0.12) {$T_c$};
 \end{axis}
 \end{tikzpicture}
-\caption{固定数密度$n$下三维理想费米气体、玻色气体与经典理想气体的压强-温度关系。这里横轴取$T/T_Q$，纵轴取$P/(n k_{\rm B}T_Q)$。玻色气体在$T_c/T_Q=\zeta(3/2)^{-2/3}\approx 0.527$处发生 Bose-Einstein 凝聚。}
+\caption{\label{fig:pressure_fd_mb_be}固定数密度$n$下三维理想费米气体、玻色气体与经典理想气体的压强-温度关系。这里横轴取$T/T_Q$，纵轴取$P/(n k_{\rm B}T_Q)$。费米气体在零温下依然有压强$0.4n\varepsilon_F$，由公式\eqref{eq:fd_pt}描述；玻色气体在$T_c/T_Q=\zeta(3/2)^{-2/3}\approx 0.527$处发生 Bose-Einstein 凝聚。}
 \end{figure}
+\newpage
+
+上面我们计算了量子气体在有限温度下的平均粒子数$\expval{N}$，内能$U$和压强$P$。回到玻色气体的情况，在$T>T_c$时，只剩最关键的化学势$\mu$和热容$C_V$需要处理。先看化学势$\mu$：
+\[
+n=\frac{N}{V}=\frac{1}{\Lambda^3}f_{3/2}^+(z),\quad z=e^{\beta\mu}.
+\]
+由公式\eqref{eq:special_function}可知，对玻色气体有
+\[
+f_{3/2}^+(z)=\sum_{l=1}^{\infty}\frac{z^l}{l^{3/2}}
+=z+\frac{z^2}{2^{3/2}}+\frac{z^3}{3^{3/2}}+\cdots,\quad 0<z<1.
+\]
+因此在给定$n$和$T$时，$z$由下式唯一确定：
+\[
+f_{3/2}^+(z)=n\Lambda^3.
+\]
+再利用临界温度处的关系$n\Lambda_c^3=\zeta(3/2)$以及$\Lambda^3=\Lambda_c^3(T_c/T)^{3/2}$，得到
+\[
+f_{3/2}^+(z)=\zeta\left(\frac{3}{2}\right)\left(\frac{T_c}{T}\right)^{3/2}.
+\]
+由于$f_{3/2}^+(z)$在$0<z<1$上单调递增，可以把上式反解为
+\[
+\boxed{\mu(T)=k_{\rm B}T\ln z
+=k_{\rm B}T\ln\left\{\left(f_{3/2}^+\right)^{-1}
+\left[\zeta\left(\frac{3}{2}\right)\left(\frac{T_c}{T}\right)^{3/2}\right]\right\}<0,\quad T>T_c.}
+\]
+这里的$\left(f_{3/2}^+\right)^{-1}$表示特殊函数$f_{3/2}^+(z)$关于变量$z$的反函数。若进一步考虑高温低密度极限$z\ll1$，令$y=n\Lambda^3$，则由级数反演得到
+\[
+z=y-\frac{y^2}{2^{3/2}}+\left(\frac{1}{4}-\frac{1}{3^{3/2}}\right)y^3+\mathcal{O}(y^4).
+\]
+于是玻色气体化学势的经典极限修正为
+\[
+\boxed{\frac{\mu}{k_{\rm B}T}
+=\ln(n\Lambda^3)-\frac{n\Lambda^3}{2^{3/2}}
++\left(\frac{3}{16}-\frac{1}{3^{3/2}}\right)(n\Lambda^3)^2
++\mathcal{O}\left[(n\Lambda^3)^3\right].}
+\]
+第一项就是经典理想气体的化学势，后面的负修正来自玻色统计的聚束效应。另一方面，当$T\to T_c^+$时，右端趋于$\zeta(3/2)$，故$z\to1^-$并且$\mu\to0^-$。
+
+为了求热容，需要注意此时$z=z(T)$，不能把它当作常数。先对粒子数守恒式
+\[
+N=\frac{V}{\Lambda^3}f_{3/2}^+(z)
+\]
+在$V,N$固定条件下对$T$求导：
+\[\begin{aligned}
+0&=\left(\pdv{N}{T}\right)_{V,N}
+=\frac{V}{\Lambda^3}\left[\frac{3}{2T}f_{3/2}^+(z)+\frac{1}{z}f_{1/2}^+(z)\left(\pdv{z}{T}\right)_{V,N}\right].
+\end{aligned}\]
+因此
+\[
+\frac{T}{z}\left(\pdv{z}{T}\right)_{V,N}=-\frac{3}{2}\frac{f_{3/2}^+(z)}{f_{1/2}^+(z)}.
+\]
+于是热容为
+\[\begin{aligned}
+C_V&=\left(\pdv{U}{T}\right)_{V,N}
+=\frac{3}{2}\frac{Vk_{\rm B}}{\Lambda^3}\left[\frac{5}{2}f_{5/2}^+(z)+\frac{T}{z}f_{3/2}^+(z)\left(\pdv{z}{T}\right)_{V,N}\right]\\
+&=\frac{3}{2}\frac{Vk_{\rm B}}{\Lambda^3}\left[\frac{5}{2}f_{5/2}^+(z)-\frac{3}{2}\frac{\left(f_{3/2}^+(z)\right)^2}{f_{1/2}^+(z)}\right]\\
+&=\boxed{\frac{3}{2}Nk_{\rm B}\left[\frac{5}{2}\frac{f_{5/2}^+(z)}{f_{3/2}^+(z)}-\frac{3}{2}\frac{f_{3/2}^+(z)}{f_{1/2}^+(z)}\right]}.
+\end{aligned}\]
+最后再利用理想非相对论气体的关系$P=2U/3V$，得到压强：
+\[
+\boxed{P=\frac{2U}{3V}=\frac{k_{\rm B}T}{\Lambda^3}f_{5/2}^+(z)}.
+\]
+当$T\to T_c^+$时有$z\to 1^-$，于是这些结果会平滑连接到临界点附近的玻色气体行为；当$T\gg T_c$时有$z\ll 1$，则会逐渐回到经典理想气体极限。
+特别地，在临界点下方有
+\[\frac{C_V(T_c^-)}{Nk_{\rm B}}=\frac{15}{4}\frac{\zeta(5/2)}{\zeta(3/2)}\approx 1.93\]
+因此理想玻色气体的热容在$T_c$处本身是连续的，但其导数会发生跃变。
+
+
+\newpage
+
+
+
 
 \subsection{两个典型例子：自由自旋与量子谐振子}
 作为例子，先看处在外磁场$B$中的$N$个彼此独立的自旋$\frac{1}{2}$粒子。设单个自旋的磁矩大小为$\mu$，则其两能级为
