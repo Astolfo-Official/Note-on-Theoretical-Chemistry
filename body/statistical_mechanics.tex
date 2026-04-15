@@ -732,129 +732,123 @@ tick align=outside
 \end{figure}
 \newpage
 
-上面我们计算了量子气体在有限温度下的平均粒子数$\expval{N}$，内能$U$和压强$P$。回到玻色气体的情况，在$T>T_c$时，只剩最关键的化学势$\mu$和热容$C_V$需要处理。先看化学势$\mu$：
-\[
-n=\frac{N}{V}=\frac{1}{\Lambda^3}f_{3/2}^+(z),\quad z=e^{\beta\mu}.
-\]
-由公式\eqref{eq:special_function}可知，对玻色气体有
-\[
-f_{3/2}^+(z)=\sum_{l=1}^{\infty}\frac{z^l}{l^{3/2}}
-=z+\frac{z^2}{2^{3/2}}+\frac{z^3}{3^{3/2}}+\cdots,\quad 0<z<1.
-\]
-因此在给定$n$和$T$时，$z$由下式唯一确定：
-\[
-f_{3/2}^+(z)=n\Lambda^3.
-\]
-再利用临界温度处的关系$n\Lambda_c^3=\zeta(3/2)$以及$\Lambda^3=\Lambda_c^3(T_c/T)^{3/2}$，得到
-\[
-f_{3/2}^+(z)=\zeta\left(\frac{3}{2}\right)\left(\frac{T_c}{T}\right)^{3/2}.
-\]
-由于$f_{3/2}^+(z)$在$0<z<1$上单调递增，可以把上式反解为
-\[
-\boxed{\mu(T)=k_{\rm B}T\ln z
-=k_{\rm B}T\ln\left\{\left(f_{3/2}^+\right)^{-1}
-\left[\zeta\left(\frac{3}{2}\right)\left(\frac{T_c}{T}\right)^{3/2}\right]\right\}<0,\quad T>T_c.}
-\]
-这里的$\left(f_{3/2}^+\right)^{-1}$表示特殊函数$f_{3/2}^+(z)$关于变量$z$的反函数。若进一步考虑高温低密度极限$z\ll1$，令$y=n\Lambda^3$，则由级数反演得到
-\[
-z=y-\frac{y^2}{2^{3/2}}+\left(\frac{1}{4}-\frac{1}{3^{3/2}}\right)y^3+\mathcal{O}(y^4).
-\]
-于是玻色气体化学势的经典极限修正为
-\[
-\boxed{\frac{\mu}{k_{\rm B}T}
-=\ln(n\Lambda^3)-\frac{n\Lambda^3}{2^{3/2}}
-+\left(\frac{3}{16}-\frac{1}{3^{3/2}}\right)(n\Lambda^3)^2
-+\mathcal{O}\left[(n\Lambda^3)^3\right].}
-\]
+上面我们计算了量子气体在有限温度下的平均粒子数$\expval{N}$，内能$U$和压强$P$。回到玻色气体的情况，在$T>T_c$时，只剩最关键的化学势$\mu$和热容$C_V$需要处理。先看化学势$\mu$。由公式\eqref{eq:special_function}可知，对玻色气体有：
+\[f_{3/2}^+(z)=\sum_{l=1}^{\infty}\frac{z^l}{l^{3/2}}=z+\frac{z^2}{2^{3/2}}+\frac{z^3}{3^{3/2}}+\cdots,\quad 0<z<1\]
+因此在给定$n$和$T$时，$z$由$f_{3/2}^+(z)=n\Lambda^3$唯一确定。临界温度时$n\Lambda_c^3=\zeta(3/2)$以及$\Lambda^3=\Lambda_c^3(T_c/T)^{3/2}$，则：
+\[f_{3/2}^+(z)=\zeta\left(\frac{3}{2}\right)\left(\frac{T_c}{T}\right)^{3/2}\]
+由于$f_{3/2}^+(z)$在$0<z<1$上单调递增，可以把上式反解为：
+\begin{equation}\label{eq:mu_be}
+\boxed{\mu(T)=k_{\rm B}T\ln z=k_{\rm B}T\ln\left\{\left(f_{3/2}^+\right)^{-1}\left[\zeta\left(\frac{3}{2}\right)\left(\frac{T_c}{T}\right)^{3/2}\right]\right\}, \quad T>T_c}
+\end{equation}
+这里的$\left(f_{3/2}^+\right)^{-1}$表示特殊函数$f_{3/2}^+(z)$关于变量$z$的反函数。若考虑高温低密度极限$z\ll1$，令$y=n\Lambda^3$，则：
+\[z=y-\frac{y^2}{2^{3/2}}+\left(\frac{1}{4}-\frac{1}{3^{3/2}}\right)y^3+\mathcal{O}(y^4)\]
+于是玻色气体化学势的经典极限修正为：
+\[\boxed{\frac{\mu}{k_{\rm B}T}=\ln(n\Lambda^3)-\frac{n\Lambda^3}{2^{3/2}}+\left(\frac{3}{16}-\frac{1}{3^{3/2}}\right)(n\Lambda^3)^2+\mathcal{O}\left[(n\Lambda^3)^3\right]}\]
 第一项就是经典理想气体的化学势，后面的负修正来自玻色统计的聚束效应。另一方面，当$T\to T_c^+$时，右端趋于$\zeta(3/2)$，故$z\to1^-$并且$\mu\to0^-$。
 
-为了求热容，需要注意此时$z=z(T)$，不能把它当作常数。先对粒子数守恒式
-\[
-N=\frac{V}{\Lambda^3}f_{3/2}^+(z)
-\]
-在$V,N$固定条件下对$T$求导：
+求热容时需要注意此时$z=z(T)$，不能把它当作常数。先对粒子数守恒式在$V,N$固定条件下对$T$求导：
+\[0=\left(\pdv{N}{T}\right)_{V,N}=\frac{V}{\Lambda^3}\left[\frac{3}{2T}f_{3/2}^+(z)+\frac{1}{z}f_{1/2}^+(z)\left(\pdv{z}{T}\right)_{V,N}\right] \quad \Rightarrow \quad \frac{T}{z}\left(\pdv{z}{T}\right)_{V,N}=-\frac{3}{2}\frac{f_{3/2}^+(z)}{f_{1/2}^+(z)}\]
+于是热容$C_V$为：
+\[\boxed{C_V=\left(\pdv{U}{T}\right)_{V,N}
+=\frac{3}{2}\frac{Vk_{\rm B}}{\Lambda^3}\left[\frac{5}{2}f_{5/2}^+(z)+\frac{T}{z}f_{3/2}^+(z)\left(\pdv{z}{T}\right)_{V,N}\right]=\frac{3}{2}Nk_{\rm B}\left[\frac{5}{2}\frac{f_{5/2}^+(z)}{f_{3/2}^+(z)}-\frac{3}{2}\frac{f_{3/2}^+(z)}{f_{1/2}^+(z)}\right]}\]
+当$T\to T_c^+$时有$z\to 1^-$，于是这些结果会平滑连接到临界点附近的玻色气体行为；当$T\gg T_c$时有$z\ll 1$，则会逐渐回到经典理想气体极限$C_V=3Nk_{\rm B}/2$。特别地，当$T \to T_c^+$时，$z \to 1^-$，$f_{1/2}^+(z) \to \infty$：
+\[\frac{C_V(T_c^+)}{Nk_{\rm B}}\to\frac{3}{2}\left[\frac{5}{2}\frac{\zeta(5/2)}{\zeta(3/2)}-0\right]=\frac{15}{4}\frac{\zeta(5/2)}{\zeta(3/2)}\approx 1.93=\frac{C_V(T_c^-)}{Nk_{\rm B}}\]
+因此理想玻色气体的热容在$T_c$处本身是连续的，但其导数会发生跃变：
 \[\begin{aligned}
-0&=\left(\pdv{N}{T}\right)_{V,N}
-=\frac{V}{\Lambda^3}\left[\frac{3}{2T}f_{3/2}^+(z)+\frac{1}{z}f_{1/2}^+(z)\left(\pdv{z}{T}\right)_{V,N}\right].
+\left(\pdv{C_V}{T}\right)_{V,N}&=\frac{3}{2}Nk_{\rm B}\frac{1}{z}\left(\pdv{z}{T}\right)_{V,N}\left[\frac{5}{2}\frac{\left[f_{3/2}^+(z)\right]^2-f_{5/2}^+(z)f_{1/2}^+(z)}{\left[f_{3/2}^+(z)\right]^2}-\frac{3}{2}\frac{\left[f_{1/2}^+(z)\right]^2-f_{3/2}^+(z)f_{-1/2}^+(z)}{\left[f_{1/2}^+(z)\right]^2}\right]\\
+&=-\frac{9}{4}\frac{Nk_{\rm B}}{T}\frac{f_{3/2}^+(z)}{f_{1/2}^+(z)}\left[\frac{5}{2}\frac{\left[f_{3/2}^+(z)\right]^2-f_{5/2}^+(z)f_{1/2}^+(z)}{\left[f_{3/2}^+(z)\right]^2}-\frac{3}{2}\frac{\left[f_{1/2}^+(z)\right]^2-f_{3/2}^+(z)f_{-1/2}^+(z)}{\left[f_{1/2}^+(z)\right]^2}\right]
 \end{aligned}\]
-因此
-\[
-\frac{T}{z}\left(\pdv{z}{T}\right)_{V,N}=-\frac{3}{2}\frac{f_{3/2}^+(z)}{f_{1/2}^+(z)}.
-\]
-于是热容为
+令$\tau=-\ln z$。当$T\to T_c^+$时，$z\to 1^-$，$\tau\to0^+$。利用$\operatorname{Li}_s(e^{-\tau})$在$\tau\to0^+$时的渐近展开，可得：
+\[f_{3/2}^+(z)\to \zeta\left(\frac{3}{2}\right),\quad f_{5/2}^+(z)\to \zeta\left(\frac{5}{2}\right),\quad f_{1/2}^+(z)\sim\sqrt{\pi}\tau^{-1/2},\quad f_{-1/2}^+(z)\sim\frac{\sqrt{\pi}}{2}\tau^{-3/2}\]
+特别地，
+\[\lim_{\tau\to0^+}\frac{1}{f_{1/2}^+(z)}=0,\quad \lim_{\tau\to0^+}\frac{f_{-1/2}^+(z)}{\left[f_{1/2}^+(z)\right]^3}=\frac{\frac{\sqrt{\pi}}{2}}{\left(\sqrt{\pi}\right)^3}=\frac{1}{2\pi}\]
+于是需要保留下列两个有限贡献：
 \[\begin{aligned}
-C_V&=\left(\pdv{U}{T}\right)_{V,N}
-=\frac{3}{2}\frac{Vk_{\rm B}}{\Lambda^3}\left[\frac{5}{2}f_{5/2}^+(z)+\frac{T}{z}f_{3/2}^+(z)\left(\pdv{z}{T}\right)_{V,N}\right]\\
-&=\frac{3}{2}\frac{Vk_{\rm B}}{\Lambda^3}\left[\frac{5}{2}f_{5/2}^+(z)-\frac{3}{2}\frac{\left(f_{3/2}^+(z)\right)^2}{f_{1/2}^+(z)}\right]\\
-&=\boxed{\frac{3}{2}Nk_{\rm B}\left[\frac{5}{2}\frac{f_{5/2}^+(z)}{f_{3/2}^+(z)}-\frac{3}{2}\frac{f_{3/2}^+(z)}{f_{1/2}^+(z)}\right]}.
+\lim_{T\to T_c^+}\frac{T}{Nk_{\rm B}}\left(\pdv{C_V}{T}\right)_{V,N}
+&=-\frac{9}{4}\lim_{\tau\to0^+}\frac{\zeta\left(\frac{3}{2}\right)}{f_{1/2}^+(z)}
+\left[\frac{5}{2}\frac{\zeta^2\left(\frac{3}{2}\right)-\zeta\left(\frac{5}{2}\right)f_{1/2}^+(z)}{\zeta^2\left(\frac{3}{2}\right)}-\frac{3}{2}\frac{\left[f_{1/2}^+(z)\right]^2-\zeta\left(\frac{3}{2}\right)f_{-1/2}^+(z)}{\left[f_{1/2}^+(z)\right]^2}\right]\\
+&=-\frac{9}{4}\left[-\frac{5}{2}\frac{\zeta\left(\frac{5}{2}\right)}{\zeta\left(\frac{3}{2}\right)}-\frac{3}{2}\lim_{\tau\to0^+}\left(\frac{\zeta\left(\frac{3}{2}\right)}{f_{1/2}^+(z)}-\frac{\zeta^2\left(\frac{3}{2}\right)f_{-1/2}^+(z)}{\left[f_{1/2}^+(z)\right]^3}\right)\right]\\
+&=-\frac{9}{4}\left[-\frac{5}{2}\frac{\zeta\left(\frac{5}{2}\right)}{\zeta\left(\frac{3}{2}\right)}+\frac{3}{4\pi}\zeta^2\left(\frac{3}{2}\right)\right]
+=\frac{45}{8}\frac{\zeta(5/2)}{\zeta(3/2)}-\frac{27}{16\pi}\zeta^2\left(\frac{3}{2}\right).
 \end{aligned}\]
-最后再利用理想非相对论气体的关系$P=2U/3V$，得到压强：
-\[
-\boxed{P=\frac{2U}{3V}=\frac{k_{\rm B}T}{\Lambda^3}f_{5/2}^+(z)}.
-\]
-当$T\to T_c^+$时有$z\to 1^-$，于是这些结果会平滑连接到临界点附近的玻色气体行为；当$T\gg T_c$时有$z\ll 1$，则会逐渐回到经典理想气体极限。
-特别地，在临界点下方有
-\[\frac{C_V(T_c^-)}{Nk_{\rm B}}=\frac{15}{4}\frac{\zeta(5/2)}{\zeta(3/2)}\approx 1.93\]
-因此理想玻色气体的热容在$T_c$处本身是连续的，但其导数会发生跃变。
+因此：
+\[\lim_{T\to T_c^+}\left(\pdv{C_V}{T}\right)_{V,N}=\frac{Nk_{\rm B}}{T_c}\left[\frac{45}{8}\frac{\zeta(5/2)}{\zeta(3/2)}-\frac{27}{16\pi}\zeta^2\left(\frac{3}{2}\right)\right]\approx -0.78\frac{Nk_{\rm B}}{T_c}\]
+与此同时，$T\to T_c^-$时，热容的导数为：
+\[\lim_{T\to T_c^+}\left(\pdv{C_V}{T}\right)_{V,N}=\frac{15}{4}Nk_{\rm B}\frac{\zeta(5/2)}{\zeta(3/2)}\pdv{T}\left(\frac{T}{T_c}\right)^{3/2}=\frac{45}{8}\frac{\zeta(5/2)}{\zeta(3/2)}\frac{Nk_{\rm B}}{T_c}\approx2.89\frac{Nk_{\rm B}}{T_c}\]
+明显看到热容的导数在$T_c$处发生了跃变。
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.4\textwidth]{fig/statistical_mechanics/be_cv.png}
+\end{figure}
 
+最后我们再看看压缩率的突变。由压强的定义式可知：
+\[\kappa_T=-\frac{1}{V}\left(\pdv{V}{P}\right)_{T,N}=-\frac{1}{V}\left(\pdv{P}{V}\right)_{T,N}^{-1}=-\frac{1}{V}\left[\pdv{}{V}\left(\frac{k_{\rm B}T}{\Lambda^3}f_{5/2}^+(z)\right)\right]_{T,N}^{-1}=-\frac{1}{V}\left[\frac{k_{\rm B}T}{\Lambda^3}\frac{f_{3/2}^+(z)}{z}\pdv{z}{V}\right]_{T,N}^{-1}\]
+由于化学势与体积有关系($T_c \propto n^{2/3}$) [公式\ref{eq:mu_be}]，用同样的技巧对粒子数守恒式在$T,N$固定条件下对$V$求导：
+\[0=\left(\pdv{N}{V}\right)_{T,N}=\frac{1}{\Lambda^3}\left[f_{3/2}^+(z)+\frac{1}{z}f_{1/2}^+(z)\left(\pdv{z}{V}\right)_{T,N}\right] \quad \Rightarrow \quad \frac{V}{z}\left(\pdv{z}{V}\right)_{T,N}=-\frac{f_{3/2}^+(z)}{f_{1/2}^+(z)}\]
+于是：
+\[\boxed{\kappa_T=\frac{1}{n k_{\rm B}T}\frac{f_{1/2}^+(z)}{f_{3/2}^+(z)}}\]
+当$T\to T_c$时，$z\to 1$，$f_{1/2}^+(z)\to \infty$，因此压缩率在$T_c$处$\kappa_T\to\infty$发散。另一方面在巨正则系综中压缩率跟粒子数涨落$\expval{(\Delta N)^2}$成正比：
+\[\kappa_T=\frac{1}{k_{\rm B}T}\frac{\expval{(\Delta N)^2}}{\expval{N}}\]
+因此在$T_c$处粒子数涨落也会发生突变，对应了 Bose-Einstein 凝聚的发生。
 
 \newpage
+\subsection{例子：泡利顺磁性}
+前面讨论理想费米气体时，主要关注的是动量自由度。若电子置于外磁场中，即使忽略轨道效应，电子自旋也会带来一个重要的磁响应，这就是泡利顺磁性。设磁场沿$z$方向，为了避免和化学势$\mu$混淆，把玻尔磁子记为$\mu_{\rm B}$，则单电子哈密顿量可写为：
+\[\hat h=\frac{\hat{\mathbf p}^2}{2m}-\mu_{\rm B}\sigma_z B\]
+自旋平行与反平行于磁场的单粒子能量分别为：
+\[\varepsilon_{\mathbf p,+}=\frac{\mathbf p^2}{2m}-\mu_{\rm B}B ,\quad \varepsilon_{\mathbf p,-}=\frac{\mathbf p^2}{2m}+\mu_{\rm B}B\]
+因此可以把体系的哈密顿量$\hat{H}$和粒子数算符$\hat{N}$写成如下形式：
+\[\hat H=\sum_{\mathbf p}\left(\varepsilon_{\mathbf p,+}\hat n_{\mathbf p}^++\varepsilon_{\mathbf p,-}\hat n_{\mathbf p}^-\right),\quad \hat N=\sum_{\mathbf p}\left(\hat n_{\mathbf p}^++\hat n_{\mathbf p}^-\right) \quad \Rightarrow \quad \hat H-\mu\hat N=\sum_{\mathbf p}\left[\left(\varepsilon_{\mathbf p,+}-\mu\right)\hat n_{\mathbf p}^++\left(\varepsilon_{\mathbf p,-}-\mu\right)\hat n_{\mathbf p}^-\right]\]
+在巨正则系综中，对每一个动量态$\mathbf p$，两种自旋占据数$n_{\mathbf p}^{\pm}=0,1$彼此独立，因此：
+\[\begin{aligned}
+Z_{\rm G}=\Tr e^{-\beta(\hat{H}-\mu\hat{N})}&=\sum_{n_{\mathbf{p}}^{\pm}}\exp\left(-\beta\sum_{\mathbf{p}}\left[(\varepsilon_{\mathbf{p},+}-\mu)n_{\mathbf{p}}^++(\varepsilon_{\mathbf{p},i}-\mu)n_{\mathbf{p}}^-\right]\right)=\sum_{n_{\mathbf{p}}^{\pm}}\prod_{\mathbf{p}}e^{-\beta\left[(\varepsilon_{\mathbf{p},+}-\mu)n_{\mathbf{p}}^++(\varepsilon_{\mathbf{p},i}-\mu)n_{\mathbf{p}}^-\right]}\\
+&=\prod_{\mathbf{p}}\left(\sum_{n_{\mathbf{p}}^+=0}^1\sum_{n_{\mathbf{p}}^-=0}^1e^{-\beta\left[(\varepsilon_{\mathbf{p},+}-\mu)n_{\mathbf{p}}^++(\varepsilon_{\mathbf{p},i}-\mu)n_{\mathbf{p}}^-\right]}\right)=\prod_{\mathbf{p}}\left(1+e^{-\beta(\varepsilon_{\mathbf{p},+}-\mu)}\right)\left(1+e^{-\beta(\varepsilon_{\mathbf{p},i}-\mu)}\right)\\
+&=\prod_{\mathbf{p}}\left[1+\exp\left(-\beta(\frac{\mathbf{p}^2}{2m}-\mu_0B-\mu)\right)\right]\left[1+\exp\left(-\beta(\frac{\mathbf{p}^2}{2m}+\mu_0B-\mu)\right)\right]\\
+\end{aligned}\]
+令$z=e^{\beta\mu}$，并引入两个自旋分支的有效逸度$z_{\pm}=ze^{\pm\beta\mu_{\rm B}B}$，于是巨配分函数可化为：
+\[\begin{aligned}
+\ln Z_G&=\sum_{\mathbf p}\ln\left(1+z_+e^{-\beta\mathbf p^2/2m}\right)+\sum_{\mathbf p}\ln\left(1+z_-e^{-\beta\mathbf p^2/2m}\right)\\
+&=\frac{V}{h^3}\int\ln\left[1+z_+\exp\left(-\frac{\beta\mathbf{p}^2}{2m}\right)\right]\dd{^3\mathbf{p}}+\frac{V}{h^3}\int\ln\left[1+z_-\exp\left(-\frac{\beta\mathbf{p}^2}{2m}\right)\right]\dd{^3\mathbf{p}}\\
+&=\frac{4\pi V}{h^3}\int_0^{\infty}\ln\left[1+z_+\exp\left(-\frac{\beta p^2}{2m}\right)\right]p^2\dd{p}+\frac{4\pi V}{h^3}\int_0^{\infty}\ln\left[1+z_-\exp\left(-\frac{\beta p^2}{2m}\right)\right]p^2\dd{p}\\
+&=\frac{4\pi V}{h^3}\sqrt{\frac{2m^3}{\beta^3}}\int_0^{\infty}\left[\ln\left(1+z_+e^{-x}\right)+\ln\left(1+z_-e^{-x}\right)\right]\sqrt{x}\dd{x}\\
+&=\frac{4\pi V}{h^3}\sqrt{\frac{2m^3}{\beta^3}}\int_0^{\infty}\left[\ln\left(1+z_+e^{-x}\right)+\ln\left(1+z_-e^{-x}\right)\right]\dd{\left(\frac{2}{3}x^{\frac{3}{2}}\right)}\\
+&=\frac{8\pi V}{3h^3}\sqrt{\frac{2m^3}{\beta^3}}\int_0^{\infty}\left[\frac{z_+e^{-x}}{1+z_+e^{-x}}+\frac{z_-e^{-x}}{1+z_-e^{-x}}\right]x^{\frac{3}{2}}\dd{x}\\
+&=\frac{8\pi V}{3h^3}\sqrt{\frac{2m^3}{\beta^3}}\left(\int_0^{\infty}\frac{x^{\frac{3}{2}}}{z_+^{-1}e^x+1}\dd{x}+\int_0^{\infty}\frac{x^{\frac{3}{2}}}{z_-^{-1}e^x+1}\dd{x}\right)\\
+&=\frac{8\pi V}{3h^3}\sqrt{\frac{2m^3}{\beta^3}}\Gamma\left(\frac{5}{2}\right)\left[f_{5/2}^-(z_+)+f_{5/2}^-(z_-)\right]\\
+&=V\left(\frac{2m\pi}{\beta h^2}\right)^\frac{3}{2}\left[f_{5/2}^-(z_+)+f_{5/2}^-(z_-)\right]\\
+&=\frac{V}{\lambda^3}\left[f_{5/2}^-(z_+)+f_{5/2}^-(z_-)\right]
+\end{aligned}\]
+因此巨势为：
+\[\Phi_G=-k_{\rm B}T\ln\Xi=-\frac{Vk_{\rm B}T}{\Lambda^3}\left[f_{5/2}^-(z_+)+f_{5/2}^-(z_-)\right]\]
 
+另一方面，对于不同自旋的平均粒子数$N_\pm$，可以直接从分配函数的定义式出发：
+\[Z_{\rm G}=\prod_{\mathbf{p}}\left(\sum_{n_{\mathbf{p}}^+=0}^1\sum_{n_{\mathbf{p}}^-=0}^1e^{-\beta\left[(\varepsilon_{\mathbf{p},+}-\mu)n_{\mathbf{p}}^++(\varepsilon_{\mathbf{p},i}-\mu)n_{\mathbf{p}}^-\right]}\right)=\prod_{\mathbf{p}}\left\{\sum_{n_{\mathbf{p}}^+=0}^1\sum_{n_{\mathbf{p}}^-=0}^1\exp\left[-\frac{\beta\mathbf{p}^2}{2m}(n_{\mathbf{p}}^++n_{\mathbf{p}}^-)\right]z_+^{n_{\mathbf{p}}^+}z_-^{n_{\mathbf{p}}^-}\right\}\]
+计算导数：
+\[\begin{aligned}
+z_{\pm}\pdv{Z_G}{z_{\pm}}&=z_{\pm}\pdv{z_{\pm}}\prod_{\mathbf{p}}\left\{\sum_{n_{\mathbf{p}}^+=0}^1\sum_{n_{\mathbf{p}}^-=0}^1\exp\left[-\frac{\beta\mathbf{p}^2}{2m}(n_{\mathbf{p}}^++n_{\mathbf{p}}^-)\right]z_+^{n_{\mathbf{p}}^+}z_-^{n_{\mathbf{p}}^-}\right\}\\
+&=\prod_{\mathbf{p}}\left\{\sum_{n_{\mathbf{p}}^+=0}^1\sum_{n_{\mathbf{p}}^-=0}^1\exp\left[-\frac{\beta\mathbf{p}^2}{2m}(n_{\mathbf{p}}^++n_{\mathbf{p}}^-)\right]n_{\mathbf{p}}^{\pm}z_+^{n_{\mathbf{p}}^+}z_-^{n_{\mathbf{p}}^-}\right\}
+\end{aligned}\]
+然后可以带入平均粒子数$N_\pm$的定义式：
+\[N_{\pm}=\frac{1}{Z_G}\prod_{\mathbf{p}}\left\{\sum_{n_{\mathbf{p}}^+=0}^1\sum_{n_{\mathbf{p}}^-=0}^1\exp\left[-\frac{\beta\mathbf{p}^2}{2m}(n_{\mathbf{p}}^++n_{\mathbf{p}}^-)\right]n_{\mathbf{p}}^{\pm}z_+^{n_{\mathbf{p}}^+}z_-^{n_{\mathbf{p}}^-}\right\}=\frac{z_{\pm}}{Z_G}\pdv{Z_G}{z_{\pm}}=z_{\pm}\pdv{\ln Z_G}{z_{\pm}}=\frac{1}{\Lambda^3}f_{3/2}^-(z_{\pm})\]
 
+进而在弱磁场极限下，$z_\pm=z(1\pm\beta\mu_{\rm B}B)$，可以计算系统的总磁矩$M=\mu_{\rm B}(N_+-N_-)$和零场磁化率$\chi(T)$：
+\[M=\frac{V\mu_{\rm B}}{\Lambda^3}\left[f_{3/2}^-(z_+)-f_{3/2}^-(z_-)\right]\approx\frac{2\beta V\mu_{\rm B}^2B}{\Lambda^3}f_{1/2}^-(z) \quad \Rightarrow \quad \chi(T)=\eval{\pdv{M}{B}}_{B=0}=\frac{2\beta V\mu_{\rm B}^2}{\Lambda^3}f_{1/2}^-(e^{\beta\mu})\]
+另一方面，$B=0$时两种自旋分支简并，粒子数满足：
+\[
+N=N_+(z)+N_-(z)=\frac{V}{\Lambda^3}f_{3/2}^-(e^{\beta\mu})+\frac{V}{\Lambda^3}f_{3/2}^-(e^{\beta\mu})=\frac{2V}{\Lambda^3}f_{3/2}^-(e^{\beta\mu}),
+\]
+所以每个粒子的磁化率可以写为：
+\[\boxed{\frac{\chi(T)}{N}=\beta\mu_{\rm B}^2\frac{f_{1/2}^-(e^{\beta\mu})}{f_{3/2}^-(e^{\beta\mu})}}\]
+低温时$\ln z=\beta\mu\to\infty$且$\mu\to E_F$，利用$f_n^-(z)\sim[\ln z]^n/n\Gamma(n)$可得：
+\[\frac{\chi(T)}{N}\to\beta\mu_{\rm B}^2\frac{2(\beta\mu)^{1/2}/\sqrt{\pi}}{4(\beta\mu)^{3/2}/(3\sqrt{\pi})}=\frac{3\mu_{\rm B}^2}{2\mu}\to\frac{3\mu_{\rm B}^2}{2E_F}\]
+这说明低温费米气体的顺磁响应不会像经典自旋气体那样随$1/T$发散，而是由费米面附近少数可以翻转自旋的电子决定。高温低密度时$z=e^{\beta\mu}\ll1$，有$f_n^-(z)\approx z$，于是：
+\[\frac{\chi(T)}{N}\approx\beta\mu_{\rm B}^2=\frac{\mu_{\rm B}^2}{k_{\rm B}T}\]
+回到经典居里定律。
 
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{fig/statistical_mechanics/Q3d.pdf}
+\end{figure}
 
-\subsection{两个典型例子：自由自旋与量子谐振子}
-作为例子，先看处在外磁场$B$中的$N$个彼此独立的自旋$\frac{1}{2}$粒子。设单个自旋的磁矩大小为$\mu$，则其两能级为
-\[
-\varepsilon_{\pm}=\mp \mu B.
-\]
-单个粒子的配分函数为
-\[
-z_1=e^{\beta\mu B}+e^{-\beta\mu B}=2\cosh(\beta\mu B),
-\]
-于是$N$个独立自旋的正则配分函数就是
-\[
-Z_N=z_1^N=\left[2\cosh(\beta\mu B)\right]^N.
-\]
-由此立刻得到自由能和内能
-\[
-F=-Nk_B T\ln\left[2\cosh(\beta\mu B)\right],
-\]
-\[
-U=-\pdv{\ln Z_N}{\beta}=-N\mu B\tanh(\beta\mu B).
-\]
-磁化强度可由自由能对磁场求导获得：
-\[
-M=-\left(\pdv{F}{B}\right)_{T,N}=N\mu\tanh(\beta\mu B).
-\]
-相应的热容为
-\[
-C_V=Nk_B(\beta\mu B)^2\,\text{sech}^2(\beta\mu B).
-\]
-这个模型虽然简单，却已经展示了量子能级离散化如何直接决定热容、磁化率和涨落行为。
-
-再看频率为$\omega$的一维量子谐振子，其能级为
-\[
-\varepsilon_n=\hbar\omega\left(n+\frac{1}{2}\right),\qquad n=0,1,2,\ldots.
-\]
-单个谐振子的配分函数可以直接求和得到
-\[
-z_1=\sum_{n=0}^{\infty}e^{-\beta\hbar\omega(n+1/2)}
-=\frac{e^{-\beta\hbar\omega/2}}{1-e^{-\beta\hbar\omega}}.
-\]
-于是
-\[
-F=-k_B T\ln z_1
-=\frac{1}{2}\hbar\omega+k_B T\ln\left(1-e^{-\beta\hbar\omega}\right),
-\]
-\[
-U=-\pdv{\ln z_1}{\beta}
-=\hbar\omega\left(\frac{1}{2}+\frac{1}{e^{\beta\hbar\omega}-1}\right).
-\]
-进一步得到热容
-\[
-C_V=k_B\frac{(\beta\hbar\omega)^2e^{\beta\hbar\omega}}{(e^{\beta\hbar\omega}-1)^2}.
-\]
-在高温极限$\beta\hbar\omega\ll 1$时，上式趋于$k_B$，回到经典等分配定理；而在低温极限下，热容指数衰减到$0$，这正是量子化能级结构的直接后果。
-
-综上所述，量子统计力学只是把“经典相空间中的概率密度”替换成了“希尔伯特空间中的密度算符”，但这一替换会带来两个深刻的新现象：一是熵和热力学量必须通过迹运算来定义；二是全同粒子的交换对称性会把系统分成玻色子与费米子两大类，并最终导致 Bose-Einstein 与 Fermi-Dirac 统计。理解了这两点，后续无论是处理电子气、光子气、声子、磁性模型还是凝聚态多体系统，都会有统一的出发点。
+对典型金属，费米温度常取$T_F\sim10^4\,{\rm K}$。室温远小于$T_F$，因此可用低温极限估算：
+\[\frac{\chi}{N}\approx\frac{3\mu_{\rm B}^2}{2E_F}=\frac{3\mu_{\rm B}^2}{2k_{\rm B}T_F}\approx\frac{3(9.274\times10^{-24}\,{\rm J/T})^2}{2(1.381\times10^{-23}\,{\rm J/K})(10^4\,{\rm K})}\approx9.3\times10^{-28}\,{\rm J/T^2}\]
