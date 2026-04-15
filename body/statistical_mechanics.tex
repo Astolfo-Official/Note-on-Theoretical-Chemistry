@@ -110,7 +110,7 @@ S(N,V,E) &=Nk_{\rm B}\left\{\ln\left[\frac{V}{N}\left(\frac{4\pi mE}{3Nh^2}\righ
 \[\Omega(N,V,E)=\frac{V^N}{N!h^{3N}}\frac{(2\pi m)^{3N/2}}{\Gamma(3N/2)}E^{3N/2-1}, \quad S(N,V,E) \sim Nk_{\rm B}\left[\frac{5}{2}-\ln(n\Lambda^3)\right]\]
 \[\left\{\begin{aligned}
 U&=E=\frac{3}{2}Nk_{\rm B} T\\
-F&=U-TS=-Nk_{\rm B} T\left[\ln\left(\frac{V}{N\Lambda^3}\right)+1\right]\\
+F&=U-TS=-Nk_{\rm B} T\left[-\ln\left(n\Lambda^3\right)+1\right]\\
 H&=U+PV=\frac{5}{2}Nk_{\rm B} T\\
 G&=F+PV=\mu N=Nk_{\rm B} T\ln(n\Lambda^3)\\
 \end{aligned}\right.
@@ -446,7 +446,7 @@ F&=U-TS=-k_{\rm B}T\ln Z
 \[\begin{aligned}
 U&=\Tr(\hat{\rho}_{\rm gc}\hat{H})=\frac{1}{\Xi}\Tr\left[e^{-\beta(\hat{H}-\mu\hat{N})}\hat{H}\right]=-\pdv{\beta}\ln\left[\Tr e^{-\beta(\hat{H}-\mu\hat{N})}\right]+\mu \expval{N}=-\pdv{\ln\Xi}{\beta}+\mu \expval{N}\\
 \expval{N}&=\Tr(\hat{\rho}_{\rm gc}\hat{N})=\frac{1}{\Xi}\Tr\left[e^{-\beta(\hat{H}-\mu\hat{N})}\hat{N}\right]=\frac{1}{\beta}\pdv{\ln\Xi}{\mu}\\
-S&=-k_{\rm B}\Tr[\hat{\rho}_{\rm gc}\ln\hat{\rho}_{\rm gc}]=-k_{\rm B}\Tr\left[\hat{\rho}_{\rm gc}\left(-\beta(\hat{H}-\mu\hat{N})-\hat{I}\ln \Xi\right)\right]=\frac{U}{T}+k_{\rm B}\ln \Xi\\
+S&=-k_{\rm B}\Tr[\hat{\rho}_{\rm gc}\ln\hat{\rho}_{\rm gc}]=-k_{\rm B}\Tr\left[\hat{\rho}_{\rm gc}\left(-\beta(\hat{H}-\mu\hat{N})-\hat{I}\ln \Xi\right)\right]=\frac{U}{T}-\frac{\mu}{T}\expval{N}+k_{\rm B}\ln \Xi\\
 \Phi_{\rm G}&=U-TS-\mu\expval{N}=-k_{\rm B}T\ln\Xi
 \end{aligned}\]
 \end{theorem}
@@ -515,9 +515,9 @@ U&=\Tr\left[\hat{\rho}_{\rm can}\hat{H}\right]=\sum_{\mathbf{k}}\bra{\mathbf{k}}
 \hat{H}\ket{\mathbf{k}_1,\mathbf{k}_2}_-=\left(\hat{h}_1+\hat{h}_2\right)\ket{\mathbf{k}_1,\mathbf{k}_2}_-
 =\frac{\hbar^2(\mathbf{k}_1^2+\mathbf{k}_2^2)}{2m}\ket{\mathbf{k}_1,\mathbf{k}_2}_-
 \]
-因此双费米子系统的正则配分函数可以写成：
+因此双费米子系统的正则配分函数可以写成（交换两个态上的两个同种粒子算是同一个状态，全同性）：
 \[\begin{aligned}
-Z_2^-&=\Tr\left[e^{-\beta\hat{H}}\right]=\frac{1}{2}\sum_{\mathbf{k}_1\neq \mathbf{k}_2}\bra{\mathbf{k}_1,\mathbf{k}_2} e^{-\beta\hat{H}}\ket{\mathbf{k}_1,\mathbf{k}_2}_-\\
+Z_2^-&=\Tr\left[e^{-\beta\hat{H}}\right]=\sum_{|\mathbf{k}_1|<|\mathbf{k}_2|}\bra{\mathbf{k}_1,\mathbf{k}_2} e^{-\beta\hat{H}}\ket{\mathbf{k}_1,\mathbf{k}_2}_-=\frac{1}{2}\sum_{\mathbf{k}_1\neq \mathbf{k}_2}\bra{\mathbf{k}_1,\mathbf{k}_2} e^{-\beta\hat{H}}\ket{\mathbf{k}_1,\mathbf{k}_2}_-\\
 &=\frac{1}{2}\sum_{\mathbf{k}_1,\mathbf{k}_2}\bra{\mathbf{k}_1,\mathbf{k}_2}_- e^{-\beta\hat{H}}\ket{\mathbf{k}_1,\mathbf{k}_2}-\frac{1}{2}\sum_{\mathbf{k}}\bra{\mathbf{k}}\otimes\bra{\mathbf{k}}e^{-\beta\hat{H}}\ket{\mathbf{k}}\otimes\ket{\mathbf{k}}\\
 &=\frac{1}{2}\frac{V^2}{(2\pi)^6}\iint \dd[3]{\mathbf{k}_1}\dd[3]{\mathbf{k}_2}\exp\left[-\frac{\beta\hbar^2(\mathbf{k}_1^2+\mathbf{k}_2^2)}{2m}\right]-\frac{1}{2}\frac{V}{(2\pi)^3}\int \dd[3]{\mathbf{k}}\exp\left(-\frac{\beta\hbar^2\mathbf{k}^2}{m}\right)\\
 &=\frac{1}{2}\frac{V^2}{(2\pi)^6}\left(\sqrt{\frac{2\pi m}{\beta\hbar^2}}\right)^6-\frac{1}{2}\frac{V}{(2\pi)^3}\left(\sqrt{\frac{\pi m}{\beta\hbar^2}}\right)^3=\frac{V^2}{2\Lambda^6}-\frac{V}{2^{5/2}\Lambda^3}=\frac{1}{2}\frac{V^2}{\Lambda^6}\left(1-\frac{\Lambda^3}{2^{3/2}V}\right)
@@ -539,13 +539,21 @@ Z_2^+&=\Tr\left[e^{-\beta\hat{H}}\right]=\frac{1}{2}\sum_{\mathbf{k}_1\neq \math
 \end{aligned}\]
 与费米子相比，玻色子交换项前面的符号变成正号，这反映了玻色子“偏好”占据同一个单粒子态。对比经典理想气体的二粒子配分函数$Z_2^{\rm (cl)}=V^2/2\Lambda^6$，量子效应在二粒子配分函数中引入了$\mathcal{O}(\Lambda^3/V)$的修正项。
 
-更有意思的是，记交换算符为$\hat{P}_{12}$，全同粒子投影算符$\hat{\Pi}_{\pm}=(1\pm \hat{P}_{12})/2$，可以将正则分布算符统一写成$\hat{\rho}_{\rm can}^{(\pm)}=\hat{\Pi}_{\pm}e^{-\beta \hat{H}}/Z_2^{(\pm)}$，我们看密度算符在坐标表象下的矩阵元$\bra{\mathbf{r}_1,\mathbf{r}_2}\hat{\rho}_{\rm can}^{(\pm)}\ket{\mathbf{r}_1',\mathbf{r}_2'}$：
-\[\bra{\mathbf{r}_1,\mathbf{r}_2}\hat{\rho}_{\rm can}^{(\pm)}\ket{\mathbf{r}_1',\mathbf{r}_2'}
-=\frac{1}{2Z_2^{(\pm)}}\left[\matrixel{\mathbf{r}_1}{e^{-\beta\hat{h}}}{\mathbf{r}_1'}\matrixel{\mathbf{r}_2}{e^{-\beta\hat{h}}}{\mathbf{r}_2'}\pm \matrixel{\mathbf{r}_1}{e^{-\beta\hat{h}}}{\mathbf{r}_2'}\matrixel{\mathbf{r}_2}{e^{-\beta\hat{h}}}{\mathbf{r}_1'}\right]\]
-把单粒子热核写成动量积分后，就得到你想要的单粒子积分展开式：
+更有意思的是密度算符在坐标表象下的矩阵元$\bra{\mathbf{r}_1,\mathbf{r}_2}\hat{\rho}_{\rm can}^{(\pm)}\ket{\mathbf{r}_1',\mathbf{r}_2'}$：
+\[\bra{\mathbf{r}_1,\mathbf{r}_2}\hat{\rho}_{\rm can}^{(\pm)}\ket{\mathbf{r}_1',\mathbf{r}_2'}=\frac{1}{Z_2^{(\pm)}}\sum_{\mathbf{k}_1,\mathbf{k}_2}\bra{\mathbf{r}_1,\mathbf{r}_2}\ket{\mathbf{k}_1,\mathbf{k}_2}_\pm\bra{\mathbf{k}_1,\mathbf{k}_2}e^{-\beta\hat{H}}\ket{\mathbf{k}_1,\mathbf{k}_2}_\pm\bra{\mathbf{k}_1,\mathbf{k}_2}\ket{\mathbf{r}_1',\mathbf{r}_2'}_{\pm}\]
+带入平面波的表达式$\bra{\mathbf{r}}\ket{\mathbf{k}}=e^{i\mathbf{k}\cdot\mathbf{r}}/\sqrt{V}$，并对平面波部分化简，暂时省略系数$1/2V^2$：
+\[\begin{aligned}
+&(\bra{\mathbf{r}_1}\ket{\mathbf{k}_1}\bra{\mathbf{r}_2}\ket{\mathbf{k}_2}\pm\bra{\mathbf{r}_1}\ket{\mathbf{k}_2}\bra{\mathbf{r}_2}\ket{\mathbf{k}_1})(\bra{\mathbf{r}_1‘}\ket{\mathbf{k}_1}\bra{\mathbf{r}_2’}\ket{\mathbf{k}_2}\pm\bra{\mathbf{r}_1‘}\ket{\mathbf{k}_2}\bra{\mathbf{r}_2’}\ket{\mathbf{k}_1})\\
+=&(e^{i\mathbf{k}_1\cdot\mathbf{r}_1}e^{i\mathbf{k}_2\cdot\mathbf{r}_2}\pm e^{i\mathbf{k}_2\cdot\mathbf{r}_1}e^{i\mathbf{k}_1\cdot\mathbf{r}_2})(e^{i\mathbf{k}_1\cdot\mathbf{r}_1'}e^{i\mathbf{k}_2\cdot\mathbf{r}_2'}\pm e^{i\mathbf{k}_2\cdot\mathbf{r}_1'}e^{i\mathbf{k}_1\cdot\mathbf{r}_2'})\\
+=&\left[(e^{i\mathbf{k}_1\cdot(\mathbf{r}_1-\mathbf{r}_1')}e^{i\mathbf{k}_2\cdot(\mathbf{r}_2-\mathbf{r}_2')}+e^{i\mathbf{k}_1\cdot(\mathbf{r}_2-\mathbf{r}_2')}e^{i\mathbf{k}_2\cdot(\mathbf{r}_1-\mathbf{r}_1')})\pm(e^{i\mathbf{k}_1\cdot(\mathbf{r}_1-\mathbf{r}_2')}e^{i\mathbf{k}_2\cdot(\mathbf{r}_2-\mathbf{r}_1')}+e^{i\mathbf{k}_1\cdot(\mathbf{r}_2-\mathbf{r}_1')}e^{i\mathbf{k}_2\cdot(\mathbf{r}_1-\mathbf{r}_2')})\right]\\
+\end{aligned}\]
+考虑到$\mathbf{k}_1$和$\mathbf{k}_2$的对称性，上式两个括号中的项等价，因此可以合并：
+\[\bra{\mathbf{r}_1,\mathbf{r}_2}\hat{\rho}_{\rm can}^{(\pm)}\ket{\mathbf{r}_1',\mathbf{r}_2'}=\frac{1}{Z_2^{(\pm)}V^2}\sum_{\mathbf{k}_1,\mathbf{k}_2}\exp\left[-\frac{\beta\hbar^2(\mathbf{k}_1^2+\mathbf{k}_2^2)}{2m}\right]\left(e^{i\mathbf{k}_1\cdot(\mathbf{r}_1-\mathbf{r}_1')}e^{i\mathbf{k}_2\cdot(\mathbf{r}_2-\mathbf{r}_2')}\pm e^{i\mathbf{k}_1\cdot(\mathbf{r}_1-\mathbf{r}_2')}e^{i\mathbf{k}_2\cdot(\mathbf{r}_2-\mathbf{r}_1')}\right)\]
+
+把求和写成积分并拆分变量：
 \[\begin{aligned}
 \bra{\mathbf{r}_1,\mathbf{r}_2}\hat{\rho}_{\rm can}^{(\pm)}\ket{\mathbf{r}_1',\mathbf{r}_2'}
-&=\frac{1}{2Z_2^{(\pm)}(2\pi)^6}\Bigg[
+&=\frac{1}{Z_2^{(\pm)}(2\pi)^6}\Bigg[
 \left(\int \dd[3]{\mathbf{k}_1}e^{-\frac{\beta\hbar^2\mathbf{k}_1^2}{2m}}e^{i\mathbf{k}_1\cdot(\mathbf{r}_1-\mathbf{r}_1')}\right)
 \left(\int \dd[3]{\mathbf{k}_2}e^{-\frac{\beta\hbar^2\mathbf{k}_2^2}{2m}}e^{i\mathbf{k}_2\cdot(\mathbf{r}_2-\mathbf{r}_2')}\right)\\
 &\qquad\qquad\qquad\pm
@@ -554,36 +562,30 @@ Z_2^+&=\Tr\left[e^{-\beta\hat{H}}\right]=\frac{1}{2}\sum_{\mathbf{k}_1\neq \math
 \Bigg]
 \end{aligned}\]
 根据[章节\ref{sec:gaussian}] 已经证明过 Gaussian 积分的复平移结论，最终获得：
-\[\bra{\mathbf{r}_1,\mathbf{r}_2}\hat{\rho}_{\rm can}^{(\pm)}\ket{\mathbf{r}_1',\mathbf{r}_2'}=\frac{1}{2Z_2^{(\pm)}\Lambda^6}\Bigg[\exp\left(-\frac{\pi}{\Lambda^2}\left(|\mathbf{r}_1-\mathbf{r}_1'|^2+|\mathbf{r}_2-\mathbf{r}_2'|^2\right)\right)\pm\exp\left(-\frac{\pi}{\Lambda^2}\left(|\mathbf{r}_1-\mathbf{r}_2'|^2+|\mathbf{r}_2-\mathbf{r}_1'|^2\right)\right)\Bigg]\]
+\[\bra{\mathbf{r}_1,\mathbf{r}_2}\hat{\rho}_{\rm can}^{(\pm)}\ket{\mathbf{r}_1',\mathbf{r}_2'}=\frac{1}{Z_2^{(\pm)}\Lambda^6}\Bigg[\exp\left(-\frac{\pi}{\Lambda^2}\left(|\mathbf{r}_1-\mathbf{r}_1'|^2+|\mathbf{r}_2-\mathbf{r}_2'|^2\right)\right)\pm\exp\left(-\frac{\pi}{\Lambda^2}\left(|\mathbf{r}_1-\mathbf{r}_2'|^2+|\mathbf{r}_2-\mathbf{r}_1'|^2\right)\right)\Bigg]\]
 
 考虑两粒子的分布密度，也即对角元$\bra{\mathbf{r}_1,\mathbf{r}_2}\hat{\rho}_{\rm can}^{(\pm)}\ket{\mathbf{r}_1,\mathbf{r}_2}$：
-\[\bra{\mathbf{r}_1,\mathbf{r}_2}\hat{\rho}_{\rm can}^{(\pm)}\ket{\mathbf{r}_1,\mathbf{r}_2}=\frac{1}{2Z_2^{(\pm)}\Lambda^6}\Bigg[1\pm\exp\left(-\frac{2\pi|\mathbf{r}_1-\mathbf{r}_2|^2}{\Lambda^2}\right)\Bigg]\]
+\[\bra{\mathbf{r}_1,\mathbf{r}_2}\hat{\rho}_{\rm can}^{(\pm)}\ket{\mathbf{r}_1,\mathbf{r}_2}=\frac{1}{Z_2^{(\pm)}\Lambda^6}\Bigg[1\pm\exp\left(-\frac{2\pi|\mathbf{r}_1-\mathbf{r}_2|^2}{\Lambda^2}\right)\Bigg]\]
 可以看到，费米子与玻色子的差别完全浓缩在交换项前面的符号上：费米子在交换$\mathbf{r}_1\leftrightarrow \mathbf{r}_2$时会出现负号，而玻色子则保持不变。当$\mathbf{r}_1=\mathbf{r}_2$时，费米子分布为0，这也称为\textbf{Fermi hole}，反映了 Pauli 不相容原理的空间表现；而玻色子分布在$\mathbf{r}_1=\mathbf{r}_2$时达到最大值，体现了它们的聚束倾向，可以参考图\ref{fig:fermi_hole}。
 
-我们考虑更多粒子的无相互作用体系，记$\hat{n}_{\mathbf{k}}$为态$\ket{\mathbf{k}}$的产生算符，则哈密顿算符$\hat{H}$与粒子数算符$\hat{N}$：
-\[\hat{H}=\sum_{\mathbf{k}} \varepsilon_{\mathbf{k}} \hat{n}_{\mathbf{k}},\quad \hat{N}=\sum_{\mathbf{k}} \hat{n}_{\mathbf{k}}\]
-记产生算符$\hat{n}_{\mathbf{k}}$的本征值占据数为$n_{\mathbf{k}}$，此时正则配分函数$Z_N$为：
-\[Z_N=\delta\left(\sum_{\mathbf{k}} n_{\mathbf{k}}-N\right)\sum_{\{n_{\mathbf{k}}\}}\exp\left(-\beta\sum_{\mathbf{k}} n_{\mathbf{k}}\varepsilon_{\mathbf{k}}\right)\]
+我们考虑更多粒子的无相互作用体系，记$\hat{n}_{\mathbf{k}}$为态$\ket{\mathbf{k}}$的产生算符，本征值占据数为$n_{\mathbf{k}}$，则哈密顿算符$\hat{H}$与粒子数算符$\hat{N}$和正则配分函数$Z_N$为：
+\[\hat{H}=\sum_{\mathbf{k}} \varepsilon_{\mathbf{k}} \hat{n}_{\mathbf{k}},\quad \hat{N}=\sum_{\mathbf{k}} \hat{n}_{\mathbf{k}}, \quad Z_N=\delta\left(\sum_{\mathbf{k}} n_{\mathbf{k}}-N\right)\sum_{\{n_{\mathbf{k}}\}}\exp\left(-\beta\sum_{\mathbf{k}} n_{\mathbf{k}}\varepsilon_{\mathbf{k}}\right)\]
 其中$\{n_{\mathbf{k}}\}$表示所有单粒子态的占据数集合。带入巨正则配分函数$\Xi$：
 \[\Xi=\sum_{N=0}^{\infty}Z_Ne^{-\beta N \mu}=\sum_{N=0}^{\infty} e^{-\beta N \mu}\sum_{\{n_{\mathbf{k}}\}}\exp\left(-\beta\sum_{\mathbf{k}} n_{\mathbf{k}}\varepsilon_{\mathbf{k}}\right)=\prod_{\mathbf{k}}\sum_{\{n_{\mathbf{k}}\}}e^{-\beta(\varepsilon_{\mathbf{k}}-\mu)n_{\mathbf{k}}}\]
 对费米子，每个态$\ket{\mathbf{k}}$只能被占据0次或1次，即$n_{\mathbf{k}}=0,1$，因此巨正则配分函数为：
 \[\Xi_{\rm FD}=\prod_{\mathbf{k}}\sum_{n_{\mathbf{k}}=0}^{1}e^{-\beta n_{\mathbf{k}}(\varepsilon_{\mathbf{k}}-\mu)}=\prod_{\mathbf{k}}\left(1+e^{-\beta(\varepsilon_{\mathbf{k}}-\mu)}\right)\]
 此时考虑每个态$\ket{\mathbf{k}}$的平均占据数$\expval{n_{\mathbf{k}}}$：
 \[\expval{n_{\mathbf{k}}}=\left(\sum_{n_{\mathbf{k}}=0}^{1}n_{\mathbf{k}}e^{-\beta n_{\mathbf{k}}(\varepsilon_{\mathbf{k}}-\mu)}\right)\Bigg{/}\left(\sum_{n_{\mathbf{k}}=0}^{1}e^{-\beta n_{\mathbf{k}}(\varepsilon_{\mathbf{k}}-\mu)}\right)=\frac{e^{-\beta(\varepsilon_{\mathbf{k}}-\mu)}}{1+e^{-\beta(\varepsilon_{\mathbf{k}}-\mu)}}=\frac{1}{e^{\beta(\varepsilon_{\mathbf{k}}-\mu)}+1}\equiv f(\varepsilon_{\mathbf{k}})\]
-上面定义的函数$f(\varepsilon)$就是著名的 Fermi-Dirac 分布函数。
 
 而对玻色子，每个态$\ket{\mathbf{k}}$可以被占据任意多次，即$n_{\mathbf{k}}=0,1,2,\cdots$，因此巨正则配分函数为：
 \[\Xi_{\rm BE}=\prod_{\mathbf{k}}\sum_{n_{\mathbf{k}}=0}^{\infty}e^{-\beta n_{\mathbf{k}}(\varepsilon_{\mathbf{k}}-\mu)}=\prod_{\mathbf{k}}\frac{1}{1-e^{-\beta(\varepsilon_{\mathbf{k}}-\mu)}}\]
 每个态$\ket{\mathbf{k}}$对应的平均占据数$\expval{n_{\mathbf{k}}}$为：
-\[\expval{n_{\mathbf{k}}}=\left(\sum_{n_{\mathbf{k}}=0}^{\infty}n_{\mathbf{k}}e^{-\beta n_{\mathbf{k}}(\varepsilon_{\mathbf{k}}-\mu)}\right)\Bigg{/}\left(\sum_{n_{\mathbf{k}}=0}^{\infty}e^{-\beta n_{\mathbf{k}}(\varepsilon_{\mathbf{k}}-\mu)}\right)=\frac{e^{-\beta(\varepsilon_{\mathbf{k}}-\mu)}}{1-e^{-\beta(\varepsilon_{\mathbf{k}}-\mu)}}=\frac{1}{e^{\beta(\varepsilon_{\mathbf{k}}-\mu)}-1}\equiv g(\varepsilon_{\mathbf{k}})\]
-上面定义的函数$g(\varepsilon)$就是 Bose-Einstein 分布函数。由$\expval{n_{\mathbf{k}}}>0$和函数奇异性要求$\varepsilon_{\mathbf{k}}>\mu$。
+\[\expval{n_{\mathbf{k}}}=\left(\sum_{n_{\mathbf{k}}=0}^{\infty}n_{\mathbf{k}}e^{-\beta n_{\mathbf{k}}(\varepsilon_{\mathbf{k}}-\mu)}\right)\Bigg{/}\left(\sum_{n_{\mathbf{k}}=0}^{\infty}e^{-\beta n_{\mathbf{k}}(\varepsilon_{\mathbf{k}}-\mu)}\right)=\frac{e^{-\beta(\varepsilon_{\mathbf{k}}-\mu)}}{1-e^{-\beta(\varepsilon_{\mathbf{k}}-\mu)}}=\frac{1}{e^{\beta(\varepsilon_{\mathbf{k}}-\mu)}-1}\equiv g(\varepsilon_{\mathbf{k}}), \quad \varepsilon_{\mathbf{k}}>\mu\]
 
-在高温极限$\beta(\varepsilon_{\mathbf{k}}-\mu)\gg 1$时，两者都趋于经典 Boltzmann 分布：
-\[\expval{n_{\mathbf{k}}} \approx e^{-\beta(\varepsilon_{\mathbf{k}}-\mu)}\]
-三者的对比如下：
+在高温极限$\beta(\varepsilon_{\mathbf{k}}-\mu)\gg 1$时，两者都趋于经典 Boltzmann 分布$\expval{n_{\mathbf{k}}} \approx e^{-\beta(\varepsilon_{\mathbf{k}}-\mu)}$：
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.6\textwidth]{fig/statistical_mechanics/Quantum_and_classical_statistics.png}
+\includegraphics[width=0.48\textwidth]{fig/statistical_mechanics/Quantum_and_classical_statistics.png}
 \end{figure}
 
 \newpage
