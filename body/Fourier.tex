@@ -126,5 +126,65 @@ $\delta$函数有如下重要的性质（\textbf{筛选性质}）：
 \end{theorem}
 
 \section{傅里叶变换的应用}
-% 1. Borwein 积分的解释 https://en.wikipedia.org/wiki/Borwein_integral
 % 2 FFT算法的原理
+\subsection{Borwein积分}
+下面按照 \href{https://www.bilibili.com/video/BV18e4y1u7BH/}{3Blue1Brown 关于 Borwein 积分的视频} 的思路来组织这一节。先看一列积分：
+\[I_n=\int_0^{+\infty}\prod_{k=0}^{n}\frac{\sin\left(x/(2k+1)\right)}{x/(2k+1)}\dd{x}\]
+数值上我们会发现
+\[I_0=I_1=\cdots=I_6=\frac{\pi}{2}, \qquad I_7=\frac{\pi}{2}-2.31\times 10^{-11}\]
+也就是说，把$\sin(x/3)/(x/3),\sin(x/5)/(x/5),\ldots,\sin(x/13)/(x/13)$依次乘进去以后，积分值始终不变；但再乘上$\sin(x/15)/(x/15)$之后，它才第一次偏离$\pi/2$，而且偏离量还极其微小。更夸张的是，再考虑
+\[\int_0^{+\infty}2\cos(x)\frac{\sin(x)}{x}\frac{\sin(x/3)}{x/3}\cdots\frac{\sin(x/111)}{x/111}\dd{x}=\frac{\pi}{2}\]
+但如果在这个乘积后面再乘上$\sin(x/113)/(x/113)$，结果才会第一次小于$\pi/2$，而偏离量大约只有$2.3324\times 10^{-138}$。难怪最早做数值实验的人会怀疑计算机是不是出了bug。
+
+如果只盯着这些积分本身，很难一眼看出为什么会在$15$或$113$这样的数字上突然失效。视频中的核心思路是：先把这个问题翻译成一个更容易看清几何结构的问题，也就是\textbf{矩形平台经过反复滑动平均后，平台什么时候会被“吃掉”}。
+
+先定义矩形函数
+\[\operatorname{rect}(x):=\left\{
+\begin{array}{rl}
+1 & \text{if } |x|<\frac{1}{2}\\
+\frac{1}{2} & \text{if } |x|=\frac{1}{2}\\
+0 & \text{if } |x|>\frac{1}{2}
+\end{array}\right.\]
+它在中间有一个长度为$1$的平台。再定义一列函数：
+\[f_0(x)=\operatorname{rect}(x), \qquad f_{m+1}(x)=\frac{1}{a_{m+1}}\int_{x-a_{m+1}/2}^{x+a_{m+1}/2}f_m(y)\dd y\]
+其中
+\[a_m=\frac{1}{2m+1}\]
+于是$f_1$是把$f_0$在宽度为$1/3$的窗口上做滑动平均，$f_2$是再用宽度为$1/5$的窗口做一次滑动平均，之后依次用$1/7,1/9,\ldots$的窗口继续平均下去。
+
+这个模型最关键的观察是：只要滑动窗口还能够完全放进上一步函数的平台里，那么新函数在原点附近就仍然会保留一个高度为$1$的平台。因此平台长度会依次减少
+\[1,\qquad 1-\frac{1}{3},\qquad 1-\frac{1}{3}-\frac{1}{5},\qquad 1-\frac{1}{3}-\frac{1}{5}-\frac{1}{7},\ \ldots\]
+也就是说，在
+\[\frac{1}{3}+\frac{1}{5}+\cdots+\frac{1}{2n+1}<1\]
+之前，原点$x=0$始终还落在平台内部，因此$f_n(0)=1$。但一旦这个和第一次超过$1$，平台就在原点附近消失，$f_n(0)$便会第一次小于$1$。直接计算可得
+\[\frac{1}{3}+\frac{1}{5}+\frac{1}{7}+\frac{1}{9}+\frac{1}{11}+\frac{1}{13}<1,\qquad
+\frac{1}{3}+\frac{1}{5}+\frac{1}{7}+\frac{1}{9}+\frac{1}{11}+\frac{1}{13}+\frac{1}{15}>1\]
+因此第一次失效恰好发生在$15$。而且因为平台消失前，平台边缘附近的函数值早就已经被多次平均得非常接近$1$，所以即便失效，$f_n(0)$也只会比$1$小极其微弱的一点点。这正解释了为什么$I_7$只是比$\pi/2$略微小了$10^{-11}$量级。
+
+对于带$2\cos x$的版本，同样的阈值为什么会从$15$推迟到$113$呢？直观地说，视频里的答案是：\textbf{起始平台变长了}。这个结论可以从恒等式
+\[2\cos(\pi t)\operatorname{sinc}_{\pi}(t)=2\operatorname{sinc}_{\pi}(2t),\qquad \operatorname{sinc}_{\pi}(t):=\frac{\sin(\pi t)}{\pi t}\]
+看出来。它说明在一个更自然的归一化变量里，原来“$2\cos x$乘上第一个sinc因子”的效果，相当于把最初的矩形平台长度从$1$扩大到$2$。于是平台长度的判据从“倒数和是否超过$1$”变成了“倒数和是否超过$2$”：
+\[\frac{1}{3}+\frac{1}{5}+\cdots+\frac{1}{111}<2,\qquad
+\frac{1}{3}+\frac{1}{5}+\cdots+\frac{1}{113}>2\]
+因此新的阈值就自然落在$113$，这和视频中的数值实验完全一致。
+
+剩下的问题是：这个“滑动平均吃掉平台”的模型为什么会和原来的积分问题一模一样？这正是傅里叶变换与卷积定理发挥作用的地方。为了和视频中的图像解释保持一致，本小节暂时采用归一化傅里叶变换
+\[\widehat{f}(\xi)=\int_{-\infty}^{+\infty}f(x)e^{-2\pi i x\xi}\dd x\]
+在这个约定下有三条最关键的事实：
+\[\widehat{\operatorname{sinc}_{\pi}(ax)}(\xi)=\frac{1}{a}\operatorname{rect}\left(\frac{\xi}{a}\right),\qquad
+\int_{-\infty}^{+\infty}f(x)\dd x=\widehat{f}(0),\qquad
+\widehat{fg}=\widehat{f}\ast\widehat{g}\]
+其中$\ast$是通常意义下的卷积。记
+\[r_a(\xi):=\frac{1}{a}\operatorname{rect}\left(\frac{\xi}{a}\right)\]
+则$r_a$是一个宽度为$a$、总面积为$1$的矩形窗，而且
+\[(f\ast r_a)(x)=\frac{1}{a}\int_{x-a/2}^{x+a/2}f(y)\dd y\]
+恰好就是宽度为$a$的滑动平均。
+
+现在对$I_n$做代换$x=\pi t$，可得
+\[I_n=\frac{\pi}{2}\int_{-\infty}^{+\infty}\prod_{k=0}^{n}\operatorname{sinc}_{\pi}\!\left(\frac{t}{2k+1}\right)\dd t\]
+于是
+\[\begin{aligned}
+I_n
+&=\frac{\pi}{2}\left[\widehat{\prod_{k=0}^{n}\operatorname{sinc}_{\pi}\!\left(\frac{t}{2k+1}\right)}\right](0)\\
+&=\frac{\pi}{2}\left(r_1\ast r_{1/3}\ast r_{1/5}\ast\cdots\ast r_{1/(2n+1)}\right)(0)
+\end{aligned}\]
+这就表明：\textbf{Borwein积分其实正是在问，一连串矩形窗做滑动平均以后，原点处的函数值是多少。} 因而$I_n$等于$\pi/2$还是略小于$\pi/2$，完全取决于那个平台在原点处是否还存在。至此，原本看似神秘的“前几项始终等于$\pi/2$，直到某一步才突然失效”的现象，就被翻译成了一个非常直观的几何过程。
