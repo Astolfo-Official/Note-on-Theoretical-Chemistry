@@ -849,8 +849,36 @@ N=N_+(z)+N_-(z)=\frac{V}{\Lambda^3}f_{3/2}^-(e^{\beta\mu})+\frac{V}{\Lambda^3}f_
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.5\textwidth]{fig/statistical_mechanics/Q3d.pdf}
+\includegraphics[width=0.5\textwidth]{fig/statistical_mechanics/Magnetic_susceptibility.pdf}
 \end{figure}
 
 对典型金属，费米温度常取$T_F\sim10^4\,{\rm K}$。室温远小于$T_F$，因此可用低温极限估算：
 \[\frac{\chi}{N}\approx\frac{3\mu_{\rm B}^2}{2E_F}=\frac{3\mu_{\rm B}^2}{2k_{\rm B}T_F}\approx\frac{3(9.274\times10^{-24}\,{\rm J/T})^2}{2(1.381\times10^{-23}\,{\rm J/K})(10^4\,{\rm K})}\approx9.3\times10^{-28}\,{\rm J/T^2}\]
+
+\subsection{例子：自发对称性破缺}
+这里我们以 Stoner 铁磁模型为例，说明有相互作用体系如何在没有外磁场的情况下通过自发打破自旋反演对称性而获得有限磁化。在自由电子气的基础上我们引入体系的整体相互作用：
+\[U=\alpha\frac{N_+N_-}{V}\]
+在零温基态中，自旋向上和向下的电子分别填满各自的费米海，因此每个自旋分支都满足通常的三维费米球计数关系$k_{\rm F,\pm}=(6\pi^2n_{\pm})^{1/3}$。把每个自旋分支从$k=0$积分到各自的费米波矢，就可以写出两支电子的动能：
+\[E_{\rm kin, \pm}=\frac{V}{(2\pi)^3}\int_{0}^{k_{\rm F,\pm}}\frac{\hbar^2k^2}{2m}\cdot4\pi k^2\dd{k}=\frac{V\hbar^2}{20\pi^2m}k_{\rm F,\pm}^5=\frac{V\hbar^2}{20\pi^2m}(6\pi^2n_{\pm})^{\frac{5}{3}}\]
+把它们相加后，总动能密度为：
+\[\frac{E_{\rm kin}}{V}=\frac{E_{\rm kin, +}}{V}+\frac{E_{\rm kin, -}}{V}=\frac{\hbar^2}{20\pi^2m}\left[(6\pi^2n_+)^{\frac{5}{3}}+(6\pi^2n_-)^{\frac{5}{3}}\right]=\frac{3\hbar^2(6\pi^2)^{\frac{2}{3}}}{10m}\left(n_+^{\frac{5}{3}}+n_-^{\frac{5}{3}}\right)\]
+为了研究体系是否会偏离无磁的对称态，令$n_\pm=n/2\pm\delta$，其中$\delta$刻画两种自旋分支的粒子数失衡。利用：
+\[(x\pm\delta)^{5/3}=x^{5/3}\pm\frac{5}{3}x^{2/3}\delta+\frac{5}{9}x^{-1/3}\delta^2\mp\frac{5}{81}x^{-4/3}\delta^3+\frac{5}{243}x^{-7/3}\delta^4+o(\delta^4)\]
+把动能在$\delta=0$附近作展开，保留到四阶，就得到：
+\[\begin{aligned}
+\frac{E_{\rm kin}}{V}&=\frac{3\hbar^2(6\pi^2)^{\frac{2}{3}}}{10m}\left(2\left(\frac{n}{2}\right)^{5/3}+\frac{10}{9}\left(\frac{n}{2}\right)^{-1/3}\delta^2+\frac{10}{243}\left(\frac{n}{2}\right)^{-7/3}\delta^4+o(\delta^6)\right)\\
+&=\frac{3\hbar^2(3\pi^2)^{\frac{2}{3}}}{10m}n^{\frac{5}{3}}+\frac{2\hbar^2(3\pi^2)^{\frac{2}{3}}}{3m}n^{-\frac{1}{3}}\delta^2+\frac{8\hbar^2(3\pi^2)^{\frac{2}{3}}}{81m}n^{-\frac{7}{3}}\delta^4+o(\delta^6)
+\end{aligned}\]
+这个结果说明，单靠动能时$\delta^2$项系数为正，所以体系更偏好$n_+=n_-$的无磁状态。另一方面，相互作用能在$n_\pm=n/2\pm\delta$下会给出一个与$\delta^2$相反符号的贡献，因此它正是驱动自发极化的来源：
+\[\frac{U}{V}=\alpha n_+ n_-=\alpha\left(\frac{n}{2}+\delta\right)\left(\frac{n}{2}-\delta\right)=\frac{\alpha n^2}{4}-\alpha\delta^2\]
+此时系统总能量密度为：
+\[\frac{E}{V}=\frac{E_{\rm kin}}{V}+\frac{U}{V}=\frac{3\hbar^2(3\pi^2)^{\frac{2}{3}}}{10m}n^{\frac{5}{3}}+\frac{2\hbar^2(3\pi^2)^{\frac{2}{3}}}{3m}n^{-\frac{1}{3}}\delta^2+\frac{8\hbar^2(3\pi^2)^{\frac{2}{3}}}{81m}n^{-\frac{7}{3}}\delta^4+\frac{\alpha n^2}{4}-\alpha\delta^2+o(\delta^6)\]
+只要总能量里$\delta^2$项的系数为负，对称态$\delta=0$就会失稳，也就是发生 Stoner instability。对应的临界条件是：
+\[k_{\rm F}a>\frac{\pi}{2} \quad \Leftrightarrow \quad \frac{2\hbar^2(3\pi^2)^{\frac{2}{3}}}{3m}n^{-\frac{1}{3}}-\alpha<0 \quad \Rightarrow \quad \alpha_{\rm c}=\frac{2\hbar^2(3\pi^2)^{\frac{2}{3}}}{3m}n^{-\frac{1}{3}}\]
+一旦$\delta$取正值，体系便出现净磁化$M=\mu_0(N_+-N_-)=\mu_0V(n_+-n_-)=2V\mu_0\delta>0$。上面的结果整理成类似 Landau 展开的形式，总能量密度可写成：
+\[\frac{E}{V}=\frac{3\hbar^2(3\pi^2)^{\frac{2}{3}}}{10m}n^{\frac{5}{3}}+\frac{\alpha n^2}{4}+\left(\frac{2\hbar^2(3\pi^2)^{\frac{2}{3}}}{3m}n^{-\frac{1}{3}}-\alpha\right)\delta^2+\frac{8\hbar^2(3\pi^2)^{\frac{2}{3}}}{81m}n^{-\frac{7}{3}}\delta^4+o(\delta^6)\]
+当$\alpha<\alpha_{\rm c}$时，$\delta^2$项系数仍为正，能量最低点在$\delta=0$，因此$M=0$；当$\alpha=\alpha_{\rm c}$时，二次项恰好消失，体系正处在失稳临界点；当$\alpha>\alpha_{\rm c}$时，二次项变为负值，能量最低点移到$\delta>0$，于是出现$M>0$的自发磁化。令$E/V=A_0+B_0\delta^2+C_0\delta^4+o(\delta^6)$，则在$\delta>0$时极小值条件给出$\delta \propto \sqrt{-B_0}=\sqrt{\alpha-\alpha_{\rm c}}$：
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.45\textwidth]{fig/statistical_mechanics/Stoner_instability.png}
+\end{figure}
