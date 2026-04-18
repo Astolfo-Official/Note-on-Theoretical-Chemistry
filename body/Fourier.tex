@@ -97,7 +97,7 @@ $\delta$函数有如下重要的性质（\textbf{筛选性质}）：
 \end{itemize}
 \end{proposition}
 \subsection{卷积与相关函数}
-我们可以定义卷积运算及相关函数
+我们可以定义卷积运算及相关函数：
 \begin{definition}[卷积]
 若已知函数$f_1(t),f_2(t)$，则定义卷积为
 \[f_1(t)\ast f_2(t):=\int_{-\infty}^{+\infty}f_1(\tau)f_2(t-\tau)\dd{\tau}\] 
@@ -126,65 +126,60 @@ $\delta$函数有如下重要的性质（\textbf{筛选性质}）：
 \end{theorem}
 
 \section{傅里叶变换的应用}
-% 2 FFT算法的原理
-\subsection{Borwein积分}
-下面按照 \href{https://www.bilibili.com/video/BV18e4y1u7BH/}{3Blue1Brown 关于 Borwein 积分的视频} 的思路来组织这一节。先看一列积分：
-\[I_n=\int_0^{+\infty}\prod_{k=0}^{n}\frac{\sin\left(x/(2k+1)\right)}{x/(2k+1)}\dd{x}\]
-数值上我们会发现
-\[I_0=I_1=\cdots=I_6=\frac{\pi}{2}, \qquad I_7=\frac{\pi}{2}-2.31\times 10^{-11}\]
-也就是说，把$\sin(x/3)/(x/3),\sin(x/5)/(x/5),\ldots,\sin(x/13)/(x/13)$依次乘进去以后，积分值始终不变；但再乘上$\sin(x/15)/(x/15)$之后，它才第一次偏离$\pi/2$，而且偏离量还极其微小。更夸张的是，再考虑
-\[\int_0^{+\infty}2\cos(x)\frac{\sin(x)}{x}\frac{\sin(x/3)}{x/3}\cdots\frac{\sin(x/111)}{x/111}\dd{x}=\frac{\pi}{2}\]
-但如果在这个乘积后面再乘上$\sin(x/113)/(x/113)$，结果才会第一次小于$\pi/2$，而偏离量大约只有$2.3324\times 10^{-138}$。难怪最早做数值实验的人会怀疑计算机是不是出了bug。
-
-如果只盯着这些积分本身，很难一眼看出为什么会在$15$或$113$这样的数字上突然失效。视频中的核心思路是：先把这个问题翻译成一个更容易看清几何结构的问题，也就是\textbf{矩形平台经过反复滑动平均后，平台什么时候会被“吃掉”}。
-
-先定义矩形函数
-\[\operatorname{rect}(x):=\left\{
-\begin{array}{rl}
-1 & \text{if } |x|<\frac{1}{2}\\
-\frac{1}{2} & \text{if } |x|=\frac{1}{2}\\
-0 & \text{if } |x|>\frac{1}{2}
+% 2 FFT 算法的原理
+% 3 pade 逼近
+\subsection{Borwein 积分}
+\href{https://en.wikipedia.org/wiki/Borwein_integral}{Borwein 积分}是一个著名的不完全归纳失败的例子。他的形式为如下通项数列：
+\begin{equation}\label{eq:borwein}
+I_n=\int_0^{+\infty}\prod_{k=0}^{n}\frac{\sin\left(x/(2k+1)\right)}{x/(2k+1)}\dd{x}, \quad n=0,1,2,\cdots
+\end{equation}
+前六个积分值都等于$\pi/2$，但第七个积分值却小于$\pi/2$。它还有另外一个更精确但依然不完全归纳失败的变形：
+\[J_n=\int_0^{+\infty}2\cos(x)\prod_{k=0}^{n}\frac{\sin\left(x/(2k+1)\right)}{x/(2k+1)}\dd x\]
+他的前55个积分值都等于$\pi/2$，但第56个积分值却小于$\pi/2$。这两个积分的现象都非常令人惊讶，但是如果利用傅里叶变换来分析就一目了然。我们首先定义在$\mathbb{R}/\{0\}$上定义带参数$a$的 sinc 函数，记为$f_a(x)$：
+\[f_a(x)=\frac{\sin(x/a)}{x/a}, \quad \int_{-\infty}^{+\infty}f_a(x)\dd{x}=a\pi\]
+可以在$x=0$处补充定义$f_a(0)=1$使得函数在$\mathbb{R}$上连续，但是这不影响我们这里的讨论。$f_a(x)$函数的傅里叶变换是一个带参数$a$对矩形函数，记为$g_a(\omega)$：
+\[g_a(\omega)=\left\{
+\begin{array}{ll}
+a\pi & \text{, if } |\omega|<1/a\\ 
+a\pi/2 & \text{, if } |\omega|=1/a\\ 
+0 & \text{, if } |\omega|>1/a
 \end{array}\right.\]
-它在中间有一个长度为$1$的平台。再定义一列函数：
-\[f_0(x)=\operatorname{rect}(x), \qquad f_{m+1}(x)=\frac{1}{a_{m+1}}\int_{x-a_{m+1}/2}^{x+a_{m+1}/2}f_m(y)\dd y\]
-其中
-\[a_m=\frac{1}{2m+1}\]
-于是$f_1$是把$f_0$在宽度为$1/3$的窗口上做滑动平均，$f_2$是再用宽度为$1/5$的窗口做一次滑动平均，之后依次用$1/7,1/9,\ldots$的窗口继续平均下去。
+上式中定义端点只是为了符合狄利克雷条件，对积分运算无影响。容易验证：
+\[\frac{1}{2\pi}\int_{-\infty}^{+\infty}g_a(\omega)e^{i\omega x}\dd{\omega}=\frac{a}{2}\int_{-1/a}^{1/a}e^{i\omega x}\dd{\omega}=\eval{\frac{a}{2}\cdot\frac{1}{ix}e^{i\omega x}}_{-1/a}^{1/a}=\frac{a}{2}\frac{e^{ix/a}-e^{-ix/a}}{ix}=\frac{a}{2}\frac{2i\sin(x/a)}{ix}=\frac{\sin(x/a)}{x/a}\]
+由对称性，将 Borwein 积分 [Eq.\eqref{eq:borwein}] 写成成$\mathbb{R}$上对积分，且记被积函数为$F_n(x)$：
+\[I_n=\frac{1}{2}\int_{-\infty}^{\infty}F_n(x)\dd{x}=\frac{1}{2}\int_{-\infty}^{+\infty}\prod_{k=0}^{n}\frac{\sin\left(x/(2k+1)\right)}{x/(2k+1)}\dd{x}\]
+由傅立叶变换的性质可知\textcolor{blue}{\textbf{上述无穷积分实际上就是$F_n(x)$的傅里叶变换在原点处的值$\mathscr{F}[F_n](0)$}}。利用乘积定理，$F_n(x)$是一系列 sinc 函数的乘积，其傅里叶变换就是一系列矩形函数的卷积：
+\[\int_{-\infty}^{+\infty}\prod_{k=0}^{n}\frac{\sin\left(x/(2k+1)\right)}{x/(2k+1)}\dd{x}=\frac{1}{(2\pi)^n}[g_1 \ast g_{3} \ast \cdots \ast g_{2n+1}](0)\]
+记$G_n(\omega)=(2\pi)^{-n}[g_1 \ast g_{3} \ast \cdots \ast g_{2n+1}](\omega)$，现在问题变成了递推计算$G_n(\omega)$在原点处的函数值。从第一项开始：
+\begin{equation}\label{eq:first_term}
+G_1(\omega)=\frac{1}{2\pi}(g_1\ast g_3)(\omega)=\frac{1}{2\pi}\int_{-\infty}^{+\infty}g_1(\xi)g_3(\omega-\xi)\dd{\xi}=\frac{1}{2}\int_{-1}^{1}g_3(\omega-\xi)\dd{\xi}=\frac{1}{2}\int_{\omega-1/3}^{\omega+1/3}g_3(\xi)\dd{\xi}
+\end{equation}
+由$g_3$的定义式可知，只需要考虑变量$|\omega-\xi|<1/3$的情况，也即考虑区间$[\omega-1/3,\omega+1/3]$和$[-1,1]$的交集。
+\begin{itemize}
+\item 当$|\omega|\leqslant 2/3$时，区间$[\omega-1/3,\omega+1/3]$完全落在$[-1,1]$内，因此：
+\[G_1(\omega)=\frac{1}{2}\cdot\frac{2}{3}\cdot3\pi=\pi\]
+\item 当$2/3<|\omega|<4/3$时，两区间的重叠长度变为$4/3-|\omega|$，因此：
+\[G_1(\omega)=\frac{1}{2}\cdot\left(\frac{4}{3}-|\omega|\right)\cdot3\pi=2\pi-\frac{3\pi}{2}|\omega|\]
+\item 当$|\omega|\geqslant 4/3$时，两区间无重叠，因此：
+\[G_1(\omega)=0\]
+\end{itemize}
+上面的分类这说明了两个矩形窗卷积以后得到一个梯形函数，中间平台的半宽恰好由$1$变为$1-1/3$，我们只关心中间平台的部分。根据公式\eqref{eq:first_term} 中的最后一个积分可以发现递推关系：\textcolor{blue}{\textbf{当把第$k$项卷积的矩形窗$g_{2k+1}$加入前$k-1$项的卷积时，平台半宽会减少$1/(2k+1)$，而平台中心$\omega=0$处的数值保持$G_k(0)=\pi$}}。因此：
+\[I_n=\frac{1}{2}\int_{-\infty}^{+\infty}\prod_{k=0}^{n}\frac{\sin\left(x/(2k+1)\right)}{x/(2k+1)}\dd{x}=\frac{1}{2}\cdot\frac{1}{(2\pi)^n}[g_1 \ast g_{3} \ast \cdots \ast g_{2n+1}](0)=\frac{1}{2}G_n(0)=\frac{\pi}{2}\]
 
-这个模型最关键的观察是：只要滑动窗口还能够完全放进上一步函数的平台里，那么新函数在原点附近就仍然会保留一个高度为$1$的平台。因此平台长度会依次减少
-\[1,\qquad 1-\frac{1}{3},\qquad 1-\frac{1}{3}-\frac{1}{5},\qquad 1-\frac{1}{3}-\frac{1}{5}-\frac{1}{7},\ \ldots\]
-也就是说，在
-\[\frac{1}{3}+\frac{1}{5}+\cdots+\frac{1}{2n+1}<1\]
-之前，原点$x=0$始终还落在平台内部，因此$f_n(0)=1$。但一旦这个和第一次超过$1$，平台就在原点附近消失，$f_n(0)$便会第一次小于$1$。直接计算可得
-\[\frac{1}{3}+\frac{1}{5}+\frac{1}{7}+\frac{1}{9}+\frac{1}{11}+\frac{1}{13}<1,\qquad
-\frac{1}{3}+\frac{1}{5}+\frac{1}{7}+\frac{1}{9}+\frac{1}{11}+\frac{1}{13}+\frac{1}{15}>1\]
-因此第一次失效恰好发生在$15$。而且因为平台消失前，平台边缘附近的函数值早就已经被多次平均得非常接近$1$，所以即便失效，$f_n(0)$也只会比$1$小极其微弱的一点点。这正解释了为什么$I_7$只是比$\pi/2$略微小了$10^{-11}$量级。
+但是我们知道，全体奇数倒数的和这个级数是发散的，因此总存在一个$k$使得：
+\[1-\sum_{k=1}^{n}\frac{1}{2k+1}<0\]
+直接计算得到：
+\[\frac{1}{3}+\frac{1}{5}+\frac{1}{7}+\frac{1}{9}+\frac{1}{11}+\frac{1}{13}<1,\quad \frac{1}{3}+\frac{1}{5}+\frac{1}{7}+\frac{1}{9}+\frac{1}{11}+\frac{1}{13}+\frac{1}{15}>1\]
+由于缩减的平台半宽已经小于$0$，因此平台已经完全消失，且$G_k(0)<\pi$。因此：
+\[I_0=I_1=\cdots=I_6=\frac{\pi}{2}, \qquad I_7<\frac{\pi}{2}\]
+数值上$I_7=\pi/2-2.31\times 10^{-11}$，说明平台虽然在加入$1/15$时首次消失，但积分值仍然与$\pi/2$非常接近。
 
-对于带$2\cos x$的版本，同样的阈值为什么会从$15$推迟到$113$呢？直观地说，视频里的答案是：\textbf{起始平台变长了}。这个结论可以从恒等式
-\[2\cos(\pi t)\operatorname{sinc}_{\pi}(t)=2\operatorname{sinc}_{\pi}(2t),\qquad \operatorname{sinc}_{\pi}(t):=\frac{\sin(\pi t)}{\pi t}\]
-看出来。它说明在一个更自然的归一化变量里，原来“$2\cos x$乘上第一个sinc因子”的效果，相当于把最初的矩形平台长度从$1$扩大到$2$。于是平台长度的判据从“倒数和是否超过$1$”变成了“倒数和是否超过$2$”：
-\[\frac{1}{3}+\frac{1}{5}+\cdots+\frac{1}{111}<2,\qquad
-\frac{1}{3}+\frac{1}{5}+\cdots+\frac{1}{113}>2\]
-因此新的阈值就自然落在$113$，这和视频中的数值实验完全一致。
-
-剩下的问题是：这个“滑动平均吃掉平台”的模型为什么会和原来的积分问题一模一样？这正是傅里叶变换与卷积定理发挥作用的地方。为了和视频中的图像解释保持一致，本小节暂时采用归一化傅里叶变换
-\[\widehat{f}(\xi)=\int_{-\infty}^{+\infty}f(x)e^{-2\pi i x\xi}\dd x\]
-在这个约定下有三条最关键的事实：
-\[\widehat{\operatorname{sinc}_{\pi}(ax)}(\xi)=\frac{1}{a}\operatorname{rect}\left(\frac{\xi}{a}\right),\qquad
-\int_{-\infty}^{+\infty}f(x)\dd x=\widehat{f}(0),\qquad
-\widehat{fg}=\widehat{f}\ast\widehat{g}\]
-其中$\ast$是通常意义下的卷积。记
-\[r_a(\xi):=\frac{1}{a}\operatorname{rect}\left(\frac{\xi}{a}\right)\]
-则$r_a$是一个宽度为$a$、总面积为$1$的矩形窗，而且
-\[(f\ast r_a)(x)=\frac{1}{a}\int_{x-a/2}^{x+a/2}f(y)\dd y\]
-恰好就是宽度为$a$的滑动平均。
-
-现在对$I_n$做代换$x=\pi t$，可得
-\[I_n=\frac{\pi}{2}\int_{-\infty}^{+\infty}\prod_{k=0}^{n}\operatorname{sinc}_{\pi}\!\left(\frac{t}{2k+1}\right)\dd t\]
-于是
-\[\begin{aligned}
-I_n
-&=\frac{\pi}{2}\left[\widehat{\prod_{k=0}^{n}\operatorname{sinc}_{\pi}\!\left(\frac{t}{2k+1}\right)}\right](0)\\
-&=\frac{\pi}{2}\left(r_1\ast r_{1/3}\ast r_{1/5}\ast\cdots\ast r_{1/(2n+1)}\right)(0)
-\end{aligned}\]
-这就表明：\textbf{Borwein积分其实正是在问，一连串矩形窗做滑动平均以后，原点处的函数值是多少。} 因而$I_n$等于$\pi/2$还是略小于$\pi/2$，完全取决于那个平台在原点处是否还存在。至此，原本看似神秘的“前几项始终等于$\pi/2$，直到某一步才突然失效”的现象，就被翻译成了一个非常直观的几何过程。
+再考虑带余弦因子的变形：
+\[J_n=\int_0^{+\infty}2\cos(x)\prod_{k=0}^{n}\frac{\sin\left(x/(2k+1)\right)}{x/(2k+1)}\dd x\]
+利用恒等式：
+\[2\cos(x)\frac{\sin(x)}{x}=2\cdot\frac{\sin(2x)}{2x}=2f_{1/2}(x)\]
+可知$J_n$对应的第一个 sinc 因子由$f_1(x)$变成了$2f_{1/2}(x)$，因此在频域中初始矩形窗由$g_1$变成了$2g_{1/2}$。它的平台高度仍为$\pi$，但平台半宽从$1$增大为$2$。因此同样的判据变成：
+\[\sum_{k=1}^{n}\frac{1}{2k+1}<2\]
+直接计算得到：
+\[\frac{1}{3}+\frac{1}{5}+\cdots+\frac{1}{111}<2,\quad \frac{1}{3}+\frac{1}{5}+\cdots+\frac{1}{113}>2\]
+上述两个例子在哲学层面说明了一件事：\textcolor{blue}{\textbf{如果我们想要通过归纳法来证明一个结论，那么我们必须要对归纳的判据有一个清晰的理解，如数学归纳法，否则就可能会遇到不完全归纳失败的情况}}。
