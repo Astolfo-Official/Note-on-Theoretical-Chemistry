@@ -657,9 +657,9 @@ P&=\frac{2E}{3V}\approx\frac{2}{5}n\varepsilon_F+\frac{\pi^2}{6}n\varepsilon_F\l
 
 上面我们介绍了理想费米子的零温和有限温度下的性质，下面我们来看看玻色子。对玻色气体而言，最重要的新现象是 Bose-Einstein 凝聚。由于平均占据数$\expval{n_{\mathbf{k}}}$也即 Bose-Einstein 分布函数$g(\varepsilon_{\mathbf{k}})$非负：
 \[(\varepsilon_{\mathbf{k}})=\expval{n_{\mathbf{k}}}=\frac{1}{e^{\beta(\varepsilon_{\mathbf{k}}-\mu)}-1}\]
-因此化学势不能超过基态能量$\mu\le \varepsilon_0=0$。当固定粒子数密度$n$并降低温度时，$\mu$会从负侧逼近$0$；一旦$\mu$到达$0$，激发态已经无法继续容纳全部粒子，剩余粒子就只能宏观地占据基态，从而发生 Bose-Einstein 凝聚。因此我们需要把基态单独分离出来：
-\[N=N_0+N_{\rm ex},\quad N_0=\frac{1}{e^{-\beta\mu}-1}\]
-当$\mu\to 0$时，激发态所能容纳的最大粒子数为 [公式\eqref{eq:special_function}]：
+因此化学势不能超过基态能量$\mu\le \varepsilon_0=0$。当固定粒子数密度$n$并降低温度时，$\mu$会从负侧逼近$0$；一旦$\mu$到达$0$，激发态已经无法继续容纳全部粒子，剩余粒子就只能宏观地占据基态（$N_0\to\infty$），从而发生 Bose-Einstein 凝聚。因此我们需要把基态单独分离出来。当$\mu\to 0$时可以近似得到化学势$\mu$与基态粒子数$N_0$的关系：
+\[N=N_0+N_{\rm ex},\quad N_0=\frac{1}{e^{-\beta\mu}-1} \sim -\frac{k_{\rm B}T}{\mu} \to \infty \quad \Leftrightarrow \quad \mu\sim-\frac{k_{\rm B}T}{N_0}\to0\]
+利用公式\eqref{eq:special_function}可以计算此时激发态所能容纳的最大粒子数为：
 \[N_{\rm ex}^{\max}=\int_0^{\infty}\frac{D(\varepsilon)\dd{\varepsilon}}{e^{\beta(\varepsilon-\mu)}-1}\approx\frac{2V}{\pi^2}\left(\frac{m}{2\hbar^2}\right)^{3/2}\int_0^{\infty}\frac{\sqrt{\varepsilon}\dd{\varepsilon}}{e^{\beta\varepsilon}-1}=\frac{2V}{\pi^2}\left(\frac{m}{2\beta\hbar^2}\right)^{3/2}\Gamma\left(\frac{3}{2}\right)\zeta\left(\frac{3}{2}\right)=\frac{V}{\Lambda^3}\zeta\left(\frac{3}{2}\right)\]
 当$N \ge N_{\rm ex}^{\max}$时发生Bose-Einstein凝聚，因此临界温度$T_c$由$N=N_{\rm ex}^{\max}$决定：
 \[\boxed{n=\frac{N}{V}=\frac{\zeta(3/2)}{\Lambda_c^3} \quad\Rightarrow\quad T_c=\frac{2\pi\hbar^2}{mk_{\rm B}}\left(\frac{n}{\zeta(3/2)}\right)^{2/3}\approx 3.31\,\frac{\hbar^2}{mk_{\rm B}}n^{2/3}}\]
